@@ -1,0 +1,92 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	background-color : grey;
+}
+
+a:link { 
+	text-decoration: none;
+	color: orange; 
+}
+
+a:visited {
+	text-decoration: none;
+	color: orange;
+}
+
+a#header:hover
+{ 
+	text-transform:uppercase;
+	background-color:black;
+}
+
+a#header_current {
+	background-color:black;
+	color: white;
+}
+	
+div#headerLinks {
+	background: #02041D;
+	word-spacing:15px;
+}
+
+div#footer {
+	background: #02041D;
+	text-align: center;
+	color: orange;
+	position: relative;
+	width: 60%;
+	margin: auto;
+}
+
+a#upLink {
+	position:absolute;
+	left: 97%;
+	color: red;
+	font-weight: bold;
+}
+
+div#content-shadow_right{
+	position: relative;
+	width: 60%;
+	margin: auto;
+	background: white;
+	height: auto;
+	-moz-box-shadow: 5px 0px 5px brown;
+	-webkit-box-shadow: 5px 0px 5px brown;
+	box-shadow: 5px 0px 5px brown;
+	border-radius: 15px;
+}
+
+div#content-shadow_left{
+	position: relative;
+	width: 100%;
+	margin: auto;
+	background: white;
+	height: auto;
+	-moz-box-shadow: -5px 0px 5px brown;
+	-webkit-box-shadow: -5px 0px 5px brown;
+	box-shadow: -5px 0px 5px brown;
+	border-radius: 15px;
+}
+
+div#content {
+	position: relative;
+	width: 95%;
+	margin: 10px;
+}
+
+#headerImage {
+   height: 20%;
+   width: 100%;
+}
+
+img.floatLeft { 
+    float: left; 
+    margin: 4px; 
+}
+img.floatRight { 
+    float: right; 
+    margin: 4px; 
+}
+	
