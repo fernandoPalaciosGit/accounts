@@ -13,10 +13,6 @@ public class Accounts extends Application implements Button.ClickListener {
 	
 	private static final long serialVersionUID = 3350210699526697396L;
 	
-	private enum ViewType {
-		UPDATE_ACC, REPORTS, ADMIN
-	}
-	private ViewType currentView;
 	
 	private Button updateAcc;
     private Button report;
