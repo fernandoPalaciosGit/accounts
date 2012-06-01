@@ -36,7 +36,7 @@ public class AccountsUser implements Serializable {
 
 	//bi-directional one-to-one association to BalanceSheet
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="idaccounts_user")
+	@PrimaryKeyJoinColumn(name="idaccounts_user")
 	private BalanceSheet balanceSheet;
 
 	//bi-directional many-to-one association to BalanceSheet
