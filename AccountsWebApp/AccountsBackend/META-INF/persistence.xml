@@ -9,5 +9,6 @@
 		<class>com.mooneyserver.account.persistence.entity.Currency</class>
 		<class>com.mooneyserver.account.persistence.entity.DebitMaster</class>
 		<class>com.mooneyserver.account.persistence.entity.PaymentType</class>
+		<class>com.mooneyserver.account.persistence.entity.AppSetting</class>
 	</persistence-unit>
 </persistence>

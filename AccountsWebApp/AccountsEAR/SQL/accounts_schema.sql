@@ -231,6 +231,21 @@ CREATE INDEX `IDX_FK_CCY2` ON `home_accounts`.`ccy_conversion` (`ccy2` ASC) ;
 
 SHOW WARNINGS;
 
+-- -----------------------------------------------------
+-- Table `home_accounts`.`app_setting`
+-- -----------------------------------------------------
+CREATE TABLE IF EXISTS `home_accounts`.`app_setting` (
+	`id` INT(10) NULL AUTO_INCREMENT,
+	`key_name` VARCHAR(50) NOT NULL DEFAULT 'key_name',
+	`value` VARCHAR(250) NOT NULL DEFAULT 'value_details',
+	`inserted` DATETIME NOT NULL,
+	`updated` DATETIME NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`),
+	UNIQUE INDEX `unique_setting_key_name` (`key`)
+)
+ENGINE=InnoDB;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
