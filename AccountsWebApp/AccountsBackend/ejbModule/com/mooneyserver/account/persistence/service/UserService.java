@@ -5,7 +5,6 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import com.mooneyserver.account.persistence.entity.AccountsUser;
@@ -16,39 +15,30 @@ import com.mooneyserver.account.persistence.entity.AccountsUser;
 @Stateless
 @LocalBean
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
-public class UserService extends BaseServiceLayer implements IServiceLayer<AccountsUser, Integer> {
+public class UserService extends BaseServiceLayer {
        
     public UserService() {
         super();
     }
-       
-
-    public UserService(EntityManager em) {
-        super(em);
-    }
 
 
-	@Override
 	public void create(AccountsUser entity) {
 		em.persist(entity);
 		
 	}
 
 
-	@Override
 	public void modify(AccountsUser entity) {
 		em.merge(entity);
 	}
 
 
-	@Override
 	public void delete(AccountsUser entity) {
 		entity.setActive(false);
 		modify(entity);
 	}
 
 
-	@Override
 	public AccountsUser findById(Integer id) {
 		Query query = em.createNamedQuery("accounts.schema.AccountsUser.findById", 
 				AccountsUser.class).setParameter("uid", id);
@@ -57,7 +47,6 @@ public class UserService extends BaseServiceLayer implements IServiceLayer<Accou
 	}
 
 
-	@Override
 	public List<AccountsUser> findAll() {
 		return em.createNamedQuery("accounts.schema.AccountsUser.findAllActiveUsers", 
 				AccountsUser.class).getResultList();
