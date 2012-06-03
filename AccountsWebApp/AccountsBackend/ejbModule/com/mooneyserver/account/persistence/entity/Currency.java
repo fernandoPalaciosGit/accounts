@@ -2,6 +2,7 @@ package com.mooneyserver.account.persistence.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
 import java.util.Set;
 
 
@@ -10,6 +11,7 @@ import java.util.Set;
  * 
  */
 @Entity
+@Table(name="currency")
 public class Currency implements Serializable {
 	private static final long serialVersionUID = 1L;
 
