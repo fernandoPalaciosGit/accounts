@@ -31,6 +31,8 @@ public class AccountsUser implements Serializable {
 	private String lastname;
 
 	private String password;
+	
+	private String salt;
 
 	private String username;
 
@@ -84,6 +86,14 @@ public class AccountsUser implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String getSalt() {
+		return this.salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 
 	public String getUsername() {

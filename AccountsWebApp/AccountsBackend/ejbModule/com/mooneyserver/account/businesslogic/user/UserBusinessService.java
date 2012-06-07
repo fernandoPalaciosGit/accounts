@@ -1,5 +1,7 @@
 package com.mooneyserver.account.businesslogic.user;
 
+import java.io.IOException;
+
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
@@ -13,6 +15,7 @@ import com.mooneyserver.account.businesslogic.validate.ClassFieldValidator;
 import com.mooneyserver.account.persistence.entity.AccountsUser;
 import com.mooneyserver.account.persistence.service.UserService;
 import com.mooneyserver.account.utils.EncryptionProvider;
+import com.mooneyserver.account.utils.StringUtils;
 
 /**
  * Session Bean implementation class UserBusinessService
@@ -57,7 +60,11 @@ public class UserBusinessService implements IUserService {
 		
 		// encrypt the password
 		EncryptionProvider encrypter = new EncryptionProvider();
-		user.setPassword(encrypter.encryptString(user.getPassword()));
+		byte[] salt = encrypter.generateSalt();
+		user.setSalt(StringUtils.byteToBase64(salt));
+		user.setPassword(StringUtils.byteToBase64
+				(encrypter.encryptString
+						(user.getPassword(), salt)));
 		
 		// Create the user
 		userService.create(user);
@@ -116,9 +123,13 @@ public class UserBusinessService implements IUserService {
 		if (user == null)
 			throw new AccountsUserException("Password Change Failed: The request user ["+username+"] does not exist");
 		
-		// Does the old password match
-		if (user.getPassword() != changePwd.getOldPassword())
-			throw new AccountsUserException("Password Change Failed: Old Password does not match expected");
+		try {
+			// Does the old password match
+			if (user.getPassword() != changePwd.getOldPassword(user.getSalt()))
+				throw new AccountsUserException("Password Change Failed: Old Password does not match expected");
+		} catch (IOException e) {
+			throw new AccountsUserException("Password Change Failed: Password Compare Error", e);
+		}
 		
 		// Set the new password
 		user.setPassword(changePwd.getNewPassword());

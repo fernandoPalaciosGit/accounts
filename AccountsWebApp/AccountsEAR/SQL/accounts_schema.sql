@@ -49,7 +49,8 @@ CREATE  TABLE IF NOT EXISTS `home_accounts`.`accounts_user` (
   `username` VARCHAR(45) NOT NULL ,
   `firstname` VARCHAR(45) CHARACTER SET 'utf8' NULL ,
   `lastname` VARCHAR(45) NULL ,
-  `password` VARCHAR(32) NULL ,
+  `password` VARCHAR(32) NOT NULL ,
+  `salt` VARCHAR(32) NOT NULL ,
   PRIMARY KEY (`idaccounts_user`) ,
   CONSTRAINT `FK_BALANCE_SHEET`
     FOREIGN KEY (`idaccounts_user` )
