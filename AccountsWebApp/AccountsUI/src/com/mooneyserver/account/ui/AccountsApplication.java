@@ -1,5 +1,6 @@
 package com.mooneyserver.account.ui;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +39,7 @@ public final class AccountsApplication extends Application implements HttpServle
 	
 	@Override
 	public void init() {
-		setTheme("reindeer"); // TODO: Update to custom css theme
+		setTheme("accounts");
 		
 		i18nBundle = ResourceBundle.getBundle(
 				AccountsMessages.class.getName(), getLocale());
@@ -57,8 +58,18 @@ public final class AccountsApplication extends Application implements HttpServle
 	public static ResourceBundle getResourceBundle() {
 		return sessionInstance.get().i18nBundle;
 	}
+	
+	public static AccountsApplication getInstance() {
+		return sessionInstance.get();
+	}
 
-
+	@Override
+	public void setLocale(Locale locale) {
+		super.setLocale(locale);
+		i18nBundle = ResourceBundle.getBundle(
+				AccountsMessages.class.getName(), getLocale());
+	}
+	
 	@Override
 	public void onRequestStart(HttpServletRequest request,
 			HttpServletResponse response) {
