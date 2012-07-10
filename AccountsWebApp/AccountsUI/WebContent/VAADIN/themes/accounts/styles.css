@@ -1,5 +1,8 @@
 @import url(../reindeer/styles.css);
 
-/*
- * To be populated with my custom / over-ridden css
- */
+/* For use with SpinnerList widget */
+.v-textfield-borderless {
+    border:     none;
+    background: white; /* Has shading image by default */
+    -webkit-border-image: none;
+}

@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import com.mooneyserver.account.ui.AccountsApplication;
 import com.mooneyserver.account.ui.i18n.AccountsMessages;
+import com.mooneyserver.account.ui.widget.SpinnerList;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.terminal.ThemeResource;
@@ -24,7 +25,7 @@ public class LanguageSelectDialog extends Window implements ValueChangeListener 
 		this.setModal(true);
 		this.setBorder(Window.BORDER_NONE);
 		this.setResizable(false);
-		this.setWidth("235px");
+		this.setWidth("250px");
 		
 		VerticalLayout vl = (VerticalLayout) this.getContent();
 		vl.setSpacing(true);
@@ -47,7 +48,13 @@ public class LanguageSelectDialog extends Window implements ValueChangeListener 
 									  // So default to chinese does not work.
 		langSelect.setValue(selected);
 		
-		vl.addComponent(langSelect);
+		//vl.addComponent(langSelect);
+		
+		SpinnerList sl = new SpinnerList();
+		for (String lang : SUPPORTED_LANGS.keySet()) {
+			sl.addItem(lang, new ThemeResource((String) SUPPORTED_LANGS.get(lang)[1]));
+		}
+		vl.addComponent(sl);
 	}
 
 	@Override
