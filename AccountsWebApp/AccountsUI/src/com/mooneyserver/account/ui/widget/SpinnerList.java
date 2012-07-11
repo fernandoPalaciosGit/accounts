@@ -78,7 +78,7 @@ public class SpinnerList extends CustomComponent implements Button.ClickListener
     private AbsoluteLayout buildMainLayout() {
         // common part: create layout
         mainLayout = new AbsoluteLayout();
-        mainLayout.setImmediate(false);
+        mainLayout.setImmediate(true);
         mainLayout.setWidth("160px");
         mainLayout.setHeight("69px");
         mainLayout.setMargin(false);
@@ -89,7 +89,7 @@ public class SpinnerList extends CustomComponent implements Button.ClickListener
         
         // currSelection
         currSelection = new Label();
-        currSelection.setImmediate(false);
+        currSelection.setImmediate(true);
         currSelection.setWidth("2px");
         currSelection.setHeight("2px");
         currSelection.setValue("");
@@ -100,7 +100,7 @@ public class SpinnerList extends CustomComponent implements Button.ClickListener
         nextOptionAbove = new TextField();
         nextOptionAbove.addStyleName("borderless");
         nextOptionAbove.setEnabled(false);
-        nextOptionAbove.setImmediate(false);
+        nextOptionAbove.setImmediate(true);
         nextOptionAbove.setWidth("-1px");
         nextOptionAbove.setHeight("-1px");
         mainLayout.addComponent(nextOptionAbove, "top:0.0px;left:3.0px;");
@@ -109,7 +109,7 @@ public class SpinnerList extends CustomComponent implements Button.ClickListener
         nextOptionBelow = new TextField();
         nextOptionBelow.addStyleName("borderless");
         nextOptionBelow.setEnabled(false);
-        nextOptionBelow.setImmediate(false);
+        nextOptionBelow.setImmediate(true);
         nextOptionBelow.setWidth("-1px");
         nextOptionBelow.setHeight("-1px");
         mainLayout.addComponent(nextOptionBelow, "top:40.0px;left:3.0px;");

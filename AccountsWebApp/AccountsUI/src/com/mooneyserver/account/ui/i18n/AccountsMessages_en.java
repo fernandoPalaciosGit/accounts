@@ -12,6 +12,7 @@ public class AccountsMessages_en extends AccountsMessages {
 	static final Object[][] externStrings = {
 		/* Main Window Strings*/
 		{APP_TITLE, "Accounts"},
+		{TOOLBAR_LANG_BTN_TOOLTIP, "Change Language"},
 		
 		/* Login Screen */
 		{LOGIN_BUTTON, "Login"},

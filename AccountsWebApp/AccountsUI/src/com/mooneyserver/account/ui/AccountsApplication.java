@@ -3,6 +3,7 @@ package com.mooneyserver.account.ui;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import javax.ejb.Stateful;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,6 +16,7 @@ import com.vaadin.Application;
 import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
 import com.vaadin.ui.Window;
 
+@Stateful
 public final class AccountsApplication extends Application implements HttpServletRequestListener {
 
 

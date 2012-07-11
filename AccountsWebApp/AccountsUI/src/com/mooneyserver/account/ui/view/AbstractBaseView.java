@@ -3,6 +3,7 @@ package com.mooneyserver.account.ui.view;
 import java.util.ResourceBundle;
 
 import com.mooneyserver.account.ui.AccountsApplication;
+import com.mooneyserver.account.ui.i18n.AccountsMessages;
 import com.mooneyserver.account.ui.iface.IAccountsView;
 import com.mooneyserver.account.ui.view.subwindow.LanguageSelectDialog;
 import com.vaadin.terminal.ThemeResource;
@@ -30,17 +31,16 @@ public abstract class AbstractBaseView extends VerticalLayout implements
         langBar.setSpacing(true);
         langBar.setMargin(false, true, false, false);
 		
-        Button langSelectDlg = new Button("", new Button.ClickListener() {
+        Button  langSelectDlg = new Button("", new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				getWindow().addWindow(new LanguageSelectDialog());
 			}
 		});
-        langSelectDlg.setDescription("Change Langage");
+        langSelectDlg.setDescription(STRINGS.getString(AccountsMessages.SELECT_LANGUAGE));
         langSelectDlg.setIcon(new ThemeResource("../runo/icons/16/globe.png"));
         
         langBar.addComponent(langSelectDlg);
-        
         
         langBar.setComponentAlignment(langSelectDlg, Alignment.MIDDLE_RIGHT);
 	}

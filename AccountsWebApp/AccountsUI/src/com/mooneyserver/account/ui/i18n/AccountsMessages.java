@@ -12,6 +12,7 @@ public class AccountsMessages extends ListResourceBundle implements Serializable
 	 * Main Windows Strings
 	 */
 	public static final String APP_TITLE = "Accounts.MainWindow.AppTitle";
+	public static final String TOOLBAR_LANG_BTN_TOOLTIP = "Accounts.MainWindow.LangChange.Tooltip";
 	
 	
 	/*
