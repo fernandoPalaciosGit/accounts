@@ -11,17 +11,17 @@ public class AccountsMessages_zh extends AccountsMessages {
 	
 	static final Object[][] externStrings = {
 		/* Main Window Strings*/
-		{APP_TITLE, "å®¶åº­è´¢åŠ¡"},
+		{APP_TITLE, "家庭财务"},
 		
 		/* Login Screen */
-		{LOGIN_BUTTON, "ç™»å½•"},
-		{LOGIN_WELCOME, "å®¶åº­è´¢åŠ¡è½¯ä»¶æ¬¢è¿Žæ‚¨ï¼�"},
-		{USERNAME, "ç”¨æˆ·å��"},
-		{PASSWORD, "å¯†ç �"},
-		{FORGOT_PWD, "å¿˜è®°å¯†ç �"},
+		{LOGIN_BUTTON, "登录"},
+		{LOGIN_WELCOME, "家庭财务软件欢迎您！"},
+		{USERNAME, "用户名"},
+		{PASSWORD, "密码"},
+		{FORGOT_PWD, "忘记密码"},
 		
 		/* Language Settings sub window */
-		{SELECT_LANGUAGE, "é€‰æ‹©æ‚¨çš„è¯­è¨€"},
+		{SELECT_LANGUAGE, "选择您的语言€"},
 		{NEXT_LANGUAGE_UP, "Next Language (Up)"},
 		{NEXT_LANGUAGE_DOWN, "Next Language (Down)"}
 	};
