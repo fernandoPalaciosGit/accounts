@@ -21,6 +21,8 @@ public class AccountsMessages_en extends AccountsMessages {
 		{FORGOT_PWD, "Forgot My Password"},
 		
 		/* Language Settings sub window */
-		{SELECT_LANGUAGE, "Select your language"}
+		{SELECT_LANGUAGE, "Select your language"},
+		{NEXT_LANGUAGE_UP, "Next Language (Up)"},
+		{NEXT_LANGUAGE_DOWN, "Next Language (Down)"}
 	};
 }

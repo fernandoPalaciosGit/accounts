@@ -3,19 +3,25 @@ package com.mooneyserver.account.ui.widget;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 
+import com.mooneyserver.account.ui.AccountsApplication;
+import com.mooneyserver.account.ui.i18n.AccountsMessages;
+import com.mooneyserver.account.ui.iface.ILocaleSpecificStrings;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.themes.BaseTheme;
 
+import static com.mooneyserver.account.ui.i18n.SupportedLanguage.SUPPORTED_LANGS;
 
-public class SpinnerList extends CustomComponent implements Button.ClickListener {
+public class SpinnerList extends CustomComponent implements Button.ClickListener, ILocaleSpecificStrings {
 
 	private static final long serialVersionUID = -5523834701106113291L;
 	
@@ -33,7 +39,6 @@ public class SpinnerList extends CustomComponent implements Button.ClickListener
     private final String BUTTON_DOWN = "button_down";
     
     private Map<Integer, SpinnerListItem> items;
-    private List<SpinnerListItem> viewableTriplet = new ArrayList<>();
     
     private class SpinnerListItem {
     	String itemValue;
@@ -64,7 +69,8 @@ public class SpinnerList extends CustomComponent implements Button.ClickListener
     public SpinnerList() {
         buildMainLayout();
         setCompositionRoot(mainLayout);
-        setImmediate(true);
+        
+        currSelection.setImmediate(true);
         
         items = new LinkedHashMap<>();
     }
@@ -113,7 +119,6 @@ public class SpinnerList extends CustomComponent implements Button.ClickListener
         upButton.setCaption("");
         upButton.setStyleName(BaseTheme.BUTTON_LINK);
         upButton.setImmediate(true);
-        upButton.setDescription("Next Language (Up)");
         upButton.setWidth("16px");
         upButton.setHeight("16px");
         upButton.setIcon(ARROW_UP);
@@ -126,7 +131,6 @@ public class SpinnerList extends CustomComponent implements Button.ClickListener
         downButton.setCaption("");
         downButton.setStyleName(BaseTheme.BUTTON_LINK);
         downButton.setImmediate(true);
-        downButton.setDescription("Next Language (Down)");
         downButton.setWidth("16px");
         downButton.setHeight("16px");
         downButton.setIcon(ARROW_DOWN);
@@ -143,8 +147,7 @@ public class SpinnerList extends CustomComponent implements Button.ClickListener
     
     public void addItem(String value, ThemeResource icon) {
     	items.put(items.size() + 1, new SpinnerListItem(value, icon));
-    	
-    	viewableTriplet = new ArrayList<>();
+
     	setSelectedItem(value);
     }
     
@@ -154,7 +157,7 @@ public class SpinnerList extends CustomComponent implements Button.ClickListener
     		throw new IllegalArgumentException(value 
     				+ " is not currently a SpinnerList item");
     	
-    	updateItemsTriplet(value);
+    	List<SpinnerListItem> viewableTriplet = getItemsTriplet(value);
     	
     	currSelection.setCaption(viewableTriplet.get(1).getItemValue());
     	if (viewableTriplet.get(1).getItemIcon() != null)
@@ -166,6 +169,24 @@ public class SpinnerList extends CustomComponent implements Button.ClickListener
         this.requestRepaint();
     }
     
+    public void setSelectedItem(Locale locale) {
+    	boolean itemSet = false;
+    	for (String lang : SUPPORTED_LANGS.keySet()) {
+    		Locale compareTo = SUPPORTED_LANGS.get(lang).getLocale();
+    		String actualCountry = locale.getLanguage();
+    		String compareToCountry = compareTo.getLanguage();
+    		if (actualCountry.equalsIgnoreCase(compareToCountry)) {
+    			setSelectedItem(lang);
+    			itemSet = true;
+    			break;
+    		}
+    	}
+    	
+    	if (!itemSet)
+    		throw new IllegalArgumentException(locale 
+    				+ " is not currently a SpinnerList item");
+    }
+    
     private SpinnerListItem getItemByValue(String value) {
     	for (SpinnerListItem item : items.values()) {
     		if (item.getItemValue().equalsIgnoreCase(value))
@@ -175,7 +196,7 @@ public class SpinnerList extends CustomComponent implements Button.ClickListener
     	return null;
     }
     
-    private void updateItemsTriplet(String value) {
+    private List<SpinnerListItem> getItemsTriplet(String value) {
     	int pos = -1;
     	for (int keyPos : items.keySet()) {
     		if (items.get(keyPos).getItemValue().equalsIgnoreCase(value))
@@ -186,21 +207,37 @@ public class SpinnerList extends CustomComponent implements Button.ClickListener
     	int above = ((current - 1) > 0) ? current - 1 : items.size();
     	int below = ((current + 1) <= items.size()) ? current + 1 : 1;
     	
+    	List<SpinnerListItem> viewableTriplet = new ArrayList<>();
+    	
     	viewableTriplet.add(items.get(above));
     	viewableTriplet.add(items.get(current));
     	viewableTriplet.add(items.get(below));
     	
-    	System.out.println("viewableTriplet updated: [" + viewableTriplet + "]");
+    	return viewableTriplet;
     }
 
 	@Override
 	public void buttonClick(ClickEvent event) {
 		if (event.getButton().getData().equals(BUTTON_UP)) {
-			System.out.println("Call setSelect ["+viewableTriplet.get(0).getItemValue()+"]");
-			setSelectedItem(viewableTriplet.get(0).getItemValue());
+			setSelectedItem(nextOptionAbove.getInputPrompt());
 		} else if (event.getButton().getData().equals(BUTTON_DOWN)) {
-			System.out.println("Call setSelect ["+viewableTriplet.get(2).getItemValue()+"]");
-			setSelectedItem(viewableTriplet.get(2).getItemValue());
+			setSelectedItem(nextOptionBelow.getInputPrompt());
 		}
+	}
+
+	public void addListener(Button.ClickListener listener) {
+		upButton.addListener(listener);
+		downButton.addListener(listener);
+	}
+	
+	public String getValue() {
+		return currSelection.getCaption();
+	}
+
+	@Override
+	public void buildStringsFromLocale() {
+		ResourceBundle STRINGS = AccountsApplication.getResourceBundle();
+		upButton.setDescription(STRINGS.getString(AccountsMessages.NEXT_LANGUAGE_UP));
+		downButton.setDescription(STRINGS.getString(AccountsMessages.NEXT_LANGUAGE_DOWN));
 	}
 }

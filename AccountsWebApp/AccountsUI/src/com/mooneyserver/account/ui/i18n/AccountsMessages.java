@@ -27,6 +27,8 @@ public class AccountsMessages extends ListResourceBundle implements Serializable
 	 * Language Settings sub window
 	 */
 	public static final String SELECT_LANGUAGE = "Accounts.Settings.Language.ChooseLanguage";
+	public static final String NEXT_LANGUAGE_UP = "Accounts.Settings.Language.NextUp";
+	public static final String NEXT_LANGUAGE_DOWN = "Accounts.Settings.Language.NextDown";
 
 	@Override
 	protected Object[][] getContents() {

@@ -1,5 +1,6 @@
 package com.mooneyserver.account.ui.view;
 
+import com.mooneyserver.account.ui.AccountsApplication;
 import com.mooneyserver.account.ui.i18n.AccountsMessages;
 
 import com.vaadin.ui.Alignment;
@@ -15,17 +16,17 @@ import com.vaadin.ui.themes.BaseTheme;
 public class AccountsLoginView extends AbstractBaseView 
 	implements LoginListener {
 
+	private Panel loginPanel;
+	private LoginForm loginForm;
+	private Button forgotPwd;
+	
 	public AccountsLoginView() {
 		constructHeader();
 		
-		Panel loginPanel = new Panel(STRINGS.getString(AccountsMessages.LOGIN_WELCOME));
+		loginPanel = new Panel();
 		loginPanel.setWidth("400px");
 		
-		LoginForm loginForm = new LoginForm();
-		loginForm.setUsernameCaption(STRINGS.
-				getString(AccountsMessages.USERNAME));
-		loginForm.setPasswordCaption(STRINGS.
-				getString(AccountsMessages.PASSWORD));		
+		loginForm = new LoginForm();
 		
 		loginForm.addListener(this);
 		loginForm.setHeight("150px");
@@ -33,7 +34,7 @@ public class AccountsLoginView extends AbstractBaseView
 		
 		HorizontalLayout hl = new HorizontalLayout();
 		hl.setSizeFull();
-		Button forgotPwd = new Button(STRINGS.getString(AccountsMessages.FORGOT_PWD));
+		forgotPwd = new Button();
 		forgotPwd.setStyleName(BaseTheme.BUTTON_LINK);
 		hl.addComponent(forgotPwd);
 		hl.setComponentAlignment(forgotPwd, Alignment.BOTTOM_RIGHT);
@@ -44,10 +45,23 @@ public class AccountsLoginView extends AbstractBaseView
 		setComponentAlignment(loginPanel, Alignment.MIDDLE_CENTER);
 		
 		constructFooter();
+		
+		buildStringsFromLocale();
 	}
 	
 	@Override
 	public void onLogin(LoginEvent event) {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void buildStringsFromLocale() {
+		STRINGS = AccountsApplication.getResourceBundle();
+		loginPanel.setCaption(STRINGS.getString(AccountsMessages.LOGIN_WELCOME));
+		loginForm.setUsernameCaption(STRINGS.
+				getString(AccountsMessages.USERNAME));
+		loginForm.setPasswordCaption(STRINGS.
+				getString(AccountsMessages.PASSWORD));
+		forgotPwd.setCaption(STRINGS.getString(AccountsMessages.FORGOT_PWD));
 	}	
 }

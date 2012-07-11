@@ -37,4 +37,12 @@ public class DisplayManager {
 	private void setCurrentView(IAccountsView view) {
 		AccountsApplication.setCurrentView(view);
 	}
+	
+	
+	public void refreshViews() {
+		for (IAccountsView view : windowStack) {
+			view.buildStringsFromLocale();
+			view.requestRepaint();
+		}
+	}
 }

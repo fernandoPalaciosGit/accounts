@@ -68,6 +68,7 @@ public final class AccountsApplication extends Application implements HttpServle
 		super.setLocale(locale);
 		i18nBundle = ResourceBundle.getBundle(
 				AccountsMessages.class.getName(), getLocale());
+		DisplayManager.getDisplayManager().refreshViews();
 	}
 	
 	@Override

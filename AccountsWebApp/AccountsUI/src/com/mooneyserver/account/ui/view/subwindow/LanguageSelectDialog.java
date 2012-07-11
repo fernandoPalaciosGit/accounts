@@ -1,22 +1,20 @@
 package com.mooneyserver.account.ui.view.subwindow;
 
-import java.util.Locale;
-
 import com.mooneyserver.account.ui.AccountsApplication;
 import com.mooneyserver.account.ui.i18n.AccountsMessages;
+import com.mooneyserver.account.ui.i18n.SupportedLanguage;
 import com.mooneyserver.account.ui.widget.SpinnerList;
-import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.Property.ValueChangeListener;
-import com.vaadin.terminal.ThemeResource;
-import com.vaadin.ui.ComboBox;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
-import static com.mooneyserver.account.ui.i18n.SupportedLanguages.SUPPORTED_LANGS;
+import static com.mooneyserver.account.ui.i18n.SupportedLanguage.SUPPORTED_LANGS;
 
-public class LanguageSelectDialog extends Window implements ValueChangeListener {
+public class LanguageSelectDialog extends Window implements ClickListener {
 	
 	private static final long serialVersionUID = 1L;
+	private final SpinnerList langList;
 	
 	public LanguageSelectDialog() {
 		// TODO: Subclass to hide this
@@ -30,40 +28,20 @@ public class LanguageSelectDialog extends Window implements ValueChangeListener 
 		VerticalLayout vl = (VerticalLayout) this.getContent();
 		vl.setSpacing(true);
 		
-		ComboBox langSelect = new ComboBox();
-		langSelect.setNullSelectionAllowed(false);
-		langSelect.setImmediate(true);
-		langSelect.addListener(this);
-		
+		langList = new SpinnerList();
 		for (String lang : SUPPORTED_LANGS.keySet()) {
-			langSelect.addItem(lang);
-			langSelect.setItemIcon(lang, 
-					new ThemeResource((String) SUPPORTED_LANGS.get(lang)[1]));
+			langList.addItem(lang, SUPPORTED_LANGS.get(lang).getIcon());
 		}
 		
-		Locale currLocale = AccountsApplication.getInstance().getLocale();	
-		String selected = currLocale.getDisplayLanguage();
-		System.out.println(selected); // TODO: This is a bug. But I need to go to bed.
-									  // selected shows chinese instead of the characters
-									  // So default to chinese does not work.
-		langSelect.setValue(selected);
+		langList.setSelectedItem(AccountsApplication.getInstance().getLocale());
+		langList.addListener((ClickListener) this);
 		
-		//vl.addComponent(langSelect);
-		
-		SpinnerList sl = new SpinnerList();
-		for (String lang : SUPPORTED_LANGS.keySet()) {
-			sl.addItem(lang, new ThemeResource((String) SUPPORTED_LANGS.get(lang)[1]));
-		}
-		vl.addComponent(sl);
+		vl.addComponent(langList);
 	}
 
 	@Override
-	public void valueChange(ValueChangeEvent event) {
-		String lang = (String) event.getProperty().getValue();
-		if (lang == null)
-			return;
-		
-		AccountsApplication.getInstance().setLocale(
-				(Locale) SUPPORTED_LANGS.get(lang)[0]);
+	public void buttonClick(ClickEvent event) {
+		SupportedLanguage currLocale = SUPPORTED_LANGS.get(langList.getValue());
+		AccountsApplication.getInstance().setLocale(currLocale.getLocale());
 	}
 }
