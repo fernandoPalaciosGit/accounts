@@ -1,3 +1,9 @@
+bin/
+lib/
+
+*.class
+*.MF
+
 *.settings
 *.classpath
 *.project
