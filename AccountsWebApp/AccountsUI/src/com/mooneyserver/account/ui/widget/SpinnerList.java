@@ -70,8 +70,6 @@ public class SpinnerList extends CustomComponent implements Button.ClickListener
         buildMainLayout();
         setCompositionRoot(mainLayout);
         
-        currSelection.setImmediate(true);
-        
         items = new LinkedHashMap<>();
     }
 

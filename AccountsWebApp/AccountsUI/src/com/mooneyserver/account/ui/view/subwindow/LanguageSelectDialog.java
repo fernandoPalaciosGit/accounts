@@ -42,10 +42,7 @@ public class LanguageSelectDialog extends Window implements ClickListener {
 
 	@Override
 	public void buttonClick(ClickEvent event) {
-		// Print statements required or else the page refresh doesnt happen???
-		System.out.println("Changing locale to ["+langList.getValue()+"]");
 		SupportedLanguage currLocale = SUPPORTED_LANGS.get(langList.getValue());
-		System.out.println("Trying to set ["+currLocale.getLocale()+"]");
 		AccountsApplication.getInstance().setLocale(currLocale.getLocale());
 	}
 }
