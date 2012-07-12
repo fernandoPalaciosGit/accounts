@@ -39,6 +39,7 @@ public abstract class AbstractBaseView extends VerticalLayout implements
 		});
         langSelectDlg.setDescription(STRINGS.getString(AccountsMessages.SELECT_LANGUAGE));
         langSelectDlg.setIcon(new ThemeResource("../runo/icons/16/globe.png"));
+        langSelectDlg.setImmediate(true);
         
         langBar.addComponent(langSelectDlg);
         

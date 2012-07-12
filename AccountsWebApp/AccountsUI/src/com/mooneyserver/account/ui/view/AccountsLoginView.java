@@ -1,9 +1,5 @@
 package com.mooneyserver.account.ui.view;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateful;
-
-import com.mooneyserver.account.businesslogic.user.UserBusinessService;
 import com.mooneyserver.account.ui.AccountsApplication;
 import com.mooneyserver.account.ui.i18n.AccountsMessages;
 
@@ -17,11 +13,7 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.themes.BaseTheme;
 
 @SuppressWarnings("serial")
-@Stateful
 public class AccountsLoginView extends AbstractBaseView implements LoginListener {
-
-	@EJB
-	UserBusinessService userSvc;
 	
 	private Panel loginPanel;
 	private LoginForm loginForm;
@@ -36,6 +28,7 @@ public class AccountsLoginView extends AbstractBaseView implements LoginListener
 		
 		loginForm = new LoginForm();
 		
+		loginForm.setImmediate(true);
 		loginForm.addListener(this);
 		loginForm.setHeight("150px");
 		loginPanel.addComponent(loginForm);
