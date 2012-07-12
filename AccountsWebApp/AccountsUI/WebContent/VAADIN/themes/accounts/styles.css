@@ -6,3 +6,7 @@
     background: white; /* Has shading image by default */
     -webkit-border-image: none;
 }
+
+.header {
+	background:		black;
+}
