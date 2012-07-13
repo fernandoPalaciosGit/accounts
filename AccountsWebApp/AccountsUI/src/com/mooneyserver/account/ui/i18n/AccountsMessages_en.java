@@ -24,6 +24,16 @@ public class AccountsMessages_en extends AccountsMessages {
 		/* Language Settings sub window */
 		{SELECT_LANGUAGE, "Select your language"},
 		{NEXT_LANGUAGE_UP, "Next Language (Up)"},
-		{NEXT_LANGUAGE_DOWN, "Next Language (Down)"}
+		{NEXT_LANGUAGE_DOWN, "Next Language (Down)"},
+		
+		/* About Dialog */
+		{ABOUT_MAIN, "Author:<br/>Brian Mooney"},
+		{ABOUT_LINK, "@github"},
+		
+		/* Header Toolbar */
+		{HEADER_SETTINGS, "Settings"},
+		{HEADER_SETTINGS_LANG, "Language / Locale"},
+		{HEADER_SETTINGS_SIGNOUT, "Sign Out"}
+		
 	};
 }

@@ -30,7 +30,21 @@ public class AccountsMessages extends ListResourceBundle implements Serializable
 	public static final String SELECT_LANGUAGE = "Accounts.Settings.Language.ChooseLanguage";
 	public static final String NEXT_LANGUAGE_UP = "Accounts.Settings.Language.NextUp";
 	public static final String NEXT_LANGUAGE_DOWN = "Accounts.Settings.Language.NextDown";
-
+	
+	/*
+	 * About Dialog Strings
+	 */
+	public static final String ABOUT_MAIN_HEADER = "Accounts.About.Header";
+	public static final String ABOUT_MAIN = "Accounts.About.MainText";
+	public static final String ABOUT_LINK = "Accounts.About.LinkCaption";
+	
+	/*
+	 * Header Toolbar
+	 */
+	public static final String HEADER_SETTINGS = "Accounts.Header.Settings";
+	public static final String HEADER_SETTINGS_LANG = "Accounts.Header.Settings.ChangeLanguage";
+	public static final String HEADER_SETTINGS_SIGNOUT = "Accounts.Header.Settings.SignOut";
+	
 	@Override
 	protected Object[][] getContents() {
 		return null;

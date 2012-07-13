@@ -32,6 +32,8 @@ public final class AccountsApplication extends Application implements HttpServle
 	
 	Window mainWindow;
 	
+	public static final String APP_VERSION = "0.0.1";
+	
 	/* Constructor */
 	public AccountsApplication() {
 		sessionInstance.set(this);

@@ -24,6 +24,16 @@ public class AccountsMessages_zh extends AccountsMessages {
 		/* Language Settings sub window */
 		{SELECT_LANGUAGE, "选择您的语言"},
 		{NEXT_LANGUAGE_UP, "上一个语言"},
-		{NEXT_LANGUAGE_DOWN, "下一个语言"}
+		{NEXT_LANGUAGE_DOWN, "下一个语言"},
+		
+
+		/* About Dialog */
+		{ABOUT_MAIN, "软件设计师:<br/>小胖"},
+		{ABOUT_LINK, "@github"},
+		
+		/* Header Toolbar */
+		{HEADER_SETTINGS, "设置"},
+		{HEADER_SETTINGS_LANG, "更改语言"},
+		{HEADER_SETTINGS_SIGNOUT, "注销"}
 	};
 }

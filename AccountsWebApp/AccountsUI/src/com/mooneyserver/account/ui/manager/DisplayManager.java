@@ -4,6 +4,7 @@ import java.util.Stack;
 
 import com.mooneyserver.account.ui.AccountsApplication;
 import com.mooneyserver.account.ui.iface.IAccountsView;
+import com.mooneyserver.account.ui.view.AbstractBaseView;
 
 public class DisplayManager {
 	
@@ -44,5 +45,9 @@ public class DisplayManager {
 			view.buildStringsFromLocale();
 			view.requestRepaint();
 		}
+		
+		if (windowStack.size() > 0)
+			((AbstractBaseView) windowStack.peek()).
+				reloadMainFrameComponentStrings();
 	}
 }
