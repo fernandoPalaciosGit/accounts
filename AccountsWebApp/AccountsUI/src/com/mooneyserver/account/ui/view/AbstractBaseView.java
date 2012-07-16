@@ -5,8 +5,8 @@ import java.util.ResourceBundle;
 import org.vaadin.aboutbox.AboutBox;
 import org.vaadin.hene.popupbutton.PopupButton;
 
+import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.ui.AccountsApplication;
-import com.mooneyserver.account.ui.i18n.AccountsMessages;
 import com.mooneyserver.account.ui.iface.IAccountsView;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;

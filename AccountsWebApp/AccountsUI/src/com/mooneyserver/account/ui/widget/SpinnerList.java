@@ -7,8 +7,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.ui.AccountsApplication;
-import com.mooneyserver.account.ui.i18n.AccountsMessages;
 import com.mooneyserver.account.ui.iface.ILocaleSpecificStrings;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.AbsoluteLayout;
@@ -19,7 +19,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.themes.BaseTheme;
 
-import static com.mooneyserver.account.ui.i18n.SupportedLanguage.SUPPORTED_LANGS;
+import static com.mooneyserver.account.i18n.SupportedLanguage.SUPPORTED_LANGS;
 
 public class SpinnerList extends CustomComponent implements Button.ClickListener, ILocaleSpecificStrings {
 

@@ -3,7 +3,7 @@ package com.mooneyserver.account.ui.view;
 import org.vaadin.aboutbox.AboutBox;
 
 import com.mooneyserver.account.ui.AccountsApplication;
-import com.mooneyserver.account.ui.view.subwindow.LanguageSelectDialog;
+import com.mooneyserver.account.ui.view.subwindow.user.LanguageSelectDialog;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -38,12 +38,7 @@ class BaseWindowClickListener implements ClickListener,
 
 	@Override
 	public void buttonClick(ClickEvent event) {
-		
-        
-        AccountsApplication.getInstance().
-			getMainWindow().showNotification(n);
-        
-        switch((String)event.getButton().getData()) {
+		switch((String)event.getButton().getData()) {
 			case LANG:
 				AccountsApplication.getInstance().
 					getMainWindow().addWindow(new LanguageSelectDialog());

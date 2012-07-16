@@ -6,10 +6,10 @@ import java.util.ResourceBundle;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mooneyserver.account.ui.i18n.AccountsMessages;
+import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.ui.iface.IAccountsView;
 import com.mooneyserver.account.ui.manager.DisplayManager;
-import com.mooneyserver.account.ui.view.AccountsLoginView;
+import com.mooneyserver.account.ui.view.user.AccountsLoginView;
 
 import com.vaadin.Application;
 import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
