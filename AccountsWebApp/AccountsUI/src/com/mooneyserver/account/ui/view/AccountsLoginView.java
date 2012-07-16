@@ -44,6 +44,7 @@ public class AccountsLoginView extends AbstractBaseView implements LoginListener
 		
 		addComponent(loginPanel);
 		setComponentAlignment(loginPanel, Alignment.MIDDLE_CENTER);
+		setExpandRatio(loginPanel, 1);
 		
 		constructFooter();
 		

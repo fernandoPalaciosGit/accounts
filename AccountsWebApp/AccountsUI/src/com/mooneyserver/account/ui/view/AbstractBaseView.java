@@ -30,6 +30,9 @@ public abstract class AbstractBaseView extends VerticalLayout implements
 	
 	protected void constructHeader() {
 		setSpacing(true);
+		setSizeFull();
+		
+		HorizontalLayout langBar = new HorizontalLayout();
 		
 		about = new AboutBox();
 		
@@ -41,10 +44,8 @@ public abstract class AbstractBaseView extends VerticalLayout implements
         about.setAlignment(Alignment.TOP_LEFT);
         about.setListener(btnListener);
         
-        addComponent(about);
-        
-        
-		HorizontalLayout langBar = new HorizontalLayout();
+        langBar.addComponent(about);
+		
         addComponent(langBar);
         langBar.setHeight("38px");
         langBar.setWidth("100%");
@@ -91,7 +92,6 @@ public abstract class AbstractBaseView extends VerticalLayout implements
 	}
 	
 	protected void constructFooter() {
-		
 	}
 	
 	public void reloadMainFrameComponentStrings() {
