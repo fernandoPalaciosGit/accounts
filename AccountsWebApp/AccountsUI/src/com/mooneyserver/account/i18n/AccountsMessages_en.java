@@ -1,4 +1,4 @@
-package com.mooneyserver.account.ui.i18n;
+package com.mooneyserver.account.i18n;
 
 public class AccountsMessages_en extends AccountsMessages {
 
@@ -20,6 +20,7 @@ public class AccountsMessages_en extends AccountsMessages {
 		{USERNAME, "Username"},
 		{PASSWORD, "Password"},
 		{FORGOT_PWD, "Forgot My Password"},
+		{CREATE_NEW_USER, "Create New User"},
 		
 		/* Language Settings sub window */
 		{SELECT_LANGUAGE, "Select your language"},

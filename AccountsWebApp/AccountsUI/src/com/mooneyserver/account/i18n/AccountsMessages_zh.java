@@ -1,4 +1,4 @@
-package com.mooneyserver.account.ui.i18n;
+package com.mooneyserver.account.i18n;
 
 public class AccountsMessages_zh extends AccountsMessages {
 
@@ -20,6 +20,7 @@ public class AccountsMessages_zh extends AccountsMessages {
 		{USERNAME, "用户名"},
 		{PASSWORD, "密码"},
 		{FORGOT_PWD, "忘记密码"},
+		{CREATE_NEW_USER, "创建新用户"},
 		
 		/* Language Settings sub window */
 		{SELECT_LANGUAGE, "选择您的语言"},

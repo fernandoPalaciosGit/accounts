@@ -1,4 +1,4 @@
-package com.mooneyserver.account.ui.i18n;
+package com.mooneyserver.account.i18n;
 
 import java.io.Serializable;
 import java.util.ListResourceBundle;
@@ -23,6 +23,7 @@ public class AccountsMessages extends ListResourceBundle implements Serializable
 	public static final String USERNAME = "Accounts.LoginView.Username";
 	public static final String PASSWORD = "Accounts.LoginView.Password";
 	public static final String FORGOT_PWD = "Accounts.LoginView.ForgotPassword";
+	public static final String CREATE_NEW_USER = "Accounts.LoginView.CreateUser";
 	
 	/*
 	 * Language Settings sub window

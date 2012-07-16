@@ -1,4 +1,4 @@
-package com.mooneyserver.account.ui.i18n;
+package com.mooneyserver.account.i18n;
 
 import java.util.HashMap;
 import java.util.Map;
