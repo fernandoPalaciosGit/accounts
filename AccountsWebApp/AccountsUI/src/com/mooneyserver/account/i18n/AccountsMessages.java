@@ -20,10 +20,14 @@ public class AccountsMessages extends ListResourceBundle implements Serializable
 	 */
 	public static final String LOGIN_BUTTON = "Accounts.LoginView.LoginBtn";
 	public static final String LOGIN_WELCOME = "Accounts.LoginView.Welcome";
-	public static final String USERNAME = "Accounts.LoginView.Username";
 	public static final String PASSWORD = "Accounts.LoginView.Password";
 	public static final String FORGOT_PWD = "Accounts.LoginView.ForgotPassword";
 	public static final String CREATE_NEW_USER = "Accounts.LoginView.CreateUser";
+	public static final String EMAIL_ADDRESS = "Accounts.LoginView.ForgotPwd.Email";
+	public static final String SEND_NEW_PASSWORD = "Accounts.LoginView.ForgotPwd.SendBtn";
+	public static final String FIRST_NAME = "Accounts.LoginView.CreateUser.FirstName";
+	public static final String LAST_NAME = "Accounts.LoginView.CreateUser.LastName";
+	public static final String CONFIRM_PASSWORD = "Accounts.LoginView.CreateUser.ConfirmPassword";
 	
 	/*
 	 * Language Settings sub window
@@ -45,6 +49,11 @@ public class AccountsMessages extends ListResourceBundle implements Serializable
 	public static final String HEADER_SETTINGS = "Accounts.Header.Settings";
 	public static final String HEADER_SETTINGS_LANG = "Accounts.Header.Settings.ChangeLanguage";
 	public static final String HEADER_SETTINGS_SIGNOUT = "Accounts.Header.Settings.SignOut";
+	
+	/*
+	 * Validation Localization
+	 */
+	public static final String VALIDATE_EMAIL = "Validate.Email";
 	
 	@Override
 	protected Object[][] getContents() {

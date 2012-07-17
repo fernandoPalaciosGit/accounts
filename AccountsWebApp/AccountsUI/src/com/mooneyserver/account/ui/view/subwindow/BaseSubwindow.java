@@ -1,6 +1,5 @@
 package com.mooneyserver.account.ui.view.subwindow;
 
-import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.ui.AccountsApplication;
 import com.vaadin.ui.Window;
 
@@ -12,12 +11,18 @@ public class BaseSubwindow extends Window {
 		LEVEL_1, LEVEL_2;
 	}
 	
-	public BaseSubwindow(String title) {
-		super(AccountsApplication.getResourceBundle().getString(AccountsMessages.SELECT_LANGUAGE));
+	public BaseSubwindow(String localizedTitle) {
+		super(AccountsApplication.getResourceBundle().
+				getString(localizedTitle));
 		
 		setModal(true);
-		setBorder(Window.BORDER_DEFAULT);
 		setResizable(false);
 		setWidth("250px");
+		
+		/*
+		 * To change window style use below
+		 */
+		// setStyleName(Reindeer.WINDOW_LIGHT)
+		// setStyleName(Reindeer.WINDOW_DARK)
 	}
 }

@@ -96,7 +96,7 @@ public class AccountsLoginView extends AbstractBaseView
 		loginPanel.setCaption(STRINGS.getString(AccountsMessages.LOGIN_WELCOME));
 		
 		loginForm.setUsernameCaption(STRINGS.
-				getString(AccountsMessages.USERNAME));
+				getString(AccountsMessages.EMAIL_ADDRESS));
 		loginForm.setPasswordCaption(STRINGS.
 				getString(AccountsMessages.PASSWORD));
 		loginForm.setLoginButtonCaption(STRINGS.

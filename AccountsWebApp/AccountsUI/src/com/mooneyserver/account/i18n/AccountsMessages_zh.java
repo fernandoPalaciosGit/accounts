@@ -17,10 +17,14 @@ public class AccountsMessages_zh extends AccountsMessages {
 		/* Login Screen */
 		{LOGIN_BUTTON, "登录"},
 		{LOGIN_WELCOME, "家庭财务软件欢迎您！"},
-		{USERNAME, "用户名"},
 		{PASSWORD, "密码"},
 		{FORGOT_PWD, "忘记密码"},
 		{CREATE_NEW_USER, "创建新用户"},
+		{EMAIL_ADDRESS, "电子邮件地址"},
+		{SEND_NEW_PASSWORD, "寄出新密码"},
+		{FIRST_NAME, "名字"},
+		{LAST_NAME, "姓"},
+		{CONFIRM_PASSWORD, "确认密码"},
 		
 		/* Language Settings sub window */
 		{SELECT_LANGUAGE, "选择您的语言"},
@@ -35,6 +39,9 @@ public class AccountsMessages_zh extends AccountsMessages {
 		/* Header Toolbar */
 		{HEADER_SETTINGS, "设置"},
 		{HEADER_SETTINGS_LANG, "更改语言"},
-		{HEADER_SETTINGS_SIGNOUT, "注销"}
+		{HEADER_SETTINGS_SIGNOUT, "注销"},
+		
+		/* Validation Localization */
+		{VALIDATE_EMAIL, "{0} 不是一个有效的电子邮件地址"}
 	};
 }

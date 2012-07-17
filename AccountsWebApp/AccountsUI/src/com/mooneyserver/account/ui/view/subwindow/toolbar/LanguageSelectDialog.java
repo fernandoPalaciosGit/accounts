@@ -1,4 +1,4 @@
-package com.mooneyserver.account.ui.view.subwindow.user;
+package com.mooneyserver.account.ui.view.subwindow.toolbar;
 
 import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.i18n.SupportedLanguage;

@@ -17,10 +17,14 @@ public class AccountsMessages_en extends AccountsMessages {
 		/* Login Screen */
 		{LOGIN_BUTTON, "Login"},
 		{LOGIN_WELCOME, "Welcome to Accounts!"},
-		{USERNAME, "Username"},
 		{PASSWORD, "Password"},
 		{FORGOT_PWD, "Forgot My Password"},
 		{CREATE_NEW_USER, "Create New User"},
+		{EMAIL_ADDRESS, "E-mail Address"},
+		{SEND_NEW_PASSWORD, "Send New Password"},
+		{FIRST_NAME, "First Name"},
+		{LAST_NAME, "Last Name"},
+		{CONFIRM_PASSWORD, "Confirm Password"},
 		
 		/* Language Settings sub window */
 		{SELECT_LANGUAGE, "Select your language"},
@@ -34,7 +38,10 @@ public class AccountsMessages_en extends AccountsMessages {
 		/* Header Toolbar */
 		{HEADER_SETTINGS, "Settings"},
 		{HEADER_SETTINGS_LANG, "Language / Locale"},
-		{HEADER_SETTINGS_SIGNOUT, "Sign Out"}
+		{HEADER_SETTINGS_SIGNOUT, "Sign Out"},
+		
+		/* Validation Localization */
+		{VALIDATE_EMAIL, "{0} is not a valid e-mail address"}
 		
 	};
 }

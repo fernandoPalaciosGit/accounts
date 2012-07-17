@@ -3,7 +3,7 @@ package com.mooneyserver.account.ui.view;
 import org.vaadin.aboutbox.AboutBox;
 
 import com.mooneyserver.account.ui.AccountsApplication;
-import com.mooneyserver.account.ui.view.subwindow.user.LanguageSelectDialog;
+import com.mooneyserver.account.ui.view.subwindow.toolbar.LanguageSelectDialog;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
