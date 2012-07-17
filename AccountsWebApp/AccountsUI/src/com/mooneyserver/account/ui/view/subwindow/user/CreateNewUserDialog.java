@@ -39,8 +39,10 @@ public class CreateNewUserDialog extends BaseSubwindow implements ClickListener 
 		
 		PasswordField pwd1 = new PasswordField(AccountsApplication.getResourceBundle().
 				getString(AccountsMessages.PASSWORD));
+		pwd1.setRequired(true);
 		PasswordField pwd2 = new PasswordField(AccountsApplication.getResourceBundle().
 				getString(AccountsMessages.CONFIRM_PASSWORD));
+		pwd2.setRequired(true);
 		
 		createNewUserFrm.addField("a", firstName);
 		createNewUserFrm.addField("b", lastName);
