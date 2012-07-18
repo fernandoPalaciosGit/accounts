@@ -137,4 +137,34 @@ public class UserBusinessService implements IUserService {
 		// update the user
 		userService.modify(user);
 	}
+
+
+	@Override
+	public boolean validateUserPassword(String emailAddress, String password) throws AccountsUserException {
+		AccountsUser user = userService.findByUsername(emailAddress);
+		
+		if (user == null) {
+			try {
+				Thread.sleep(100); // Sleep to avoid brute force
+			} catch (InterruptedException e) {} 
+			
+			return false;
+		}
+		
+		EncryptionProvider encrypter = new EncryptionProvider();
+		try {
+			password = StringUtils.byteToBase64(
+					encrypter.encryptString(
+							password, 
+							StringUtils.base64ToByte(user.getSalt())));
+		} catch (IOException e) {
+			throw new AccountsUserException("Password Check Failed, converting password to hash", e);
+		}
+		
+		if (password.equals(user.getPassword())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

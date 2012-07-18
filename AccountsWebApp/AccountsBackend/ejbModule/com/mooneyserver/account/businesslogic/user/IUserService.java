@@ -74,10 +74,6 @@ public interface IUserService {
 	 * @throws AccountsUserException
 	 * 
 	 * @param
-	 * 		<b>AccountsUser</b>
-	 * 		The user object to be created
-	 * 
-	 * @param
 	 * 		<b>ChangePasswordRequest</b>
 	 * 		The Change Password details object		
 	 * 
@@ -85,4 +81,21 @@ public interface IUserService {
 	 * 		<b>void</b>
 	 */
 	public void changePassword(ChangePasswordRequest changePwd) throws AccountsUserException;
+	
+	/**
+	 * Validate a users password on login requests
+	 * 
+	 * @param
+	 * 		<b>String</b>
+	 * 		The email address of the user
+	 * 
+	 * @param
+	 * 		<b>String</b>
+	 * 		The password for the user
+	 * 
+	 * @return
+	 * 		<b>boolean</b>
+	 * 		True if the users password is correct
+	 */
+	public boolean validateUserPassword(String emailAddress, String password) throws AccountsUserException;
 }
