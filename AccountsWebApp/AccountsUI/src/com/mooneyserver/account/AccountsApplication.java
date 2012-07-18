@@ -1,4 +1,4 @@
-package com.mooneyserver.account.ui;
+package com.mooneyserver.account;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
