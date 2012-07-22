@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import com.mooneyserver.account.i18n.AccountsMessages;
-import com.mooneyserver.account.ui.AccountsApplication;
+import com.mooneyserver.account.AccountsApplication;
 import com.mooneyserver.account.ui.iface.ILocaleSpecificStrings;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.AbsoluteLayout;

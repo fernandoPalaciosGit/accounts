@@ -1,6 +1,6 @@
 package com.mooneyserver.account.ui.view.subwindow;
 
-import com.mooneyserver.account.ui.AccountsApplication;
+import com.mooneyserver.account.AccountsApplication;
 import com.vaadin.ui.Window;
 
 public class BaseSubwindow extends Window {

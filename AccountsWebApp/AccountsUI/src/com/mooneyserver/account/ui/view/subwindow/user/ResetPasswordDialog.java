@@ -1,7 +1,7 @@
 package com.mooneyserver.account.ui.view.subwindow.user;
 
 import com.mooneyserver.account.i18n.AccountsMessages;
-import com.mooneyserver.account.ui.AccountsApplication;
+import com.mooneyserver.account.AccountsApplication;
 import com.mooneyserver.account.ui.view.subwindow.BaseSubwindow;
 import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.data.validator.EmailValidator;

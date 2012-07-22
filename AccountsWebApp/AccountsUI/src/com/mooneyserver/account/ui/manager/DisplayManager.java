@@ -2,7 +2,7 @@ package com.mooneyserver.account.ui.manager;
 
 import java.util.Stack;
 
-import com.mooneyserver.account.ui.AccountsApplication;
+import com.mooneyserver.account.AccountsApplication;
 import com.mooneyserver.account.ui.iface.IAccountsView;
 import com.mooneyserver.account.ui.view.AbstractBaseView;
 

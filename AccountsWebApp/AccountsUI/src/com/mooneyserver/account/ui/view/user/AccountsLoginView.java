@@ -1,7 +1,9 @@
 package com.mooneyserver.account.ui.view.user;
 
+import com.mooneyserver.account.businesslogic.user.AccountsUserException;
 import com.mooneyserver.account.i18n.AccountsMessages;
-import com.mooneyserver.account.ui.AccountsApplication;
+import com.mooneyserver.account.AccountsApplication;
+import com.mooneyserver.account.lookup.BackendServiceLookup;
 import com.mooneyserver.account.ui.view.AbstractBaseView;
 import com.mooneyserver.account.ui.view.subwindow.user.CreateNewUserDialog;
 import com.mooneyserver.account.ui.view.subwindow.user.ResetPasswordDialog;
@@ -82,11 +84,17 @@ public class AccountsLoginView extends AbstractBaseView
 	
 	@Override
 	public void onLogin(LoginEvent event) {
-		System.out.println(event.getLoginParameter("username"));
-		System.out.println(event.getLoginParameter("password"));
+		boolean userLogin = true;
+		try {
+			userLogin = BackendServiceLookup.getuserService().validateUserPassword(
+					event.getLoginParameter("username"), 
+					event.getLoginParameter("password"));
+		} catch (AccountsUserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		// TODO: Implement a password verification
-		//userSvc.verifyUserPassword(username, password)
+		System.out.println("User Login is: " + userLogin);
 	}
 
 	@Override
