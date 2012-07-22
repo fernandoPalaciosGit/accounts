@@ -3,8 +3,11 @@ package com.mooneyserver.account.businesslogic.user;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.ejb.Remote;
+
 import com.mooneyserver.account.persistence.entity.AccountsUser;
 
+@Remote
 public interface IUserService {
 	
 	/**
