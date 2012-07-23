@@ -26,6 +26,7 @@ public class DisplayManager {
 	}
 	
 	public void loadNewView(IAccountsView view) {
+		view.loadBackendServices();
 		windowStack.push(view);
 		setCurrentView(windowStack.peek());
 	}

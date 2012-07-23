@@ -1,9 +1,10 @@
 package com.mooneyserver.account.ui.view.user;
 
 import com.mooneyserver.account.businesslogic.user.AccountsUserException;
+import com.mooneyserver.account.businesslogic.user.IUserService;
 import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.AccountsApplication;
-import com.mooneyserver.account.lookup.BackendServiceLookup;
+import com.mooneyserver.account.lookup.BusinessProcess;
 import com.mooneyserver.account.ui.view.AbstractBaseView;
 import com.mooneyserver.account.ui.view.subwindow.user.CreateNewUserDialog;
 import com.mooneyserver.account.ui.view.subwindow.user.ResetPasswordDialog;
@@ -24,6 +25,9 @@ import com.vaadin.ui.themes.BaseTheme;
 @SuppressWarnings("serial")
 public class AccountsLoginView extends AbstractBaseView 
 	implements LoginListener, ClickListener {
+	
+	@BusinessProcess
+	private IUserService userSvc;
 	
 	private Panel loginPanel;
 	private LoginForm loginForm;
@@ -86,7 +90,7 @@ public class AccountsLoginView extends AbstractBaseView
 	public void onLogin(LoginEvent event) {
 		boolean userLogin = true;
 		try {
-			userLogin = BackendServiceLookup.getuserService().validateUserPassword(
+			userLogin = userSvc.validateUserPassword(
 					event.getLoginParameter("username"), 
 					event.getLoginParameter("password"));
 		} catch (AccountsUserException e) {

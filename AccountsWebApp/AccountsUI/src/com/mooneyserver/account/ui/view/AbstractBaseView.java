@@ -6,6 +6,7 @@ import org.vaadin.aboutbox.AboutBox;
 import org.vaadin.hene.popupbutton.PopupButton;
 
 import com.mooneyserver.account.i18n.AccountsMessages;
+import com.mooneyserver.account.lookup.BackendServiceLookup;
 import com.mooneyserver.account.AccountsApplication;
 import com.mooneyserver.account.ui.iface.IAccountsView;
 import com.vaadin.terminal.ThemeResource;
@@ -110,4 +111,8 @@ public abstract class AbstractBaseView extends VerticalLayout implements
         genSettings.setCaption(STRINGS.getString(AccountsMessages.HEADER_SETTINGS));
         signOut.setCaption(STRINGS.getString(AccountsMessages.HEADER_SETTINGS_SIGNOUT));
 	}
+	
+	public void loadBackendServices() {
+        BackendServiceLookup.injectBackendServices(this);
+    }
 }
