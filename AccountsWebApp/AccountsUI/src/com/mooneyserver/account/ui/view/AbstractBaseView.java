@@ -1,11 +1,13 @@
 package com.mooneyserver.account.ui.view;
 
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 import org.vaadin.aboutbox.AboutBox;
 import org.vaadin.hene.popupbutton.PopupButton;
 
 import com.mooneyserver.account.i18n.AccountsMessages;
+import com.mooneyserver.account.logging.AccountsLoggingConstants;
 import com.mooneyserver.account.lookup.BackendServiceLookup;
 import com.mooneyserver.account.AccountsApplication;
 import com.mooneyserver.account.ui.iface.IAccountsView;
@@ -19,6 +21,8 @@ import com.vaadin.ui.themes.BaseTheme;
 @SuppressWarnings("serial")
 public abstract class AbstractBaseView extends VerticalLayout implements
 		IAccountsView {
+	
+	protected Logger log = Logger.getLogger(AccountsLoggingConstants.LOG_AREA_UI);
 	
 	protected ResourceBundle STRINGS = 
 			AccountsApplication.getResourceBundle();

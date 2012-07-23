@@ -1,5 +1,7 @@
 package com.mooneyserver.account.ui.view.user;
 
+import java.util.logging.Level;
+
 import com.mooneyserver.account.businesslogic.user.AccountsUserException;
 import com.mooneyserver.account.businesslogic.user.IUserService;
 import com.mooneyserver.account.i18n.AccountsMessages;
@@ -94,11 +96,13 @@ public class AccountsLoginView extends AbstractBaseView
 					event.getLoginParameter("username"), 
 					event.getLoginParameter("password"));
 		} catch (AccountsUserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.severe("Exception Thrown For UI when trying to login");
+			log.log(Level.SEVERE, "Exception:", e);
 		}
 		
-		System.out.println("User Login is: " + userLogin);
+		log.info("User Login Requested for ["
+				+event.getLoginParameter("username")+"]. Status ["
+				+userLogin+"]");
 	}
 
 	@Override
