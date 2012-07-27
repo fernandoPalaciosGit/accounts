@@ -1,4 +1,4 @@
-package com.mooneyserver.account.businesslogic.user;
+package com.mooneyserver.account.businesslogic.validate;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  * Help from:
  * 	http://www.mkyong.com/regular-expressions/how-to-validate-password-with-regular-expression/
  */
-final class PasswordValidator {
+public final class PasswordValidator {
 	
 	private Pattern pattern;
 	private Matcher matcher;
@@ -51,7 +51,7 @@ final class PasswordValidator {
 	 * 		Message outlining the required composition
 	 * 		of passwords to pass validation
 	 */
-	public String getPasswordRequirementMsg() {
+	public static String getPasswordRequirementMsg() {
 		return "Passwords must match the following " +
 			   "criteria to meet security requirements:\n" +
 				"\tMust contain one digit from 0-9\n" +
