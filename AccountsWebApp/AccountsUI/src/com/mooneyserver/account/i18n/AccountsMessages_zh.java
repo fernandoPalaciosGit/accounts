@@ -25,6 +25,9 @@ public class AccountsMessages_zh extends AccountsMessages {
 		{FIRST_NAME, "名字"},
 		{LAST_NAME, "姓"},
 		{CONFIRM_PASSWORD, "确认密码"},
+		{PASSWORD_REQUIREMENTS, ""},
+		{DUPLICATE_USERNAME, ""},
+		{INVALID_PASSWORD, ""},
 		
 		/* Language Settings sub window */
 		{SELECT_LANGUAGE, "选择您的语言"},
@@ -42,6 +45,11 @@ public class AccountsMessages_zh extends AccountsMessages {
 		{HEADER_SETTINGS_SIGNOUT, "注销"},
 		
 		/* Validation Localization */
-		{VALIDATE_EMAIL, "{0} 不是一个有效的电子邮件地址"}
+		{VALIDATE_EMAIL, "{0} 不是一个有效的电子邮件地址"},
+		
+		/* Messenger */
+		{MSGR_TITLE_INFO, "信息"},
+		{MSGR_TITLE_WARN, "警告"},
+		{MSGR_TITLE_ERROR, "错误"}
 	};
 }

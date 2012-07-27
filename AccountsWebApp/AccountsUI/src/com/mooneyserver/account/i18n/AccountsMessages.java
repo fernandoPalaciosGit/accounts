@@ -28,6 +28,9 @@ public class AccountsMessages extends ListResourceBundle implements Serializable
 	public static final String FIRST_NAME = "Accounts.LoginView.CreateUser.FirstName";
 	public static final String LAST_NAME = "Accounts.LoginView.CreateUser.LastName";
 	public static final String CONFIRM_PASSWORD = "Accounts.LoginView.CreateUser.ConfirmPassword";
+	public static final String PASSWORD_REQUIREMENTS = "Accounts.LoginView.CreateUser.PasswordRequirements";
+	public static final String DUPLICATE_USERNAME = "Accounts.LoginView.CreateUser.Error.DuplicateUser";
+	public static final String INVALID_PASSWORD = "Accounts.LoginView.CreateUser.Error.DuplicateUser";
 	
 	/*
 	 * Language Settings sub window
@@ -54,6 +57,14 @@ public class AccountsMessages extends ListResourceBundle implements Serializable
 	 * Validation Localization
 	 */
 	public static final String VALIDATE_EMAIL = "Validate.Email";
+	
+	/*
+	 * Messenger
+	 */
+	public static final String MSGR_TITLE_INFO = "Messenger.Title.Info";
+	public static final String MSGR_TITLE_WARN = "Messenger.Title.Warning";
+	public static final String MSGR_TITLE_ERROR = "Messenger.Title.Error";
+	
 	
 	@Override
 	protected Object[][] getContents() {

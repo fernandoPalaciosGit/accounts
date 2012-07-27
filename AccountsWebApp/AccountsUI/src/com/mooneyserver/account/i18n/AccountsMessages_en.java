@@ -25,7 +25,15 @@ public class AccountsMessages_en extends AccountsMessages {
 		{FIRST_NAME, "First Name"},
 		{LAST_NAME, "Last Name"},
 		{CONFIRM_PASSWORD, "Confirm Password"},
-		
+		{PASSWORD_REQUIREMENTS, "Your password must follow the below guidelines<br/><ul>"
+			+ "<li>Must contain at least one number from 0-9</li>"
+			+ "<li>Must contain one lower case letter</li>"
+			+ "<li>Must contain one upper case letter</li>"
+			+ "<li>Must contain one special character from [!#$%&-?<>@]</li>"
+			+ "<li>Must be between 8 and 20 characters in length</li></ul>"},
+		{DUPLICATE_USERNAME, "Please select a different email address"},
+		{INVALID_PASSWORD, "The selected password is not valid, please check the password info dialog"},
+			
 		/* Language Settings sub window */
 		{SELECT_LANGUAGE, "Select your language"},
 		{NEXT_LANGUAGE_UP, "Next Language (Up)"},
@@ -41,7 +49,12 @@ public class AccountsMessages_en extends AccountsMessages {
 		{HEADER_SETTINGS_SIGNOUT, "Sign Out"},
 		
 		/* Validation Localization */
-		{VALIDATE_EMAIL, "{0} is not a valid e-mail address"}
+		{VALIDATE_EMAIL, "{0} is not a valid e-mail address"},
+		
+		/* Messenger */
+		{MSGR_TITLE_INFO, "Information"},
+		{MSGR_TITLE_WARN, "Warning"},
+		{MSGR_TITLE_ERROR, "Error"}
 		
 	};
 }
