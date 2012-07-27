@@ -2,7 +2,7 @@ package com.mooneyserver.account.ui.view.user;
 
 import java.util.logging.Level;
 
-import com.mooneyserver.account.businesslogic.user.AccountsUserException;
+import com.mooneyserver.account.businesslogic.exception.user.AccountsUserException;
 import com.mooneyserver.account.businesslogic.user.IUserService;
 import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.AccountsApplication;
@@ -29,7 +29,7 @@ public class AccountsLoginView extends AbstractBaseView
 	implements LoginListener, ClickListener {
 	
 	@BusinessProcess
-	private IUserService userSvc;
+	public static IUserService userSvc;
 	
 	private Panel loginPanel;
 	private LoginForm loginForm;
@@ -96,8 +96,7 @@ public class AccountsLoginView extends AbstractBaseView
 					event.getLoginParameter("username"), 
 					event.getLoginParameter("password"));
 		} catch (AccountsUserException e) {
-			log.severe("Exception Thrown For UI when trying to login");
-			log.log(Level.SEVERE, "Exception:", e);
+			log.log(Level.SEVERE, "Exception Thrown For UI when trying to login", e);
 		}
 		
 		log.info("User Login Requested for ["

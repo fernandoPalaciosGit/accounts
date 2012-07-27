@@ -22,7 +22,7 @@ import com.vaadin.ui.themes.BaseTheme;
 public abstract class AbstractBaseView extends VerticalLayout implements
 		IAccountsView {
 	
-	protected Logger log = Logger.getLogger(AccountsLoggingConstants.LOG_AREA_UI);
+	public static Logger log = Logger.getLogger(AccountsLoggingConstants.LOG_AREA_UI);
 	
 	protected ResourceBundle STRINGS = 
 			AccountsApplication.getResourceBundle();
@@ -38,6 +38,8 @@ public abstract class AbstractBaseView extends VerticalLayout implements
 		setSizeFull();
 		
 		HorizontalLayout langBar = new HorizontalLayout();
+		
+		langBar.addComponent(AccountsApplication.getHelpBubble());
 		
 		about = new AboutBox();
 		

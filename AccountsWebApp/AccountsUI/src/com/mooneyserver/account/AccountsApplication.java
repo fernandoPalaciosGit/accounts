@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.vaadin.jonatan.contexthelp.ContextHelp;
+
 import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.ui.iface.IAccountsView;
 import com.mooneyserver.account.ui.manager.DisplayManager;
@@ -30,6 +32,8 @@ public final class AccountsApplication extends Application implements HttpServle
 	/* Internationalisation Resource Bundle for Strings */
 	private ResourceBundle i18nBundle;
 	
+	private ContextHelp helpBubble;
+	
 	Window mainWindow;
 	
 	public static final String APP_VERSION = "0.0.1";
@@ -37,6 +41,8 @@ public final class AccountsApplication extends Application implements HttpServle
 	/* Constructor */
 	public AccountsApplication() {
 		sessionInstance.set(this);
+		
+		helpBubble = new ContextHelp();
 	}	
 	
 	@Override
@@ -60,6 +66,10 @@ public final class AccountsApplication extends Application implements HttpServle
 	public static ResourceBundle getResourceBundle() {
 		return sessionInstance.get().i18nBundle;
 	}
+	
+	public static ContextHelp getHelpBubble() {
+        return sessionInstance.get().helpBubble;
+    }
 	
 	public static AccountsApplication getInstance() {
 		return sessionInstance.get();
