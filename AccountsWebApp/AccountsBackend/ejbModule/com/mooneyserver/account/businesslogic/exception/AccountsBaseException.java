@@ -1,4 +1,4 @@
-package com.mooneyserver.account.businesslogic;
+package com.mooneyserver.account.businesslogic.exception;
 
 import javax.ejb.ApplicationException;
 

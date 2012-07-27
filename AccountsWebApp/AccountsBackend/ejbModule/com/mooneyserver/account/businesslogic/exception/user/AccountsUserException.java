@@ -1,6 +1,6 @@
-package com.mooneyserver.account.businesslogic.user;
+package com.mooneyserver.account.businesslogic.exception.user;
 
-import com.mooneyserver.account.businesslogic.AccountsBaseException;
+import com.mooneyserver.account.businesslogic.exception.AccountsBaseException;
 
 public class AccountsUserException extends AccountsBaseException {
 
