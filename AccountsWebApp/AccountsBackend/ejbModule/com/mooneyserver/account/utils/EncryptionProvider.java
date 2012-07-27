@@ -7,7 +7,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-import com.mooneyserver.account.businesslogic.AccountsBaseException;
+import com.mooneyserver.account.businesslogic.exception.AccountsBaseException;
 
 /**
  * Security class for any

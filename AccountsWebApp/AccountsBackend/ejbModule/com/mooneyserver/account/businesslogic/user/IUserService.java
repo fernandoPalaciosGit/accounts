@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.ejb.Remote;
 
+import com.mooneyserver.account.businesslogic.exception.user.AccountsUserException;
 import com.mooneyserver.account.persistence.entity.AccountsUser;
 
 @Remote
@@ -29,6 +30,8 @@ public interface IUserService {
 	 * user and then persist it to the database
 	 * 
 	 * @throws AccountsUserException
+	 * 		AccountsUserAlreadyExistsException is thrown for an Invalid UserName
+	 * 		AccountsUserInvalidPasswordException is thrown for an Invalid Password
 	 * 
 	 * @param
 	 * 		<b>AccountsUser</b>

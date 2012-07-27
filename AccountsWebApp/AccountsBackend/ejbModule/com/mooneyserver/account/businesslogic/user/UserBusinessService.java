@@ -10,8 +10,12 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
-import com.mooneyserver.account.businesslogic.AccountsBaseException;
+import com.mooneyserver.account.businesslogic.exception.AccountsBaseException;
+import com.mooneyserver.account.businesslogic.exception.user.AccountsUserAlreadyExistsException;
+import com.mooneyserver.account.businesslogic.exception.user.AccountsUserException;
+import com.mooneyserver.account.businesslogic.exception.user.AccountsUserInvalidPasswordException;
 import com.mooneyserver.account.businesslogic.validate.ClassFieldValidator;
+import com.mooneyserver.account.businesslogic.validate.PasswordValidator;
 import com.mooneyserver.account.persistence.entity.AccountsUser;
 import com.mooneyserver.account.persistence.service.UserService;
 import com.mooneyserver.account.utils.EncryptionProvider;
@@ -39,15 +43,12 @@ public class UserBusinessService implements IUserService {
 		// Does the username already exist?
 		if (userService.findByUsername(user.getUsername()) 
 				!= null)
-			throw new AccountsUserException("Creation Failed: The Requested Username ["
-				+user.getUsername()+"] already exists");
+			throw new AccountsUserAlreadyExistsException(user.getUsername());
 		
 		// Is the password valid?
 		PasswordValidator pwv = new PasswordValidator();
 		if (!pwv.validate(user.getPassword()))
-			throw new AccountsUserException("Creation Failed: The Requested Password ["
-		+user.getPassword()+"] is not valid. " 
-					+ pwv.getPasswordRequirementMsg());
+			throw new AccountsUserInvalidPasswordException(user.getPassword());
 		
 		// Are all required fields present?
 		ClassFieldValidator cfv = new ClassFieldValidator(user, IUserService.requiredUserFields);
