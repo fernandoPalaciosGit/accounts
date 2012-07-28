@@ -10,6 +10,7 @@ import com.mooneyserver.account.persistence.entity.AccountsUser;
 import com.mooneyserver.account.AccountsApplication;
 import com.mooneyserver.account.ui.notification.Messenger;
 import com.mooneyserver.account.ui.notification.Messenger.MessageSeverity;
+import com.mooneyserver.account.ui.validate.ConfirmPasswordFieldValidator;
 import com.mooneyserver.account.ui.view.AbstractBaseView;
 import com.mooneyserver.account.ui.view.subwindow.BaseSubwindow;
 import com.mooneyserver.account.ui.view.user.AccountsLoginView;
@@ -69,6 +70,7 @@ public class CreateNewUserDialog extends BaseSubwindow implements ClickListener 
 		PasswordField pwd2 = new PasswordField(AccountsApplication.getResourceBundle().
 				getString(AccountsMessages.CONFIRM_PASSWORD));
 		pwd2.setRequired(true);
+		pwd2.addValidator(new ConfirmPasswordFieldValidator(pwd1));
 		
 		createNewUserFrm.addField(FRM_FIRST_NAME, firstName);
 		createNewUserFrm.addField(FRM_LAST_NAME, lastName);
@@ -122,6 +124,9 @@ public class CreateNewUserDialog extends BaseSubwindow implements ClickListener 
 				Messenger.genericMessage(MessageSeverity.WARNING, AccountsApplication
 						.getResourceBundle().getString(AccountsMessages.INVALID_PASSWORD));
 			}
+		} catch (Exception e) {
+			Messenger.genericMessage(MessageSeverity.ERROR, "Internal Error has occured."
+					+ " Admins have been notified");
 		}
 	}
 }

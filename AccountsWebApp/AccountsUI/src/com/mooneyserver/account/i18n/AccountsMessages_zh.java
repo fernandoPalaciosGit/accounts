@@ -46,6 +46,7 @@ public class AccountsMessages_zh extends AccountsMessages {
 		
 		/* Validation Localization */
 		{VALIDATE_EMAIL, "{0} 不是一个有效的电子邮件地址"},
+		{VALIDATE_CONFIRM_PASSWORD, ""},
 		
 		/* Messenger */
 		{MSGR_TITLE_INFO, "信息"},

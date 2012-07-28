@@ -57,6 +57,7 @@ public class AccountsMessages extends ListResourceBundle implements Serializable
 	 * Validation Localization
 	 */
 	public static final String VALIDATE_EMAIL = "Validate.Email";
+	public static final String VALIDATE_CONFIRM_PASSWORD = "Validate.ConfirmPassword";
 	
 	/*
 	 * Messenger

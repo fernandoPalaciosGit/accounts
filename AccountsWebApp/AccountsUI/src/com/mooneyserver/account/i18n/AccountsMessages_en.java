@@ -50,6 +50,7 @@ public class AccountsMessages_en extends AccountsMessages {
 		
 		/* Validation Localization */
 		{VALIDATE_EMAIL, "{0} is not a valid e-mail address"},
+		{VALIDATE_CONFIRM_PASSWORD, "The two passwords do not match"},
 		
 		/* Messenger */
 		{MSGR_TITLE_INFO, "Information"},

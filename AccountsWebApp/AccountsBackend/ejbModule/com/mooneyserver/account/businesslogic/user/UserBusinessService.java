@@ -3,7 +3,6 @@ package com.mooneyserver.account.businesslogic.user;
 import java.io.IOException;
 
 import javax.annotation.Resource;
-import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
@@ -26,7 +25,6 @@ import com.mooneyserver.account.utils.StringUtils;
  */
 @Stateless
 @EJB(name = "UserBusinessService", beanInterface = IUserService.class)
-//@RolesAllowed({ "Accounts_Admin" })
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class UserBusinessService implements IUserService {
 
@@ -68,7 +66,11 @@ public class UserBusinessService implements IUserService {
 						(user.getPassword(), salt)));
 		
 		// Create the user
-		userService.create(user);
+		try {
+			userService.create(user);
+		} catch (Exception e) {
+			throw new AccountsUserException("Rethrowing wrapped base exception", e);
+		}
 	}
 
 	
@@ -113,7 +115,6 @@ public class UserBusinessService implements IUserService {
 
 	
 	@Override
-	@RolesAllowed({"Accounts_User"})
 	public void changePassword(ChangePasswordRequest changePwd)
 			throws AccountsUserException {
 		// Check if requested user details are valid
