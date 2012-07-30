@@ -31,8 +31,10 @@ public class AccountsMessages_en extends AccountsMessages {
 			+ "<li>Must contain one upper case letter</li>"
 			+ "<li>Must contain one special character from [!#$%&-?<>@]</li>"
 			+ "<li>Must be between 8 and 20 characters in length</li></ul>"},
-		{DUPLICATE_USERNAME, "Please select a different email address"},
-		{INVALID_PASSWORD, "The selected password is not valid, please check the password info dialog"},
+		{DUPLICATE_USERNAME, "The requested username is already in use,"
+			+ " please provide a different email address"},
+		{INVALID_PASSWORD, "The entered password is not valid," 
+			+ " please check the password info dialog"},
 			
 		/* Language Settings sub window */
 		{SELECT_LANGUAGE, "Select your language"},
