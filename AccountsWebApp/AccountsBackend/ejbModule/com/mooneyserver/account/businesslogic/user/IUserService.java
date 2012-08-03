@@ -93,7 +93,7 @@ public interface IUserService {
 	 * 
 	 * @param
 	 * 		<b>String</b>
-	 * 		The email address of the user
+	 * 		The username (unique identifier) of the user
 	 * 
 	 * @param
 	 * 		<b>String</b>
@@ -103,5 +103,5 @@ public interface IUserService {
 	 * 		<b>boolean</b>
 	 * 		True if the users password is correct
 	 */
-	public boolean validateUserPassword(String emailAddress, String password) throws AccountsUserException;
+	public boolean validateUserPassword(String username, String password) throws AccountsUserException;
 }

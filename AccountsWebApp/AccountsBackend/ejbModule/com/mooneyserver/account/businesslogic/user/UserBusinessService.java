@@ -13,6 +13,7 @@ import com.mooneyserver.account.businesslogic.exception.AccountsBaseException;
 import com.mooneyserver.account.businesslogic.exception.user.AccountsUserAlreadyExistsException;
 import com.mooneyserver.account.businesslogic.exception.user.AccountsUserException;
 import com.mooneyserver.account.businesslogic.exception.user.AccountsUserInvalidPasswordException;
+import com.mooneyserver.account.businesslogic.exception.user.AccountsUserNotActiveException;
 import com.mooneyserver.account.businesslogic.validate.ClassFieldValidator;
 import com.mooneyserver.account.businesslogic.validate.PasswordValidator;
 import com.mooneyserver.account.persistence.entity.AccountsUser;
@@ -162,6 +163,9 @@ public class UserBusinessService implements IUserService {
 		} catch (IOException e) {
 			throw new AccountsUserException("Password Check Failed, converting password to hash", e);
 		}
+		
+		if (!user.getActive())
+			throw new AccountsUserNotActiveException(user.getUsername());
 		
 		if (password.equals(user.getPassword())) {
 			return true;
