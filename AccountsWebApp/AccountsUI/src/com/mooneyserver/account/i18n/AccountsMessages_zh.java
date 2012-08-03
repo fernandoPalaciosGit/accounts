@@ -25,9 +25,14 @@ public class AccountsMessages_zh extends AccountsMessages {
 		{FIRST_NAME, "名字"},
 		{LAST_NAME, "姓"},
 		{CONFIRM_PASSWORD, "确认密码"},
-		{PASSWORD_REQUIREMENTS, ""},
-		{DUPLICATE_USERNAME, ""},
-		{INVALID_PASSWORD, ""},
+		{PASSWORD_REQUIREMENTS, "您的密码必须具备以下所有的条件<br/><ul>"
+			+ "<li>必须包含至少一位数字0-9</li>"
+			+ "<li>必须包含至少一位小写英文字母</li>"
+			+ "<li>必须包含至少一位大写英文字母</li>"
+			+ "<li>必须包含至少一位特殊符号例如[!#$%&-?<>@]</li>"
+			+ "<li>必须长度在8位-20位字符之间</li></ul>"},
+		{DUPLICATE_USERNAME, "用户名已经存在，请输入一个不同的邮箱地址"},
+		{INVALID_PASSWORD, "输入的密码不正确，请按照密码必备条件重新输入"},
 		
 		/* Language Settings sub window */
 		{SELECT_LANGUAGE, "选择您的语言"},
@@ -46,7 +51,7 @@ public class AccountsMessages_zh extends AccountsMessages {
 		
 		/* Validation Localization */
 		{VALIDATE_EMAIL, "{0} 不是一个有效的电子邮件地址"},
-		{VALIDATE_CONFIRM_PASSWORD, ""},
+		{VALIDATE_CONFIRM_PASSWORD, "输入的两个密码不吻合"},
 		
 		/* Messenger */
 		{MSGR_TITLE_INFO, "信息"},
