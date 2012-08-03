@@ -5,7 +5,9 @@ import java.util.logging.Level;
 import com.mooneyserver.account.businesslogic.exception.user.AccountsUserAlreadyExistsException;
 import com.mooneyserver.account.businesslogic.exception.user.AccountsUserException;
 import com.mooneyserver.account.businesslogic.exception.user.AccountsUserInvalidPasswordException;
+import com.mooneyserver.account.businesslogic.user.IUserService;
 import com.mooneyserver.account.i18n.AccountsMessages;
+import com.mooneyserver.account.lookup.BusinessProcess;
 import com.mooneyserver.account.persistence.entity.AccountsUser;
 import com.mooneyserver.account.AccountsApplication;
 import com.mooneyserver.account.ui.notification.Messenger;
@@ -14,7 +16,6 @@ import com.mooneyserver.account.ui.validate.ConfirmPasswordFieldValidator;
 import com.mooneyserver.account.ui.view.AbstractBaseView;
 import com.mooneyserver.account.ui.view.IconManager;
 import com.mooneyserver.account.ui.view.subwindow.BaseSubwindow;
-import com.mooneyserver.account.ui.view.user.AccountsLoginView;
 import com.mooneyserver.account.ui.widget.FieldWithHelp;
 
 import com.vaadin.data.Validator.InvalidValueException;
@@ -29,6 +30,9 @@ import com.vaadin.ui.TextField;
 public class CreateNewUserDialog extends BaseSubwindow implements ClickListener {
 	
 	private static final long serialVersionUID = 1L;
+	
+	@BusinessProcess
+	private static IUserService userSvc;
 	
 	private final Form createNewUserFrm;
 	
@@ -105,11 +109,7 @@ public class CreateNewUserDialog extends BaseSubwindow implements ClickListener 
 				user.setPassword((String) createNewUserFrm
 						.getField(FRM_PASSWORD).getValue());
 				
-				AccountsLoginView.userSvc.createNewUser(user); 
-				// TODO: Don't like this. Don't want to reference
-				// the user service from AccountsLoginView. That
-				// should be private. Need to re-write the way the
-				// BusinessProcess injector is called
+				userSvc.createNewUser(user); 
 				
 				close();
 			}

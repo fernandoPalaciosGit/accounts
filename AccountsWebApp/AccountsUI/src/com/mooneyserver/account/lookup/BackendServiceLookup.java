@@ -13,7 +13,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import com.mooneyserver.account.logging.AccountsLoggingConstants;
-import com.mooneyserver.account.ui.view.AbstractBaseView;
+import com.mooneyserver.account.ui.iface.IContainsCustomAnnotations;
 
 /**
  * Static class for performing JNDI
@@ -81,7 +81,7 @@ public class BackendServiceLookup {
      * @param view
      * 		<b>AbstractBaseView</b> The view to be loaded by the DisplayManager
      */
-    public static void injectBackendServices(AbstractBaseView view) {
+    public static void injectBackendServices(IContainsCustomAnnotations view) {
         for (Field field : view.getClass().getDeclaredFields()) {
             Annotation annotation = field.getAnnotation(BusinessProcess.class);
            

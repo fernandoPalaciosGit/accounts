@@ -33,7 +33,7 @@ public class AccountsLoginView extends AbstractBaseView
 	private static final long serialVersionUID = 1L;
 
 	@BusinessProcess
-	public static IUserService userSvc;
+	private static IUserService userSvc;
 	
 	private Panel loginPanel;
 	private LoginForm loginForm;
