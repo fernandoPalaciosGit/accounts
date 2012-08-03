@@ -11,7 +11,6 @@ import com.mooneyserver.account.logging.AccountsLoggingConstants;
 import com.mooneyserver.account.lookup.BackendServiceLookup;
 import com.mooneyserver.account.AccountsApplication;
 import com.mooneyserver.account.ui.iface.IAccountsView;
-import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
@@ -63,7 +62,7 @@ public abstract class AbstractBaseView extends VerticalLayout implements
         settingsDropdown = new PopupButton("");
         settingsDropdown.setStyleName(BaseTheme.BUTTON_LINK);
         settingsDropdown.setDescription(STRINGS.getString(AccountsMessages.HEADER_SETTINGS));
-        settingsDropdown.setIcon(new ThemeResource("img/header-toolbar-settings.png"));
+        settingsDropdown.setIcon(IconManager.getIcon(IconManager.SETTINGS_LARGE));
 
         VerticalLayout popupLayout = new VerticalLayout();
         popupLayout.setSizeUndefined();
@@ -72,21 +71,21 @@ public abstract class AbstractBaseView extends VerticalLayout implements
 
         langChange = new Button(STRINGS.getString(AccountsMessages.HEADER_SETTINGS_LANG));
         langChange.setStyleName(BaseTheme.BUTTON_LINK);
-        langChange.setIcon(new ThemeResource("img/header-toolbar-change-locale.png"));
+        langChange.setIcon(IconManager.getIcon(IconManager.SETTINGS_CHANGE_LANG));
         langChange.addListener(btnListener);
         langChange.setData(BaseWindowClickListener.LANG);
         popupLayout.addComponent(langChange);
         
         genSettings = new Button(STRINGS.getString(AccountsMessages.HEADER_SETTINGS));
         genSettings.setStyleName(BaseTheme.BUTTON_LINK);
-        genSettings.setIcon(new ThemeResource("img/header-toolbar-settings-small.png"));
+        genSettings.setIcon(IconManager.getIcon(IconManager.SETTINGS_SMALL));
         genSettings.addListener(btnListener);
         genSettings.setData(BaseWindowClickListener.GEN_SETTINGS);
         popupLayout.addComponent(genSettings);
         
         signOut = new Button(STRINGS.getString(AccountsMessages.HEADER_SETTINGS_SIGNOUT));
         signOut.setStyleName(BaseTheme.BUTTON_LINK);
-        signOut.setIcon(new ThemeResource("img/header-toolbar-logout.png"));
+        signOut.setIcon(IconManager.getIcon(IconManager.SETTINGS_LOGOUT));
         signOut.addListener(btnListener);
         signOut.setData(BaseWindowClickListener.SIGNOUT);
         if (AccountsApplication.getInstance().getUser() == null) {

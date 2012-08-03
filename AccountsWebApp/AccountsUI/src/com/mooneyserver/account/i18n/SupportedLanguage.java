@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Locale;
 
+import com.mooneyserver.account.ui.view.IconManager;
 import com.vaadin.terminal.ThemeResource;
 
 public class SupportedLanguage {
@@ -12,8 +13,10 @@ public class SupportedLanguage {
 	public static final Map<String, SupportedLanguage> SUPPORTED_LANGS 
 		= new HashMap<String, SupportedLanguage>() {
 			{
-				put("English", new SupportedLanguage(Locale.ENGLISH, "img/irish_flag.png")); 
-				put("中文", new SupportedLanguage(Locale.CHINESE, "img/china_flag.png")); // Trad Chinese
+				put("English", new SupportedLanguage(Locale.ENGLISH, 
+						IconManager.getIcon(IconManager.IRISH_FLAG_SMALL))); 
+				put("中文", new SupportedLanguage(Locale.CHINESE, 
+						IconManager.getIcon(IconManager.CHINA_FLAG_SMALL))); // Trad Chinese
 			}
 	};
 	

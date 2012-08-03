@@ -12,13 +12,13 @@ import com.mooneyserver.account.ui.notification.Messenger;
 import com.mooneyserver.account.ui.notification.Messenger.MessageSeverity;
 import com.mooneyserver.account.ui.validate.ConfirmPasswordFieldValidator;
 import com.mooneyserver.account.ui.view.AbstractBaseView;
+import com.mooneyserver.account.ui.view.IconManager;
 import com.mooneyserver.account.ui.view.subwindow.BaseSubwindow;
 import com.mooneyserver.account.ui.view.user.AccountsLoginView;
 import com.mooneyserver.account.ui.widget.FieldWithHelp;
 
 import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.data.validator.EmailValidator;
-import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -86,7 +86,7 @@ public class CreateNewUserDialog extends BaseSubwindow implements ClickListener 
 		
 		addComponent(create);
 		
-		setIcon(new ThemeResource("img/user_add_large_.png"));
+		setIcon(IconManager.getIcon(IconManager.CREATE_USER_LARGE));
 	}
 
 	@Override
@@ -100,7 +100,8 @@ public class CreateNewUserDialog extends BaseSubwindow implements ClickListener 
 						.getField(FRM_FIRST_NAME).getValue());
 				user.setLastname((String) createNewUserFrm
 						.getField(FRM_LAST_NAME).getValue());
-				user.setUsername(FRM_EMAIL);
+				user.setUsername((String) createNewUserFrm
+						.getField(FRM_EMAIL).getValue());
 				user.setPassword((String) createNewUserFrm
 						.getField(FRM_PASSWORD).getValue());
 				

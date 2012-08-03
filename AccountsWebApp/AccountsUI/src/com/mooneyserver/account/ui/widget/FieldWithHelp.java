@@ -5,6 +5,7 @@ import org.vaadin.addon.customfield.FieldWrapper;
 import org.vaadin.jonatan.contexthelp.ContextHelp;
 
 import com.mooneyserver.account.AccountsApplication;
+import com.mooneyserver.account.ui.view.IconManager;
 import com.vaadin.terminal.ErrorMessage;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.AbstractField;
@@ -17,7 +18,7 @@ import com.vaadin.ui.themes.BaseTheme;
 @SuppressWarnings({ "serial" })
 public class FieldWithHelp<T> extends FieldWrapper<T> {
 
-    ThemeResource helpIcon = new ThemeResource("img/info-icon.png");
+    ThemeResource helpIcon = IconManager.getIcon(IconManager.INFO);
 
     public FieldWithHelp(final Field wrappedField, Class<T> propertyType, String help) {
         super(wrappedField, null, propertyType, new HorizontalLayout());

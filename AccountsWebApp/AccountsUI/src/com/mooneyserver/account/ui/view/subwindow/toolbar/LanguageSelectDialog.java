@@ -3,9 +3,9 @@ package com.mooneyserver.account.ui.view.subwindow.toolbar;
 import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.i18n.SupportedLanguage;
 import com.mooneyserver.account.AccountsApplication;
+import com.mooneyserver.account.ui.view.IconManager;
 import com.mooneyserver.account.ui.view.subwindow.BaseSubwindow;
 import com.mooneyserver.account.ui.widget.SpinnerList;
-import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.VerticalLayout;
@@ -34,7 +34,7 @@ public class LanguageSelectDialog extends BaseSubwindow implements ClickListener
 		
 		vl.addComponent(langList);
 		
-		setIcon(new ThemeResource("img/change_locale_large.png"));
+		setIcon(IconManager.getIcon(IconManager.SETTINGS_CHANGE_LANG_LARGE));
 	}
 
 	@Override

@@ -2,7 +2,7 @@ package com.mooneyserver.account.ui.view.user;
 
 import java.util.logging.Level;
 
-import com.mooneyserver.account.businesslogic.exception.user.AccountsUserException;
+import com.mooneyserver.account.businesslogic.exception.user.AccountsUserNotActiveException;
 import com.mooneyserver.account.businesslogic.user.IUserService;
 import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.AccountsApplication;
@@ -10,10 +10,10 @@ import com.mooneyserver.account.lookup.BusinessProcess;
 import com.mooneyserver.account.ui.notification.Messenger;
 import com.mooneyserver.account.ui.notification.Messenger.MessageSeverity;
 import com.mooneyserver.account.ui.view.AbstractBaseView;
+import com.mooneyserver.account.ui.view.IconManager;
 import com.mooneyserver.account.ui.view.subwindow.user.CreateNewUserDialog;
 import com.mooneyserver.account.ui.view.subwindow.user.ResetPasswordDialog;
 
-import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -26,10 +26,12 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.BaseTheme;
 
-@SuppressWarnings("serial")
+
 public class AccountsLoginView extends AbstractBaseView 
 	implements LoginListener, ClickListener {
 	
+	private static final long serialVersionUID = 1L;
+
 	@BusinessProcess
 	public static IUserService userSvc;
 	
@@ -60,7 +62,7 @@ public class AccountsLoginView extends AbstractBaseView
 		hl1.setSizeFull();
 		forgotPwd = new Button();
 		forgotPwd.setStyleName(BaseTheme.BUTTON_LINK);
-		forgotPwd.setIcon(new ThemeResource("img/forgot_password.png"));
+		forgotPwd.setIcon(IconManager.getIcon(IconManager.FORGOT_PASSWORD));
 		forgotPwd.setData(RESET_PWD);
 		forgotPwd.addListener(this);
 		hl1.addComponent(forgotPwd);
@@ -71,7 +73,7 @@ public class AccountsLoginView extends AbstractBaseView
 		hl2.setSizeFull();
 		regNewUser = new Button();
 		regNewUser.setStyleName(BaseTheme.BUTTON_LINK);
-		regNewUser.setIcon(new ThemeResource("img/new_user.png"));
+		regNewUser.setIcon(IconManager.getIcon(IconManager.CREATE_USER));
 		regNewUser.setData(NEW_USER);
 		regNewUser.addListener(this);
 		hl2.addComponent(regNewUser);
@@ -92,15 +94,22 @@ public class AccountsLoginView extends AbstractBaseView
 	
 	@Override
 	public void onLogin(LoginEvent event) {
-		boolean userLogin = true;
+		boolean userLogin = false;
 		try {
 			userLogin = userSvc.validateUserPassword(
 					event.getLoginParameter("username"), 
 					event.getLoginParameter("password"));
-		} catch (AccountsUserException e) {
+		} catch (AccountsUserNotActiveException e) {
+			log.log(Level.INFO, "Inactive User ["+event.getLoginParameter("username")
+					+"] attempting to login", e);
+			Messenger.genericMessage(MessageSeverity.WARNING, 
+					"Your User is not active");
+			return;
+		} catch(Exception e) {
 			log.log(Level.SEVERE, "Exception Thrown For UI when trying to login", e);
 			Messenger.genericMessage(MessageSeverity.ERROR, 
 					"An error has occurred with the login.");
+			return;
 		}
 		
 		log.info("User Login Requested for ["
