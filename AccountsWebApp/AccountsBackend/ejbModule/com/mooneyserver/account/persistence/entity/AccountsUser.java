@@ -12,7 +12,7 @@ import java.util.Set;
 @Entity
 @Table(name="accounts_user")
 @NamedQueries({
-	@NamedQuery(name = "accounts.schema.AccountsUser.findAllActiveUsers", query = "SELECT u FROM AccountsUser u where u.userIsActive <> 0"),
+	//@NamedQuery(name = "accounts.schema.AccountsUser.findAllActiveUsers", query = "SELECT u FROM AccountsUser u where u.userIsActive <> 0"),
 	@NamedQuery(name = "accounts.schema.AccountsUser.findByUsername", query = "SELECT u FROM AccountsUser u where u.username = :username"),
 	@NamedQuery(name = "accounts.schema.AccountsUser.findById", query = "SELECT u FROM AccountsUser u where u.id = :uid")
 })
@@ -24,8 +24,8 @@ public class AccountsUser implements Serializable {
 	@Column(name="idaccounts_user")
 	private int id;
 	
-	@Column(name="USER_IS_ACTIVE")
-	private byte userIsActive;
+	@Column(name="user_is_active")
+	private boolean userIsActive;
 
 	private String firstname;
 
@@ -58,11 +58,11 @@ public class AccountsUser implements Serializable {
 	}
 
 	public boolean getActive() {
-		return userIsActive != (byte) 0;
+		return userIsActive;// != (byte) 0;
 	}
 	
 	public void setActive(boolean isActive) {
-		userIsActive = isActive ? (byte) 1 : (byte) 0;
+		userIsActive = isActive;// ? (byte) 1 : (byte) 0;
 	}
 	
 	public String getFirstname() {
