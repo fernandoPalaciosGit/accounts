@@ -7,10 +7,12 @@ import com.mooneyserver.account.businesslogic.user.IUserService;
 import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.AccountsApplication;
 import com.mooneyserver.account.lookup.BusinessProcess;
+import com.mooneyserver.account.ui.manager.DisplayManager;
 import com.mooneyserver.account.ui.notification.Messenger;
 import com.mooneyserver.account.ui.notification.Messenger.MessageSeverity;
 import com.mooneyserver.account.ui.view.AbstractBaseView;
 import com.mooneyserver.account.ui.view.IconManager;
+import com.mooneyserver.account.ui.view.dashboard.Dashboard;
 import com.mooneyserver.account.ui.view.subwindow.user.CreateNewUserDialog;
 import com.mooneyserver.account.ui.view.subwindow.user.ResetPasswordDialog;
 
@@ -117,7 +119,9 @@ public class AccountsLoginView extends AbstractBaseView
 				+userLogin+"]");
 		
 		if (userLogin) {
-			// Load new Windows
+			AccountsApplication.getInstance().setUser(null); // TODO: Maybe validate user password should return the user?
+			DisplayManager.getDisplayManager()
+				.loadNewView(new Dashboard());
 		} else {
 			Messenger.genericMessage(MessageSeverity.WARNING, 
 					"Incorrect Username or Password");

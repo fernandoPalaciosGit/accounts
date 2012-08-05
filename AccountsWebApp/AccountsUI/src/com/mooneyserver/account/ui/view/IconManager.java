@@ -31,6 +31,11 @@ public class IconManager {
 	
 	public static final int FEATURE_MISSING = getId();
 	
+	public static final int DASHBOARD_ACCOUNTS = getId();
+	public static final int DASHBOARD_REPORTS = getId();
+	public static final int DASHBOARD_GRAPHS = getId();
+	public static final int DASHBOARD_SETTINGS = getId();
+	
 	private static final Map<Integer, String> iconLocation;
 	
 	// Future proofing for possibly selectable icon sets
@@ -56,6 +61,10 @@ public class IconManager {
 		iconLocation.put(FORGOT_PASSWORD_LARGE, "large/forgot_password_large.png");
 		iconLocation.put(CREATE_USER_LARGE, "large/user_add_large_.png");
 		iconLocation.put(SETTINGS_CHANGE_LANG_LARGE, "large/change_locale_large.png");
+		iconLocation.put(DASHBOARD_ACCOUNTS, "large/dashboard-accounts.png");
+		iconLocation.put(DASHBOARD_REPORTS, "large/dashboard-reports.png");
+		iconLocation.put(DASHBOARD_GRAPHS, "large/dashboard-graphs.png");
+		iconLocation.put(DASHBOARD_SETTINGS, "large/dashboard-settings.png");
 		
 	}
 
