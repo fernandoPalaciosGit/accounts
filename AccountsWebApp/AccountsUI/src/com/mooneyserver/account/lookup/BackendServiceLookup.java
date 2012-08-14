@@ -8,7 +8,6 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -37,16 +36,10 @@ public class BackendServiceLookup {
     static Map<String, Object> cacheBackendServices;
    
     static {
-        props.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.enterprise.naming.SerialInitContextFactory");
-        props.setProperty("org.omg.CORBA.ORBInitialHost", "localhost");
-       
-        props.setProperty("org.omg.CORBA.ORBInitialPort", "3700"); // 3700 is the Glassfish default
-       
         try {
-            ctx = new InitialContext(props);
+        	ctx = new InitialContext();
         } catch (NamingException e) {
-            log.severe("JNDI Lookup error");
-            log.log(Level.SEVERE, "Exception:", e);
+            log.log(Level.SEVERE, "JNDI Lookup error", e);
         }
        
         cacheBackendServices = new HashMap<>();
@@ -96,8 +89,7 @@ public class BackendServiceLookup {
                 try {
                     field.set(view, getService(field.getType().getCanonicalName()));
                 } catch (IllegalArgumentException | IllegalAccessException | NamingException e) {
-                	log.severe("Reflective Field Access Error");
-                    log.log(Level.SEVERE, "Exception:", e);
+                    log.log(Level.SEVERE, "Reflective Field Access Error", e);
                 } finally {
                     if (fieldStateChange) {
                         field.setAccessible(false);
