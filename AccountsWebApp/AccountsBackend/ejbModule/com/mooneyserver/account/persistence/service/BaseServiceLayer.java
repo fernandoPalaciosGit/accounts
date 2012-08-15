@@ -13,7 +13,7 @@ import javax.persistence.Query;
 @Stateless
 @LocalBean
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
-abstract class BaseServiceLayer {
+public class BaseServiceLayer {
 	
 	@PersistenceContext(unitName="AccountsPersistenceLayer")
     protected EntityManager em;
