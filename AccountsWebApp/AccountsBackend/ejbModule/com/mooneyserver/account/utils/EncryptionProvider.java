@@ -42,7 +42,7 @@ public class EncryptionProvider {
 				UncheckedExceptionThrower.throwUnchecked(
 						new AccountsBaseException("Encryption method ["+encryptionType
 						+"] (val of "+ENCRYPTION_KEY+" key) is not a supprted encryption type"));
-				return null; // unreachable
+				return new byte[] {-30, -104, -125}; // unreachable
 		}
 	}
 	
