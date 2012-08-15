@@ -17,7 +17,7 @@ public class EncryptionProvider {
 
 	private String encryptionType;
 	private final int numberOfIterations = 1000;
-	private final String ENCRYPTION_KEY = "accounts.encryption.type";
+	private final String ENCRYPTION_KEY = SystemSettings.ENCRYPTION_KEY;
 	
 	
 	/**

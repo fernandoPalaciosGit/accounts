@@ -4,6 +4,11 @@ import java.util.Properties;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import org.jboss.logging.Logger;
+import org.jboss.logging.Logger.Level;
+
+import com.mooneyserver.account.logging.AccountsLoggingConstants;
+
 /**
  * System Settings singleton
  * Access point for settings in any 
@@ -17,10 +22,18 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * properties
  */
 public enum SystemSettings {
+	
 	SETTINGS;
+	
+	private static Logger log = Logger.getLogger(AccountsLoggingConstants.LOG_AREA_SETTINGS);
 	
 	private Properties props = new Properties();
 	private final ReadWriteLock lock = new ReentrantReadWriteLock();
+	
+	// Store all DB app_setting keys in one place for refactoring 
+	// (Probably move this to its own constants class)
+	public static final String ENCRYPTION_KEY = "accounts.encryption.type";
+	
 	
 	/**
 	 * Update the SystemSettings stored 
@@ -55,7 +68,11 @@ public enum SystemSettings {
 	public String getProp(String key) {
 		lock.readLock().lock();
 		try {
-			return props.getProperty(key);
+			String val = props.getProperty(key);
+			if (val == null)
+				log.log(Level.INFO, "No Setting found for Key ["+key+"]");
+				
+			return val;
 		} finally {
 			lock.readLock().unlock();
 		}
