@@ -1,6 +1,6 @@
 package com.mooneyserver.account.utils;
 
-import static com.mooneyserver.account.utils.SystemSettings.SETTINGS;
+import static com.mooneyserver.account.utils.settings.SystemSettings.SETTINGS;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -8,6 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 import com.mooneyserver.account.businesslogic.exception.AccountsBaseException;
+import com.mooneyserver.account.utils.settings.SettingsKeys;
 
 /**
  * Security class for any
@@ -17,7 +18,7 @@ public class EncryptionProvider {
 
 	private String encryptionType;
 	private final int numberOfIterations = 1000;
-	private final String ENCRYPTION_KEY = SystemSettings.ENCRYPTION_KEY;
+	private final String ENCRYPTION_KEY = SettingsKeys.ENCRYPTION_KEY;
 	
 	
 	/**

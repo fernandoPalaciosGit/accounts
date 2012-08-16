@@ -11,7 +11,7 @@ import javax.ejb.Startup;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
-import static com.mooneyserver.account.utils.SystemSettings.SETTINGS;
+import static com.mooneyserver.account.utils.settings.SystemSettings.SETTINGS;
 
 /**
  * Session Bean for Application Settings

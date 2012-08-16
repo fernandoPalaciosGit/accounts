@@ -1,11 +1,10 @@
-package com.mooneyserver.account.utils;
+package com.mooneyserver.account.utils.settings;
 
 import java.util.Properties;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-
-import org.jboss.logging.Logger;
-import org.jboss.logging.Logger.Level;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.mooneyserver.account.logging.AccountsLoggingConstants;
 
@@ -29,10 +28,6 @@ public enum SystemSettings {
 	
 	private Properties props = new Properties();
 	private final ReadWriteLock lock = new ReentrantReadWriteLock();
-	
-	// Store all DB app_setting keys in one place for refactoring 
-	// (Probably move this to its own constants class)
-	public static final String ENCRYPTION_KEY = "accounts.encryption.type";
 	
 	
 	/**
