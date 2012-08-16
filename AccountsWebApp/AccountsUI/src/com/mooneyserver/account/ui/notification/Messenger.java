@@ -1,5 +1,7 @@
 package com.mooneyserver.account.ui.notification;
 
+import java.util.ResourceBundle;
+
 import com.mooneyserver.account.AccountsApplication;
 import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.ui.view.IconManager;
@@ -11,54 +13,55 @@ public class Messenger {
 	public enum MessageSeverity {
 		INFO,
 		WARNING,
-		ERROR;
+		ERROR,
+		NOT_IMPLEMENTED;
 	}
 	
+	private static ResourceBundle STRINGS = AccountsApplication.getResourceBundle();
+	
 	public static void notYetImplemented() {
-		Notification n = new Notification(
-	            "","",Notification.TYPE_HUMANIZED_MESSAGE);
-		
-		// TODO; Localize
-		n.setCaption("Apologies");
-    	n.setDescription("<br/>This feature hasn't been implemented yet");
-    	n.setIcon(IconManager.getIcon(IconManager.FEATURE_MISSING));
-    	n.setPosition(Notification.POSITION_CENTERED);
-        n.setDelayMsec(-1); // No Timeout - ie. click to close
-        
-        AccountsApplication.getInstance()
-        	.getMainWindow().showNotification(n);
+		genericMessage(MessageSeverity.NOT_IMPLEMENTED, 
+        		STRINGS.getString(AccountsMessages.MSGR_BODY_NO_FEATURE));
 	}
 	
 	public static void genericMessage(MessageSeverity sev, String msg) {
-		Notification n = new Notification(
-	            "","",Notification.TYPE_HUMANIZED_MESSAGE);
+		
 		
 		String caption = "";
 		ThemeResource icon = null;
 		switch(sev) {
 			case INFO:
-				caption = AccountsApplication.getResourceBundle()
-					.getString(AccountsMessages.MSGR_TITLE_INFO);
+				caption = STRINGS.getString(AccountsMessages.MSGR_TITLE_INFO);
 				icon = IconManager.getIcon(IconManager.NOTIFICATION_INFO);
 				break;
 			case WARNING:
-				caption = AccountsApplication.getResourceBundle()
-					.getString(AccountsMessages.MSGR_TITLE_WARN);
+				caption = STRINGS.getString(AccountsMessages.MSGR_TITLE_WARN);
 				icon = IconManager.getIcon(IconManager.NOTIFICATION_WARN);
 				break;
 			case ERROR:
-				caption = AccountsApplication.getResourceBundle()
-					.getString(AccountsMessages.MSGR_TITLE_ERROR);
+				caption = STRINGS.getString(AccountsMessages.MSGR_TITLE_ERROR);
 				icon = IconManager.getIcon(IconManager.NOTIFICATION_ERR);
 				break;
+			case NOT_IMPLEMENTED:
+				caption = STRINGS.getString(AccountsMessages.MSGR_APOLOGIES);
+				icon = IconManager.getIcon(IconManager.FEATURE_MISSING);
+				break;
 		}
-		n.setCaption(caption);
-    	n.setDescription("<br/>" + msg);
+		
+        AccountsApplication.getInstance()
+        	.getMainWindow().showNotification(getNotification(caption, msg, icon));
+	}
+	
+	private static Notification getNotification(String title, String body, ThemeResource icon) {
+		Notification n = new Notification(
+	            "","",Notification.TYPE_HUMANIZED_MESSAGE);
+		
+		n.setCaption(title);
+    	n.setDescription("<br/>" + body);
     	n.setIcon(icon);
     	n.setPosition(Notification.POSITION_CENTERED);
         n.setDelayMsec(-1);
         
-        AccountsApplication.getInstance()
-        	.getMainWindow().showNotification(n);
+        return n;
 	}
 }

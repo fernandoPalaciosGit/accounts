@@ -31,6 +31,7 @@ public class AccountsMessages extends ListResourceBundle implements Serializable
 	public static final String PASSWORD_REQUIREMENTS = "Accounts.LoginView.CreateUser.PasswordRequirements";
 	public static final String DUPLICATE_USERNAME = "Accounts.LoginView.CreateUser.Error.DuplicateUser";
 	public static final String INVALID_PASSWORD = "Accounts.LoginView.CreateUser.Error.InvalidPassword";
+	public static final String USER_CREATED = "Accounts.LoginView.CreateUser.Success.UserCreated";
 	
 	/*
 	 * Language Settings sub window
@@ -65,6 +66,16 @@ public class AccountsMessages extends ListResourceBundle implements Serializable
 	public static final String MSGR_TITLE_INFO = "Messenger.Title.Info";
 	public static final String MSGR_TITLE_WARN = "Messenger.Title.Warning";
 	public static final String MSGR_TITLE_ERROR = "Messenger.Title.Error";
+	public static final String MSGR_APOLOGIES = "Messenger.Heading.Apologies";
+	public static final String MSGR_BODY_NO_FEATURE = "Messenger.Body.Feature_Not_Implemented";
+	
+	/*
+	 * Dashboard
+	 */
+	public static final String DASHBRD_BAL_SHEET_TOOLTIP = "Dashboard.Tooltip.BalanceSheet";
+	public static final String DASHBRD_REP_TOOLTIP = "Dashboard.Tooltip.Reports";
+	public static final String DASHBRD_GRAPH_TOOLTIP = "Dashboard.Tooltip.Graphs";
+	public static final String DASHBRD_SETTINGS_TOOLTIP = "Dashboard.Tooltip.Settings";
 	
 	
 	@Override

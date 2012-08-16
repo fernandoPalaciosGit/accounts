@@ -35,6 +35,8 @@ public class AccountsMessages_en extends AccountsMessages {
 			+ " please provide a different email address"},
 		{INVALID_PASSWORD, "The entered password is not valid," 
 			+ " please check the password info dialog"},
+		{USER_CREATED, "Your user has been created,"
+			+ " please check your email for activation details"},
 			
 		/* Language Settings sub window */
 		{SELECT_LANGUAGE, "Select your language"},
@@ -57,7 +59,15 @@ public class AccountsMessages_en extends AccountsMessages {
 		/* Messenger */
 		{MSGR_TITLE_INFO, "Information"},
 		{MSGR_TITLE_WARN, "Warning"},
-		{MSGR_TITLE_ERROR, "Error"}
+		{MSGR_TITLE_ERROR, "Error"},
+		{MSGR_APOLOGIES, "Apologies"},
+		{MSGR_BODY_NO_FEATURE, "This feature hasn't been implemented yet"},
+		
+		/* Dashboard */
+		{DASHBRD_BAL_SHEET_TOOLTIP, "Balance Sheet Mgmt"},
+		{DASHBRD_REP_TOOLTIP, "Balance Sheet Reporting"},
+		{DASHBRD_GRAPH_TOOLTIP, "Graphical View of Accounts Status"},
+		{DASHBRD_SETTINGS_TOOLTIP, "Global Settings Mgmt"}
 		
 	};
 }

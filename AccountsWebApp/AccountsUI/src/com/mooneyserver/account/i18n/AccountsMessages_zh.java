@@ -33,6 +33,8 @@ public class AccountsMessages_zh extends AccountsMessages {
 			+ "<li>必须长度在8位-20位字符之间</li></ul>"},
 		{DUPLICATE_USERNAME, "用户名已经存在，请输入一个不同的邮箱地址"},
 		{INVALID_PASSWORD, "输入的密码不正确，请按照密码必备条件重新输入"},
+		{USER_CREATED, "Your user has been created,"
+				+ " please check your email for activation details"},
 		
 		/* Language Settings sub window */
 		{SELECT_LANGUAGE, "选择您的语言"},
@@ -56,6 +58,14 @@ public class AccountsMessages_zh extends AccountsMessages {
 		/* Messenger */
 		{MSGR_TITLE_INFO, "信息"},
 		{MSGR_TITLE_WARN, "警告"},
-		{MSGR_TITLE_ERROR, "错误"}
+		{MSGR_TITLE_ERROR, "错误"},
+		{MSGR_APOLOGIES, "Apologies"},
+		{MSGR_BODY_NO_FEATURE, "This feature hasn't been implemented yet"},
+		
+		/* Dashboard */
+		{DASHBRD_BAL_SHEET_TOOLTIP, "Balance Sheet Mgmt"},
+		{DASHBRD_REP_TOOLTIP, "Balance Sheet Reporting"},
+		{DASHBRD_GRAPH_TOOLTIP, "Graphical View of Accounts Status"},
+		{DASHBRD_SETTINGS_TOOLTIP, "Global Settings Mgmt"}
 	};
 }

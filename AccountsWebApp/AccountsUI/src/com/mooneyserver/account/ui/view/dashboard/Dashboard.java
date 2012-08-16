@@ -1,6 +1,9 @@
 package com.mooneyserver.account.ui.view.dashboard;
 
+import java.util.ResourceBundle;
+
 import com.mooneyserver.account.AccountsApplication;
+import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.ui.notification.Messenger;
 import com.mooneyserver.account.ui.view.AbstractBaseView;
 import com.mooneyserver.account.ui.view.IconManager;
@@ -15,7 +18,8 @@ public class Dashboard extends AbstractBaseView implements Button.ClickListener 
 	
 	private static final long serialVersionUID = 1L;
 	
-	Button accounts, reports, settings, graphs;
+	private Button accounts, reports, settings, graphs;
+	private ResourceBundle STRINGS = AccountsApplication.getResourceBundle();
 	
 	public Dashboard() {
 		constructHeader();
@@ -69,11 +73,10 @@ public class Dashboard extends AbstractBaseView implements Button.ClickListener 
 	public void buildStringsFromLocale() {
 		STRINGS = AccountsApplication.getResourceBundle();
 		
-		// TODO: Localize
-		accounts.setDescription("Balance Sheet Mgmt");
-		reports.setDescription("Balance Sheet Reporting");
-		graphs.setDescription("Graphical View of Accounts Status");
-		settings.setDescription("Global Settings Mgmt");
+		accounts.setDescription(STRINGS.getString(AccountsMessages.DASHBRD_BAL_SHEET_TOOLTIP));
+		reports.setDescription(STRINGS.getString(AccountsMessages.DASHBRD_REP_TOOLTIP));
+		graphs.setDescription(STRINGS.getString(AccountsMessages.DASHBRD_GRAPH_TOOLTIP));
+		settings.setDescription(STRINGS.getString(AccountsMessages.DASHBRD_SETTINGS_TOOLTIP));
 	}
 
 	@Override

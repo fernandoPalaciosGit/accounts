@@ -1,5 +1,6 @@
 package com.mooneyserver.account.ui.view.subwindow.user;
 
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 
 import com.mooneyserver.account.businesslogic.exception.user.AccountsUserAlreadyExistsException;
@@ -35,6 +36,7 @@ public class CreateNewUserDialog extends BaseSubwindow implements ClickListener 
 	private static IUserService userSvc;
 	
 	private final Form createNewUserFrm;
+	private ResourceBundle STRINGS = AccountsApplication.getResourceBundle();
 	
 	// Form Fields
 	private final String FRM_FIRST_NAME = "firstName";
@@ -51,32 +53,32 @@ public class CreateNewUserDialog extends BaseSubwindow implements ClickListener 
 		
 		createNewUserFrm = new Form();
 		
-		TextField firstName = new TextField(AccountsApplication.getResourceBundle().
+		TextField firstName = new TextField(STRINGS.
 				getString(AccountsMessages.FIRST_NAME));
 		firstName.setRequired(true);
 		firstName.setTabIndex(1);
 		
-		TextField lastName = new TextField(AccountsApplication.getResourceBundle().
+		TextField lastName = new TextField(STRINGS.
 				getString(AccountsMessages.LAST_NAME));
 		lastName.setRequired(true);
 		lastName.setTabIndex(2);
 		
-		TextField email = new TextField(AccountsApplication.getResourceBundle().
+		TextField email = new TextField(STRINGS.
 				getString(AccountsMessages.EMAIL_ADDRESS));
 		email.setRequired(true);
-		email.addValidator(new EmailValidator(AccountsApplication.getResourceBundle().
+		email.addValidator(new EmailValidator(STRINGS.
 				getString(AccountsMessages.VALIDATE_EMAIL)));
 		email.setTabIndex(3);
 		
-		PasswordField pwd1 = new PasswordField(AccountsApplication.getResourceBundle().
+		PasswordField pwd1 = new PasswordField(STRINGS.
                 getString(AccountsMessages.PASSWORD));
 		pwd1.setRequired(true);
 		pwd1.setTabIndex(4);
 		FieldWithHelp<PasswordField> pwd1Field = new FieldWithHelp<>
-			(pwd1, PasswordField.class, AccountsApplication.getResourceBundle().
+			(pwd1, PasswordField.class, STRINGS.
 					getString(AccountsMessages.PASSWORD_REQUIREMENTS));
 		
-		PasswordField pwd2 = new PasswordField(AccountsApplication.getResourceBundle().
+		PasswordField pwd2 = new PasswordField(STRINGS.
 				getString(AccountsMessages.CONFIRM_PASSWORD));
 		pwd2.setRequired(true);
 		pwd2.addValidator(new ConfirmPasswordFieldValidator(pwd1));
@@ -90,7 +92,7 @@ public class CreateNewUserDialog extends BaseSubwindow implements ClickListener 
 		
 		addComponent(createNewUserFrm);
 		
-		Button create = new Button(AccountsApplication.getResourceBundle().
+		Button create = new Button(STRINGS.
 				getString(AccountsMessages.CREATE_NEW_USER));
 		create.addListener(this);
 		
@@ -119,9 +121,8 @@ public class CreateNewUserDialog extends BaseSubwindow implements ClickListener 
 				
 				close();
 				
-				// TODO: Localize
-				Messenger.genericMessage(MessageSeverity.INFO, "Your user has been created,"
-						+ " please check your email for activation details");
+				Messenger.genericMessage(MessageSeverity.INFO, 
+						STRINGS.getString(AccountsMessages.USER_CREATED));
 			}
 		} catch (InvalidValueException e) {
 			// Handled by UI framework
