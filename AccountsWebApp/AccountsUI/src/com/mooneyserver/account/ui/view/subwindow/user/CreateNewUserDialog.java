@@ -118,6 +118,10 @@ public class CreateNewUserDialog extends BaseSubwindow implements ClickListener 
 				userSvc.createNewUser(user); 
 				
 				close();
+				
+				// TODO: Localize
+				Messenger.genericMessage(MessageSeverity.INFO, "Your user has been created,"
+						+ " please check your email for activation details");
 			}
 		} catch (InvalidValueException e) {
 			// Handled by UI framework
