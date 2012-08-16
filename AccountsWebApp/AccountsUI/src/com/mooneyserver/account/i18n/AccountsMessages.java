@@ -30,7 +30,7 @@ public class AccountsMessages extends ListResourceBundle implements Serializable
 	public static final String CONFIRM_PASSWORD = "Accounts.LoginView.CreateUser.ConfirmPassword";
 	public static final String PASSWORD_REQUIREMENTS = "Accounts.LoginView.CreateUser.PasswordRequirements";
 	public static final String DUPLICATE_USERNAME = "Accounts.LoginView.CreateUser.Error.DuplicateUser";
-	public static final String INVALID_PASSWORD = "Accounts.LoginView.CreateUser.Error.DuplicateUser";
+	public static final String INVALID_PASSWORD = "Accounts.LoginView.CreateUser.Error.InvalidPassword";
 	
 	/*
 	 * Language Settings sub window
