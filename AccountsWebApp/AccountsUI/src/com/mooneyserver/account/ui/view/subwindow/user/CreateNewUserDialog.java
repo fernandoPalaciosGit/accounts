@@ -54,19 +54,24 @@ public class CreateNewUserDialog extends BaseSubwindow implements ClickListener 
 		TextField firstName = new TextField(AccountsApplication.getResourceBundle().
 				getString(AccountsMessages.FIRST_NAME));
 		firstName.setRequired(true);
+		firstName.setTabIndex(1);
+		
 		TextField lastName = new TextField(AccountsApplication.getResourceBundle().
 				getString(AccountsMessages.LAST_NAME));
 		lastName.setRequired(true);
+		lastName.setTabIndex(2);
 		
 		TextField email = new TextField(AccountsApplication.getResourceBundle().
 				getString(AccountsMessages.EMAIL_ADDRESS));
 		email.setRequired(true);
 		email.addValidator(new EmailValidator(AccountsApplication.getResourceBundle().
 				getString(AccountsMessages.VALIDATE_EMAIL)));
+		email.setTabIndex(3);
 		
 		PasswordField pwd1 = new PasswordField(AccountsApplication.getResourceBundle().
                 getString(AccountsMessages.PASSWORD));
 		pwd1.setRequired(true);
+		pwd1.setTabIndex(4);
 		FieldWithHelp<PasswordField> pwd1Field = new FieldWithHelp<>
 			(pwd1, PasswordField.class, AccountsApplication.getResourceBundle().
 					getString(AccountsMessages.PASSWORD_REQUIREMENTS));
@@ -75,6 +80,7 @@ public class CreateNewUserDialog extends BaseSubwindow implements ClickListener 
 				getString(AccountsMessages.CONFIRM_PASSWORD));
 		pwd2.setRequired(true);
 		pwd2.addValidator(new ConfirmPasswordFieldValidator(pwd1));
+		pwd2.setTabIndex(5);
 		
 		createNewUserFrm.addField(FRM_FIRST_NAME, firstName);
 		createNewUserFrm.addField(FRM_LAST_NAME, lastName);
@@ -100,14 +106,14 @@ public class CreateNewUserDialog extends BaseSubwindow implements ClickListener 
 			if (createNewUserFrm.isValid()) {
 				AccountsUser user = new AccountsUser();
 				
-				user.setFirstname((String) createNewUserFrm
-						.getField(FRM_FIRST_NAME).getValue());
-				user.setLastname((String) createNewUserFrm
-						.getField(FRM_LAST_NAME).getValue());
-				user.setUsername((String) createNewUserFrm
-						.getField(FRM_EMAIL).getValue());
-				user.setPassword((String) createNewUserFrm
-						.getField(FRM_PASSWORD).getValue());
+				user.setFirstname(((String) createNewUserFrm
+						.getField(FRM_FIRST_NAME).getValue()).trim());
+				user.setLastname(((String) createNewUserFrm
+						.getField(FRM_LAST_NAME).getValue()).trim());
+				user.setUsername(((String) createNewUserFrm
+						.getField(FRM_EMAIL).getValue()).trim());
+				user.setPassword(((String) createNewUserFrm
+						.getField(FRM_PASSWORD).getValue()).trim());
 				
 				userSvc.createNewUser(user); 
 				

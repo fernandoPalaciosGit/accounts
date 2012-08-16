@@ -99,8 +99,8 @@ public class AccountsLoginView extends AbstractBaseView
 		boolean userLogin = false;
 		try {
 			userLogin = userSvc.validateUserPassword(
-					event.getLoginParameter("username"), 
-					event.getLoginParameter("password"));
+					event.getLoginParameter("username").trim(), 
+					event.getLoginParameter("password").trim());
 		} catch (AccountsUserNotActiveException e) {
 			log.log(Level.INFO, "Inactive User ["+event.getLoginParameter("username")
 					+"] attempting to login", e);

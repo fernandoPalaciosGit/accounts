@@ -58,8 +58,8 @@ public class ResetPasswordDialog extends BaseSubwindow implements ClickListener 
 				close();
 			}
 		} catch (InvalidValueException e) {
-			// Ignoring InvalidValueException as this is displayed in UI
-			// TODO: Maybe add some logging
+			// Ignoring InvalidValueException as 
+			// an appropriate msg is displayed in UI
 		}
 	}
 }
