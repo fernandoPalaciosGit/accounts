@@ -1,3 +1,11 @@
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               5.5.24-0ubuntu0.12.04.1 - (Ubuntu)
+-- Server OS:                    debian-linux-gnu
+-- HeidiSQL version:             7.0.0.4053
+-- Date/time:                    2012-08-16 15:15:21
+-- --------------------------------------------------------
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!40014 SET FOREIGN_KEY_CHECKS=0 */;
@@ -32,7 +40,7 @@ DROP TABLE IF EXISTS `app_setting`;
 CREATE TABLE IF NOT EXISTS `app_setting` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `key_name` varchar(50) NOT NULL DEFAULT 'key_name',
-  `value` varchar(250) NOT NULL DEFAULT 'value_details',
+  `value` varchar(10000) NOT NULL DEFAULT 'value_details',
   `inserted` datetime NOT NULL,
   `updated` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
