@@ -16,6 +16,8 @@ import com.mooneyserver.account.businesslogic.exception.user.AccountsUserInvalid
 import com.mooneyserver.account.businesslogic.exception.user.AccountsUserNotActiveException;
 import com.mooneyserver.account.businesslogic.validate.ClassFieldValidator;
 import com.mooneyserver.account.businesslogic.validate.PasswordValidator;
+import com.mooneyserver.account.messaging.GenericJmsDispatcher;
+import com.mooneyserver.account.messaging.UserActivationMessage;
 import com.mooneyserver.account.persistence.entity.AccountsUser;
 import com.mooneyserver.account.persistence.service.UserService;
 import com.mooneyserver.account.utils.EncryptionProvider;
@@ -72,6 +74,11 @@ public class UserBusinessService implements IUserService {
 		} catch (Exception e) {
 			throw new AccountsUserException("Rethrowing wrapped base exception", e);
 		}
+		
+		UserActivationMessage msg 
+			= new UserActivationMessage(user.getUsername(), 
+					user.getFirstname());
+		GenericJmsDispatcher.sendMessage(msg);
 	}
 
 	
@@ -167,10 +174,6 @@ public class UserBusinessService implements IUserService {
 		if (!user.getActive())
 			throw new AccountsUserNotActiveException(user.getUsername());
 		
-		if (password.equals(user.getPassword())) {
-			return true;
-		} else {
-			return false;
-		}
+		return password.equals(user.getPassword()); 
 	}
 }
