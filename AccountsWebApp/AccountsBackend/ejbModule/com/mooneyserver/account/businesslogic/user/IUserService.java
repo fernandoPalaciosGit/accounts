@@ -103,5 +103,5 @@ public interface IUserService {
 	 * 		<b>boolean</b>
 	 * 		True if the users password is correct
 	 */
-	public boolean validateUserPassword(String username, String password) throws AccountsUserException;
+	public AccountsUser validateUserPassword(String username, String password) throws AccountsUserException;
 }

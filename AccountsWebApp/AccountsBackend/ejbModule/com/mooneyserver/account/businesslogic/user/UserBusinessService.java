@@ -150,7 +150,7 @@ public class UserBusinessService implements IUserService {
 
 
 	@Override
-	public boolean validateUserPassword(String emailAddress, String password) throws AccountsUserException {
+	public AccountsUser validateUserPassword(String emailAddress, String password) throws AccountsUserException {
 		AccountsUser user = userService.findByUsername(emailAddress);
 		
 		if (user == null) {
@@ -158,7 +158,7 @@ public class UserBusinessService implements IUserService {
 				Thread.sleep(100); // Sleep to avoid brute force
 			} catch (InterruptedException e) {} 
 			
-			return false;
+			return null;
 		}
 		
 		EncryptionProvider encrypter = new EncryptionProvider();
@@ -174,6 +174,10 @@ public class UserBusinessService implements IUserService {
 		if (!user.getActive())
 			throw new AccountsUserNotActiveException(user.getUsername());
 		
-		return password.equals(user.getPassword()); 
+		if (password.equals(user.getPassword())) {
+			return user;
+		} else {
+			return null;
+		}
 	}
 }

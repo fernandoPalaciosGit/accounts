@@ -7,7 +7,7 @@ import com.mooneyserver.account.businesslogic.user.IUserService;
 import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.AccountsApplication;
 import com.mooneyserver.account.lookup.BusinessProcess;
-import com.mooneyserver.account.ui.manager.DisplayManager;
+import com.mooneyserver.account.persistence.entity.AccountsUser;
 import com.mooneyserver.account.ui.notification.Messenger;
 import com.mooneyserver.account.ui.notification.Messenger.MessageSeverity;
 import com.mooneyserver.account.ui.view.AbstractBaseView;
@@ -96,9 +96,9 @@ public class AccountsLoginView extends AbstractBaseView
 	
 	@Override
 	public void onLogin(LoginEvent event) {
-		boolean userLogin = false;
+		AccountsUser user = null;
 		try {
-			userLogin = userSvc.validateUserPassword(
+			user = userSvc.validateUserPassword(
 					event.getLoginParameter("username").trim(), 
 					event.getLoginParameter("password").trim());
 		} catch (AccountsUserNotActiveException e) {
@@ -116,12 +116,12 @@ public class AccountsLoginView extends AbstractBaseView
 		
 		log.info("User Login Requested for ["
 				+event.getLoginParameter("username")+"]. Status ["
-				+userLogin+"]");
+				+(user != null)+"]");
 		
-		if (userLogin) {
-			AccountsApplication.getInstance().setUser(null); // TODO: Maybe validate user password should return the user?
-			DisplayManager.getDisplayManager()
-				.loadNewView(new Dashboard());
+		if (user != null) {
+			AccountsApplication.getInstance().setUser(user);
+			AccountsApplication.getInstance()
+				.displayMgr.loadNewView(new Dashboard());
 		} else {
 			Messenger.genericMessage(MessageSeverity.WARNING, 
 					"Incorrect Username or Password");
