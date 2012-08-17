@@ -11,6 +11,7 @@ import javax.ejb.TransactionAttributeType;
 
 import com.mooneyserver.account.businesslogic.exception.AccountsBaseException;
 import com.mooneyserver.account.businesslogic.exception.user.AccountsUserAlreadyExistsException;
+import com.mooneyserver.account.businesslogic.exception.user.AccountsUserDoesNotExistException;
 import com.mooneyserver.account.businesslogic.exception.user.AccountsUserException;
 import com.mooneyserver.account.businesslogic.exception.user.AccountsUserInvalidPasswordException;
 import com.mooneyserver.account.businesslogic.exception.user.AccountsUserNotActiveException;
@@ -18,6 +19,7 @@ import com.mooneyserver.account.businesslogic.validate.ClassFieldValidator;
 import com.mooneyserver.account.businesslogic.validate.PasswordValidator;
 import com.mooneyserver.account.messaging.GenericJmsDispatcher;
 import com.mooneyserver.account.messaging.UserActivationMessage;
+import com.mooneyserver.account.messaging.UserChangePasswordMessage;
 import com.mooneyserver.account.persistence.entity.AccountsUser;
 import com.mooneyserver.account.persistence.service.UserService;
 import com.mooneyserver.account.utils.EncryptionProvider;
@@ -179,5 +181,36 @@ public class UserBusinessService implements IUserService {
 		} else {
 			return null;
 		}
+	}
+
+
+	@Override
+	public void passwordReset(String emailAddress) throws AccountsUserException {
+		AccountsUser user = userService.findByUsername(emailAddress);
+		
+		if (user == null) {
+			try {
+				Thread.sleep(100); // Sleep to avoid brute force
+			} catch (InterruptedException e) {} 
+			
+			throw new AccountsUserDoesNotExistException(emailAddress);
+		}
+		
+		String newPassword = StringUtils.generatePassword();
+		
+		// encrypt the password
+		EncryptionProvider encrypter = new EncryptionProvider();
+		byte[] salt = encrypter.generateSalt();
+		user.setSalt(StringUtils.byteToBase64(salt));
+		user.setPassword(StringUtils.byteToBase64
+				(encrypter.encryptString
+						(newPassword, salt)));
+		
+		userService.modify(user);
+		
+		UserChangePasswordMessage msg 
+			= new UserChangePasswordMessage(user.getUsername(), 
+				user.getFirstname(), newPassword);
+		GenericJmsDispatcher.sendMessage(msg);
 	}
 }

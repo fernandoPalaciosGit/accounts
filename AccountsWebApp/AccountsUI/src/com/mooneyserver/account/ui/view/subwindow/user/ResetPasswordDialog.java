@@ -1,7 +1,13 @@
 package com.mooneyserver.account.ui.view.subwindow.user;
 
+import com.mooneyserver.account.businesslogic.exception.user.AccountsUserDoesNotExistException;
+import com.mooneyserver.account.businesslogic.exception.user.AccountsUserException;
+import com.mooneyserver.account.businesslogic.user.IUserService;
 import com.mooneyserver.account.i18n.AccountsMessages;
+import com.mooneyserver.account.lookup.BusinessProcess;
 import com.mooneyserver.account.AccountsApplication;
+import com.mooneyserver.account.ui.notification.Messenger;
+import com.mooneyserver.account.ui.notification.Messenger.MessageSeverity;
 import com.mooneyserver.account.ui.view.IconManager;
 import com.mooneyserver.account.ui.view.subwindow.BaseSubwindow;
 import com.vaadin.data.Validator.InvalidValueException;
@@ -17,7 +23,12 @@ public class ResetPasswordDialog extends BaseSubwindow implements ClickListener 
 	
 	private static final long serialVersionUID = 1L;
 	
+	@BusinessProcess
+	private static IUserService userSvc;
+	
 	private final Form resetPwdForm;
+	
+	private String FIELD_EMAIL = "emailAddress";
 	
 	
 	/**
@@ -30,6 +41,8 @@ public class ResetPasswordDialog extends BaseSubwindow implements ClickListener 
 		super(AccountsMessages.FORGOT_PWD);
 		
 		setWidth("250px");
+		VerticalLayout vl = new VerticalLayout();
+		vl.setSpacing(true);
 		
 		resetPwdForm = new Form(new VerticalLayout());
 		
@@ -37,14 +50,16 @@ public class ResetPasswordDialog extends BaseSubwindow implements ClickListener 
 				getString(AccountsMessages.EMAIL_ADDRESS));
 		email.addValidator(new EmailValidator(AccountsApplication.getResourceBundle().
 				getString(AccountsMessages.VALIDATE_EMAIL)));
-		resetPwdForm.addField("a", email);
+		resetPwdForm.addField(FIELD_EMAIL, email);
 		
 		Button sendNewPassword = new Button(AccountsApplication.getResourceBundle().
 				getString(AccountsMessages.SEND_NEW_PASSWORD));
 		sendNewPassword.addListener(this);
 		
-		addComponent(resetPwdForm);
-		addComponent(sendNewPassword);
+		vl.addComponent(resetPwdForm);
+		vl.addComponent(sendNewPassword);
+		
+		addComponent(vl);
 		
 		setIcon(IconManager.getIcon(IconManager.FORGOT_PASSWORD_LARGE));
 	}
@@ -54,12 +69,22 @@ public class ResetPasswordDialog extends BaseSubwindow implements ClickListener 
 		try {
 			resetPwdForm.commit();
 			if (resetPwdForm.isValid()) {
-				// TODO: Implement password reset
+				userSvc.passwordReset(((String) resetPwdForm.getField(FIELD_EMAIL).getValue()).trim());
 				close();
 			}
 		} catch (InvalidValueException e) {
 			// Ignoring InvalidValueException as 
 			// an appropriate msg is displayed in UI
+		} catch (AccountsUserException e) {
+			
+			if (e instanceof AccountsUserDoesNotExistException) {
+				// TODO: Localise
+				Messenger.genericMessage(MessageSeverity.WARNING, "The requested user does not exist");
+			}
+		} catch (Exception e) {
+			// TODO: Localize
+			Messenger.genericMessage(MessageSeverity.ERROR, "Internal Error has occured."
+					+ " Admins have been notified");
 		}
 	}
 }

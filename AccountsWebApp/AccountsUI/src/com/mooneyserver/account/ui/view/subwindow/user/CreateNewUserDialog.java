@@ -137,6 +137,7 @@ public class CreateNewUserDialog extends BaseSubwindow implements ClickListener 
 						.getResourceBundle().getString(AccountsMessages.INVALID_PASSWORD));
 			}
 		} catch (Exception e) {
+			// TODO: Localize
 			Messenger.genericMessage(MessageSeverity.ERROR, "Internal Error has occured."
 					+ " Admins have been notified");
 		}

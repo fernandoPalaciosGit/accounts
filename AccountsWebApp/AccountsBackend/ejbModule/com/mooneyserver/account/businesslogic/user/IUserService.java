@@ -89,6 +89,22 @@ public interface IUserService {
 	public void changePassword(ChangePasswordRequest changePwd) throws AccountsUserException;
 	
 	/**
+	 * Reset the password for a user.
+	 * Generate a new password and mail 
+	 * it to the contact.
+	 * 
+	 * @throws AccountsUserException
+	 * 
+	 * @param
+	 * 		<b>AccountsUser</b>
+	 * 		The user who's password is to be reset		
+	 * 
+	 * @return
+	 * 		<b>void</b>
+	 */
+	public void passwordReset(String emailAddress) throws AccountsUserException;
+	
+	/**
 	 * Validate a users password on login requests
 	 * 
 	 * @param
