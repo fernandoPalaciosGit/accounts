@@ -8,20 +8,10 @@ import com.mooneyserver.account.ui.view.AbstractBaseView;
 
 public class DisplayManager {
 	
-	private static ThreadLocal<DisplayManager> sessionInstance = 
-			new ThreadLocal<>();
-	
 	private Stack<IAccountsView> windowStack;
-			
-	public static DisplayManager getDisplayManager() {
-		if (sessionInstance.get() == null)
-			sessionInstance.set(new DisplayManager());
-		
-		return sessionInstance.get();
-	}
 	
 	// Display Manager should be session static
-	private DisplayManager() {	
+	public DisplayManager() {	
 		windowStack = new Stack<>();
 	}
 	
@@ -33,6 +23,14 @@ public class DisplayManager {
 	
 	public void destroyCurrentView() {
 		windowStack.pop();
+		setCurrentView(windowStack.peek());
+	}
+	
+	// To be called for logout scenario
+	public void closeAllViews() {
+		while (windowStack.size() > 1) {
+			windowStack.pop();
+		}
 		setCurrentView(windowStack.peek());
 	}
 	

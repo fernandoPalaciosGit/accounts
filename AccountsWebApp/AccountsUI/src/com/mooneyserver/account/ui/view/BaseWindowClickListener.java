@@ -36,7 +36,8 @@ class BaseWindowClickListener implements ClickListener,
                 Messenger.notYetImplemented();
 				break;
 			case SIGNOUT:
-				Messenger.notYetImplemented();
+				AccountsApplication.getInstance().setUser(null);
+				AccountsApplication.getInstance().displayMgr.closeAllViews();
 				break;
 		}
 	}

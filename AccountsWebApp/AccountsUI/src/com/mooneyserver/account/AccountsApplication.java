@@ -31,9 +31,8 @@ public final class AccountsApplication extends Application implements HttpServle
 	
 	/* Internationalisation Resource Bundle for Strings */
 	private ResourceBundle i18nBundle;
-	
 	private ContextHelp helpBubble;
-	
+	public final  DisplayManager displayMgr;
 	Window mainWindow;
 	
 	public static final String APP_VERSION = "0.0.1";
@@ -42,6 +41,7 @@ public final class AccountsApplication extends Application implements HttpServle
 	public AccountsApplication() {
 		sessionInstance.set(this);
 		
+		displayMgr = new DisplayManager();
 		helpBubble = new ContextHelp();
 	}	
 	
@@ -55,8 +55,7 @@ public final class AccountsApplication extends Application implements HttpServle
 				AccountsMessages.APP_TITLE));
 		setMainWindow(mainWindow);
 		
-		DisplayManager.getDisplayManager()
-			.loadNewView(new AccountsLoginView());
+		displayMgr.loadNewView(new AccountsLoginView());
 	}
 	
 	public static void setCurrentView(IAccountsView view) {
@@ -80,7 +79,7 @@ public final class AccountsApplication extends Application implements HttpServle
 		super.setLocale(locale);
 		i18nBundle = ResourceBundle.getBundle(
 				AccountsMessages.class.getName(), getLocale());
-		DisplayManager.getDisplayManager().refreshViews();
+		displayMgr.refreshViews();
 	}
 	
 	@Override
