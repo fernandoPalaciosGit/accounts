@@ -21,6 +21,8 @@ public class UserActivationMessage implements IUserActivationMessage {
 
 	@Override
 	public String getFirstName() {
-		return firstName.trim();
+		String tmpFirstName = firstName.trim().toLowerCase(); 
+		return tmpFirstName.substring(0, 1).toUpperCase() 
+				+ tmpFirstName.substring(1);
 	}
 }
