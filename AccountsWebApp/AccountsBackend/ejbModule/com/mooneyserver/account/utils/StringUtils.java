@@ -3,8 +3,6 @@ package com.mooneyserver.account.utils;
 import java.io.IOException;
 import java.util.Random;
 
-import com.mooneyserver.account.businesslogic.validate.PasswordValidator;
-
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -51,13 +49,17 @@ public class StringUtils {
 		setRandSeed();
 		
 		// Choose a random length between the allowed boundaries
-		int passwordLength = rand.nextInt(PWD_UPPER_BOUND) + PWD_LOWER_BOUND;
-		
-		PasswordValidator pwdVal = new PasswordValidator();
+		int n = PWD_UPPER_BOUND - PWD_LOWER_BOUND + 1;
+		int passwordLength = PWD_LOWER_BOUND + (rand.nextInt() % n);
 		
 		// Loop creating passwords until a compliant password is created
 		// A bit stupid, potentially slow, theoretically run forever. 
 		// TODO: Look into Xeger library
+		return generator(charSet, passwordLength);
+		
+		/* Remove because of infitnite loops. Look above for future actions.
+		PasswordValidator pwdVal = new PasswordValidator();
+		
 		String pwd;
 		while (true) {
 			pwd = generator(charSet, passwordLength);
@@ -66,6 +68,7 @@ public class StringUtils {
 		}
 		
 		return pwd;
+		*/
 	}
 	
 	private static String generator(String charSet, int pwdLen) {
