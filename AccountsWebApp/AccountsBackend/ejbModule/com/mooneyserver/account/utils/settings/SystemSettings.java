@@ -65,7 +65,7 @@ public enum SystemSettings {
 		try {
 			String val = props.getProperty(key);
 			if (val == null)
-				log.log(Level.INFO, "No Setting found for Key ["+key+"]");
+				log.log(Level.INFO, "No Setting found for Key ["+key+"]. Props ["+props+"]");
 				
 			return val;
 		} finally {

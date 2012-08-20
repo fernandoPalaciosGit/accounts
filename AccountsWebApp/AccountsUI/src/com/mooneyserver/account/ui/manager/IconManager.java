@@ -1,4 +1,4 @@
-package com.mooneyserver.account.ui.view;
+package com.mooneyserver.account.ui.manager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +22,7 @@ public class IconManager {
 	public static final int FORGOT_PASSWORD_LARGE = getId();
 	public static final int CREATE_USER = getId();
 	public static final int CREATE_USER_LARGE = getId();
+	public static final int ACTIVATE_USER = getId();
 	
 	public static final int INFO = getId();
 	
@@ -65,6 +66,7 @@ public class IconManager {
 		iconLocation.put(DASHBOARD_REPORTS, "large/dashboard-reports.png");
 		iconLocation.put(DASHBOARD_GRAPHS, "large/dashboard-graphs.png");
 		iconLocation.put(DASHBOARD_SETTINGS, "large/dashboard-settings.png");
+		iconLocation.put(ACTIVATE_USER, "small/activate_my_user.png");
 		
 	}
 

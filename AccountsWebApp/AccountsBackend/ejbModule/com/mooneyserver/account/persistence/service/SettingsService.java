@@ -22,7 +22,6 @@ import static com.mooneyserver.account.utils.settings.SystemSettings.SETTINGS;
 @LocalBean
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class SettingsService extends BaseServiceLayer {
-     
 	
     public SettingsService() {
         super();

@@ -5,7 +5,7 @@ import org.vaadin.addon.customfield.FieldWrapper;
 import org.vaadin.jonatan.contexthelp.ContextHelp;
 
 import com.mooneyserver.account.AccountsApplication;
-import com.mooneyserver.account.ui.view.IconManager;
+import com.mooneyserver.account.ui.manager.IconManager;
 import com.vaadin.terminal.ErrorMessage;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.AbstractField;

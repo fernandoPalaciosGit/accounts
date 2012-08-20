@@ -37,6 +37,7 @@ public class AccountsMessages_en extends AccountsMessages {
 			+ " please check the password info dialog"},
 		{USER_CREATED, "Your user has been created,"
 			+ " please check your email for activation details"},
+		{ACTIVATE_USER, "Click to activate your user"},
 			
 		/* Language Settings sub window */
 		{SELECT_LANGUAGE, "Select your language"},

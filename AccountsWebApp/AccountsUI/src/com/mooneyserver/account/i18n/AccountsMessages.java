@@ -32,6 +32,7 @@ public class AccountsMessages extends ListResourceBundle implements Serializable
 	public static final String DUPLICATE_USERNAME = "Accounts.LoginView.CreateUser.Error.DuplicateUser";
 	public static final String INVALID_PASSWORD = "Accounts.LoginView.CreateUser.Error.InvalidPassword";
 	public static final String USER_CREATED = "Accounts.LoginView.CreateUser.Success.UserCreated";
+	public static final String ACTIVATE_USER = "Accounts.LoginView.ActivateUser.ClickToActivate";
 	
 	/*
 	 * Language Settings sub window

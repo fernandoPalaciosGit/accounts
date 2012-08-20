@@ -3,6 +3,7 @@
 	<persistence-unit name="AccountsPersistenceLayer" transaction-type="JTA">
 		<jta-data-source>java:/homeAccounts</jta-data-source>
 		<class>com.mooneyserver.account.persistence.entity.AccountsUser</class>
+		<class>com.mooneyserver.account.persistence.entity.UserActivation</class>
 		<class>com.mooneyserver.account.persistence.entity.BalanceSheet</class>
 		<class>com.mooneyserver.account.persistence.entity.CcyConversion</class>
 		<class>com.mooneyserver.account.persistence.entity.CreditMaster</class>

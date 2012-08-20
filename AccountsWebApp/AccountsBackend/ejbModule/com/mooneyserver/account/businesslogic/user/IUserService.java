@@ -116,8 +116,21 @@ public interface IUserService {
 	 * 		The password for the user
 	 * 
 	 * @return
+	 * 		<b>AccountsUser</b>
+	 * 		The User who is successfully logging in
+	 */
+	public AccountsUser validateUserPassword(String username, String password) throws AccountsUserException;
+	
+	/**
+	 * Activates a user who is in pending state
+	 * 
+	 * @param
+	 * 		<b>String</b>
+	 * 		The activation id
+	 * 
+	 * @return
 	 * 		<b>boolean</b>
 	 * 		True if the users password is correct
 	 */
-	public AccountsUser validateUserPassword(String username, String password) throws AccountsUserException;
+	public boolean markUserActive(String activationId);
 }

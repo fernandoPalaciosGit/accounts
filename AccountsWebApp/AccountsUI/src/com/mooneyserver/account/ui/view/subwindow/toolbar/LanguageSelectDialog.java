@@ -3,7 +3,7 @@ package com.mooneyserver.account.ui.view.subwindow.toolbar;
 import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.i18n.SupportedLanguage;
 import com.mooneyserver.account.AccountsApplication;
-import com.mooneyserver.account.ui.view.IconManager;
+import com.mooneyserver.account.ui.manager.IconManager;
 import com.mooneyserver.account.ui.view.subwindow.BaseSubwindow;
 import com.mooneyserver.account.ui.widget.SpinnerList;
 import com.vaadin.ui.Button.ClickEvent;

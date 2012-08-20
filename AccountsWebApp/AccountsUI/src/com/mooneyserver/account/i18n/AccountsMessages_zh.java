@@ -35,6 +35,7 @@ public class AccountsMessages_zh extends AccountsMessages {
 		{INVALID_PASSWORD, "输入的密码不正确，请按照密码必备条件重新输入"},
 		{USER_CREATED, "Your user has been created,"
 				+ " please check your email for activation details"},
+		{ACTIVATE_USER, "Click to activate your user"},
 		
 		/* Language Settings sub window */
 		{SELECT_LANGUAGE, "选择您的语言"},

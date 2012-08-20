@@ -5,4 +5,5 @@ public class AccountsLoggingConstants {
 	public static final String LOG_AREA_JNDI_LOOKUP = "[Log JNDI Lookup]";
 	public static final String LOG_AREA_SETTINGS = "[Log Backend Settings]";
 	public static final String LOG_AREA_BACKEND = "[Log Backend Business Process]";
+	public static final String LOG_AREA_WEB_SVC = "[Log Backend Web Service]";
 }

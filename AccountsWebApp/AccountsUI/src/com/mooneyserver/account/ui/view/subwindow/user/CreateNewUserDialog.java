@@ -11,11 +11,11 @@ import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.lookup.BusinessProcess;
 import com.mooneyserver.account.persistence.entity.AccountsUser;
 import com.mooneyserver.account.AccountsApplication;
+import com.mooneyserver.account.ui.manager.IconManager;
 import com.mooneyserver.account.ui.notification.Messenger;
 import com.mooneyserver.account.ui.notification.Messenger.MessageSeverity;
 import com.mooneyserver.account.ui.validate.ConfirmPasswordFieldValidator;
 import com.mooneyserver.account.ui.view.AbstractBaseView;
-import com.mooneyserver.account.ui.view.IconManager;
 import com.mooneyserver.account.ui.view.subwindow.BaseSubwindow;
 import com.mooneyserver.account.ui.widget.FieldWithHelp;
 

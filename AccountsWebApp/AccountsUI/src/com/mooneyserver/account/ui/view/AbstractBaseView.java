@@ -11,6 +11,7 @@ import com.mooneyserver.account.logging.AccountsLoggingConstants;
 import com.mooneyserver.account.lookup.BackendServiceLookup;
 import com.mooneyserver.account.AccountsApplication;
 import com.mooneyserver.account.ui.iface.IAccountsView;
+import com.mooneyserver.account.ui.manager.IconManager;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;

@@ -21,6 +21,7 @@ import com.mooneyserver.account.messaging.GenericJmsDispatcher;
 import com.mooneyserver.account.messaging.UserActivationMessage;
 import com.mooneyserver.account.messaging.UserChangePasswordMessage;
 import com.mooneyserver.account.persistence.entity.AccountsUser;
+import com.mooneyserver.account.persistence.service.UserActivationService;
 import com.mooneyserver.account.persistence.service.UserService;
 import com.mooneyserver.account.utils.EncryptionProvider;
 import com.mooneyserver.account.utils.StringUtils;
@@ -35,6 +36,9 @@ public class UserBusinessService implements IUserService {
 
 	@EJB
 	private UserService userService;
+	
+	@EJB
+	private UserActivationService userActivationService;
 	
 	@Resource
 	private SessionContext context;
@@ -212,5 +216,21 @@ public class UserBusinessService implements IUserService {
 			= new UserChangePasswordMessage(user.getUsername(), 
 				user.getFirstname(), newPassword);
 		GenericJmsDispatcher.sendMessage(msg);
+	}
+
+	@Override
+	public boolean markUserActive(String activationId) {
+		AccountsUser user = userActivationService.findUserByActivationId(activationId);
+		
+		if (user == null)
+			return false;
+		
+		if (user.getActive())
+			return false;
+		
+		user.setActive(true);
+		userService.modify(user);
+		
+		return true;
 	}
 }

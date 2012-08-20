@@ -8,10 +8,10 @@ import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.AccountsApplication;
 import com.mooneyserver.account.lookup.BusinessProcess;
 import com.mooneyserver.account.persistence.entity.AccountsUser;
+import com.mooneyserver.account.ui.manager.IconManager;
 import com.mooneyserver.account.ui.notification.Messenger;
 import com.mooneyserver.account.ui.notification.Messenger.MessageSeverity;
 import com.mooneyserver.account.ui.view.AbstractBaseView;
-import com.mooneyserver.account.ui.view.IconManager;
 import com.mooneyserver.account.ui.view.dashboard.Dashboard;
 import com.mooneyserver.account.ui.view.subwindow.user.CreateNewUserDialog;
 import com.mooneyserver.account.ui.view.subwindow.user.ResetPasswordDialog;
@@ -157,8 +157,8 @@ public class AccountsLoginView extends AbstractBaseView
 				break;
 			case NEW_USER:
 				AccountsApplication.getInstance().
-				getMainWindow().
-					addWindow(new CreateNewUserDialog());
+					getMainWindow().
+						addWindow(new CreateNewUserDialog());
 				break;
 		}
 	}

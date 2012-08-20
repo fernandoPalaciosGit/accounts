@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Locale;
 
-import com.mooneyserver.account.ui.view.IconManager;
+import com.mooneyserver.account.ui.manager.IconManager;
 import com.vaadin.terminal.ThemeResource;
 
 public class SupportedLanguage {

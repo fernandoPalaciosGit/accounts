@@ -49,4 +49,8 @@ public class DisplayManager {
 			((AbstractBaseView) windowStack.peek()).
 				reloadMainFrameComponentStrings();
 	}
+	
+	public int getViewCount() {
+		return windowStack.size();
+	}
 }

@@ -4,9 +4,9 @@ import java.util.ResourceBundle;
 
 import com.mooneyserver.account.AccountsApplication;
 import com.mooneyserver.account.i18n.AccountsMessages;
+import com.mooneyserver.account.ui.manager.IconManager;
 import com.mooneyserver.account.ui.notification.Messenger;
 import com.mooneyserver.account.ui.view.AbstractBaseView;
-import com.mooneyserver.account.ui.view.IconManager;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;

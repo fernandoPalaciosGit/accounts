@@ -1,6 +1,7 @@
 package com.mooneyserver.account;
 
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,9 +12,11 @@ import org.vaadin.jonatan.contexthelp.ContextHelp;
 import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.ui.iface.IAccountsView;
 import com.mooneyserver.account.ui.manager.DisplayManager;
+import com.mooneyserver.account.ui.view.user.AccountActivationView;
 import com.mooneyserver.account.ui.view.user.AccountsLoginView;
 
 import com.vaadin.Application;
+import com.vaadin.terminal.ParameterHandler;
 import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
 import com.vaadin.ui.Window;
 
@@ -55,7 +58,34 @@ public final class AccountsApplication extends Application implements HttpServle
 				AccountsMessages.APP_TITLE));
 		setMainWindow(mainWindow);
 		
-		displayMgr.loadNewView(new AccountsLoginView());
+		// Perform activation if required
+		mainWindow.addParameterHandler(new ParameterHandler() {
+			private boolean isActivating = false;
+			private String activationVal;
+			
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void handleParameters(Map<String, String[]> parameters) {
+				for (String key : parameters.keySet()) {
+					if (key.equals("userActivationId")) {
+						activationVal = parameters.get(key)[0];
+						isActivating = true;
+					}
+				}
+				
+				// Param Handler is called multiple times for some reason
+				// Make sure we only load one view!
+				if (AccountsApplication.getInstance().displayMgr.getViewCount() < 1) {
+					if (isActivating)
+						AccountsApplication.getInstance().displayMgr
+							.loadNewView(new AccountActivationView(activationVal.toString()));
+					else
+						AccountsApplication.getInstance().displayMgr
+							.loadNewView(new AccountsLoginView());
+				}
+			}
+		});
 	}
 	
 	public static void setCurrentView(IAccountsView view) {

@@ -1,9 +1,12 @@
 package com.mooneyserver.account.businesslogic.admin;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ejb.ActivationConfigProperty;
+import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -12,6 +15,10 @@ import javax.jms.ObjectMessage;
 
 import com.mooneyserver.account.logging.AccountsLoggingConstants;
 import com.mooneyserver.account.messaging.iface.IUserActivationMessage;
+import com.mooneyserver.account.persistence.entity.AccountsUser;
+import com.mooneyserver.account.persistence.entity.UserActivation;
+import com.mooneyserver.account.persistence.service.UserActivationService;
+import com.mooneyserver.account.persistence.service.UserService;
 import com.mooneyserver.account.utils.settings.SettingsKeys;
 
 import static com.mooneyserver.account.utils.settings.SystemSettings.SETTINGS;
@@ -25,13 +32,20 @@ import static com.mooneyserver.account.utils.settings.SystemSettings.SETTINGS;
 				@ActivationConfigProperty(propertyName = "destinationType", 
 						propertyValue = "javax.jms.Queue"),
 				@ActivationConfigProperty(propertyName = "destination", 
-						propertyValue = "queue/activationMail")
+						propertyValue = "queue/activationMail"),
+				@ActivationConfigProperty(propertyName = "subscriptionDurability",
+			            propertyValue = "NonDurable")
 		}, 
 		mappedName = "java:/queue/activationMail")
 public class ActivationMailMsgService implements MessageListener {
 
 	private static Logger log = Logger.getLogger(AccountsLoggingConstants.LOG_AREA_BACKEND);
 	
+	@EJB
+	private UserService userService;
+	
+	@EJB
+	private UserActivationService userActivationService;
 	
     public ActivationMailMsgService() {}
 	
@@ -75,10 +89,18 @@ public class ActivationMailMsgService implements MessageListener {
     	return mailBody;
     }
     
-    // TODO: Need to do this!
-    // Possibly a WebService call link
     private String generateLink(String toAddress) {
+    	SecureRandom secRand = new SecureRandom();
+    	String uniqueActivationId = new BigInteger(130, secRand).toString(32);
+    	
+    	AccountsUser user = userService.findByUsername(toAddress);
+    	UserActivation userActivate = new UserActivation();
+    	userActivate.setAccountsUser(user);
+    	userActivate.setUserActivationId(uniqueActivationId);
+    	
+    	userActivationService.create(userActivate);
+    	
     	return "<a>" + SETTINGS.getProp(SettingsKeys.APP_HOST_URL) 
-    			+ "/activate?uid=ABCDEFGHIJKLM123</a>";
+    			+ "/?restartApplication&userActivationId="+uniqueActivationId+"</a>";
     }
 }

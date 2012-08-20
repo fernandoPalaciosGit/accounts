@@ -4,7 +4,7 @@ import java.util.ResourceBundle;
 
 import com.mooneyserver.account.AccountsApplication;
 import com.mooneyserver.account.i18n.AccountsMessages;
-import com.mooneyserver.account.ui.view.IconManager;
+import com.mooneyserver.account.ui.manager.IconManager;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Window.Notification;
 
