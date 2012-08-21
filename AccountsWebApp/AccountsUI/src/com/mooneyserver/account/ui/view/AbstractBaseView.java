@@ -15,7 +15,9 @@ import com.mooneyserver.account.ui.manager.IconManager;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.themes.BaseTheme;
 
 @SuppressWarnings("serial")
@@ -32,6 +34,15 @@ public abstract class AbstractBaseView extends VerticalLayout implements
 	private Button langChange, genSettings, signOut;
 	
 	private BaseWindowClickListener btnListener = new BaseWindowClickListener();
+	
+	// Instance Initialisation block
+	// This will be called before the constructor block
+	// for all view subclasses and will enable the injected
+	// @BusinessProcess resources to be access from the
+	// subclass constructor
+	{
+		loadBackendServices();
+	}
 	
 	protected void constructHeader() {
 		setSpacing(true);
@@ -54,9 +65,9 @@ public abstract class AbstractBaseView extends VerticalLayout implements
         langBar.addComponent(about);
 		
         addComponent(langBar);
-        langBar.setHeight("38px");
+        langBar.setHeight("40px");
         langBar.setWidth("100%");
-        langBar.setStyleName("header");
+        langBar.setStyleName("v-header");
         langBar.setSpacing(true);
         langBar.setMargin(false, true, false, false);
         
@@ -99,6 +110,37 @@ public abstract class AbstractBaseView extends VerticalLayout implements
 	}
 	
 	protected void constructFooter() {
+		HorizontalLayout footerBar = new HorizontalLayout();
+		
+		footerBar.setHeight("125px");
+		footerBar.setWidth("100%");
+		footerBar.setStyleName("v-footer");
+		footerBar.setSpacing(true);
+		footerBar.setMargin(true, false, true, true);
+		
+		VerticalLayout vl = new VerticalLayout();
+		
+		Label hostedLbl = new Label("Hosted By:");
+		
+		Button hostedByLnk = new Button();
+		hostedByLnk.setStyleName(BaseTheme.BUTTON_LINK);
+		hostedByLnk.setIcon(IconManager.getIcon(IconManager.OPEN_SHIFT_IMG));
+		hostedByLnk.addListener(new Button.ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				AccountsApplication.getInstance().getMainWindow().executeJavaScript(
+			            "window.open('https://openshift.redhat.com/app/', 'linkToOpenShift')");
+			}
+		});
+		
+		vl.addComponent(hostedLbl);
+		vl.addComponent(hostedByLnk);
+		
+		footerBar.addComponent(vl);
+		footerBar.setComponentAlignment(vl, Alignment.MIDDLE_LEFT);
+		
+		addComponent(footerBar);
+		setComponentAlignment(footerBar, Alignment.BOTTOM_CENTER);
 	}
 	
 	public void reloadMainFrameComponentStrings() {
