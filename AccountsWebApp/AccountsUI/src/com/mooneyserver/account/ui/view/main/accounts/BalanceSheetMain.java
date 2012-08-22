@@ -1,4 +1,4 @@
-package com.mooneyserver.account.ui.view.accounts;
+package com.mooneyserver.account.ui.view.main.accounts;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +14,7 @@ import com.mooneyserver.account.lookup.BusinessProcess;
 import com.mooneyserver.account.persistence.entity.AccountsUser;
 import com.mooneyserver.account.persistence.entity.BalanceSheet;
 import com.mooneyserver.account.ui.manager.IconManager;
-import com.mooneyserver.account.ui.view.AbstractBaseView;
+import com.mooneyserver.account.ui.view.main.AbstractBaseView;
 import com.mooneyserver.account.ui.view.subwindow.accounts.CloseBalanceSheet;
 import com.mooneyserver.account.ui.view.subwindow.accounts.CreateNewBalanceSheet;
 

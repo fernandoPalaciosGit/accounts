@@ -12,8 +12,8 @@ import org.vaadin.jonatan.contexthelp.ContextHelp;
 import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.ui.iface.IAccountsView;
 import com.mooneyserver.account.ui.manager.DisplayManager;
-import com.mooneyserver.account.ui.view.user.AccountActivationView;
-import com.mooneyserver.account.ui.view.user.AccountsLoginView;
+import com.mooneyserver.account.ui.view.main.user.AccountActivationView;
+import com.mooneyserver.account.ui.view.main.user.AccountsLoginView;
 
 import com.vaadin.Application;
 import com.vaadin.terminal.ParameterHandler;

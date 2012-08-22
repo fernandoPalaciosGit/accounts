@@ -1,4 +1,4 @@
-package com.mooneyserver.account.ui.view.user;
+package com.mooneyserver.account.ui.view.main.user;
 
 import java.util.logging.Level;
 
@@ -9,7 +9,7 @@ import com.mooneyserver.account.lookup.BusinessProcess;
 import com.mooneyserver.account.ui.manager.IconManager;
 import com.mooneyserver.account.ui.notification.Messenger;
 import com.mooneyserver.account.ui.notification.Messenger.MessageSeverity;
-import com.mooneyserver.account.ui.view.AbstractBaseView;
+import com.mooneyserver.account.ui.view.main.AbstractBaseView;
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;

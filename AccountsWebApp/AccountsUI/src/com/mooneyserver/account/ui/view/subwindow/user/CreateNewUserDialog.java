@@ -15,7 +15,7 @@ import com.mooneyserver.account.ui.manager.IconManager;
 import com.mooneyserver.account.ui.notification.Messenger;
 import com.mooneyserver.account.ui.notification.Messenger.MessageSeverity;
 import com.mooneyserver.account.ui.validate.ConfirmPasswordFieldValidator;
-import com.mooneyserver.account.ui.view.AbstractBaseView;
+import com.mooneyserver.account.ui.view.main.AbstractBaseView;
 import com.mooneyserver.account.ui.view.subwindow.BaseSubwindow;
 import com.mooneyserver.account.ui.widget.FieldWithHelp;
 

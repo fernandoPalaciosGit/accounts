@@ -1,4 +1,4 @@
-package com.mooneyserver.account.ui.view;
+package com.mooneyserver.account.ui.view.main;
 
 import org.vaadin.aboutbox.AboutBox;
 

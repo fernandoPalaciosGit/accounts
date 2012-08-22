@@ -1,4 +1,4 @@
-package com.mooneyserver.account.ui.view.user;
+package com.mooneyserver.account.ui.view.main.user;
 
 import java.util.logging.Level;
 
@@ -11,8 +11,8 @@ import com.mooneyserver.account.persistence.entity.AccountsUser;
 import com.mooneyserver.account.ui.manager.IconManager;
 import com.mooneyserver.account.ui.notification.Messenger;
 import com.mooneyserver.account.ui.notification.Messenger.MessageSeverity;
-import com.mooneyserver.account.ui.view.AbstractBaseView;
-import com.mooneyserver.account.ui.view.dashboard.Dashboard;
+import com.mooneyserver.account.ui.view.main.AbstractBaseView;
+import com.mooneyserver.account.ui.view.main.dashboard.Dashboard;
 import com.mooneyserver.account.ui.view.subwindow.user.CreateNewUserDialog;
 import com.mooneyserver.account.ui.view.subwindow.user.ResetPasswordDialog;
 
