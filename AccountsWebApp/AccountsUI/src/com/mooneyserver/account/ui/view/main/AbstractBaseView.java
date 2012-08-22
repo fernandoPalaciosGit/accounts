@@ -3,7 +3,6 @@ package com.mooneyserver.account.ui.view.main;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
-import org.vaadin.aboutbox.AboutBox;
 import org.vaadin.hene.popupbutton.PopupButton;
 
 import com.mooneyserver.account.i18n.AccountsMessages;
@@ -29,7 +28,6 @@ public abstract class AbstractBaseView extends VerticalLayout implements
 	protected ResourceBundle STRINGS = 
 			AccountsApplication.getResourceBundle();
 	
-	private AboutBox about;
 	private PopupButton settingsDropdown;
 	private Button langChange, genSettings, signOut;
 	
@@ -51,18 +49,6 @@ public abstract class AbstractBaseView extends VerticalLayout implements
 		HorizontalLayout langBar = new HorizontalLayout();
 		
 		langBar.addComponent(AccountsApplication.getHelpBubble());
-		
-		about = new AboutBox();
-		
-		about.setCaption(STRINGS.getString(AccountsMessages.APP_TITLE));
-        about.setTitle(STRINGS.getString(AccountsMessages.APP_TITLE) 
-        		+ "<br/>" + AccountsApplication.APP_VERSION);
-        about.setDescription(STRINGS.getString(AccountsMessages.ABOUT_MAIN));
-        about.setLinkCaption(STRINGS.getString(AccountsMessages.ABOUT_LINK));
-        about.setAlignment(Alignment.TOP_LEFT);
-        about.setListener(btnListener);
-        
-        langBar.addComponent(about);
 		
         addComponent(langBar);
         langBar.setHeight("40px");
@@ -145,12 +131,6 @@ public abstract class AbstractBaseView extends VerticalLayout implements
 	
 	public void reloadMainFrameComponentStrings() {
 		STRINGS = AccountsApplication.getResourceBundle();
-		
-		about.setCaption(STRINGS.getString(AccountsMessages.APP_TITLE));
-        about.setTitle(STRINGS.getString(AccountsMessages.APP_TITLE) 
-        		+ "<br/>" + AccountsApplication.APP_VERSION);
-        about.setDescription(STRINGS.getString(AccountsMessages.ABOUT_MAIN));
-        about.setLinkCaption(STRINGS.getString(AccountsMessages.ABOUT_LINK));
         
         settingsDropdown.setDescription(STRINGS.getString(
         		AccountsMessages.HEADER_SETTINGS));
