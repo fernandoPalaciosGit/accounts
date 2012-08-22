@@ -69,6 +69,7 @@ public class AccountsMessages extends ListResourceBundle implements Serializable
 	public static final String MSGR_TITLE_ERROR = "Messenger.Title.Error";
 	public static final String MSGR_APOLOGIES = "Messenger.Heading.Apologies";
 	public static final String MSGR_BODY_NO_FEATURE = "Messenger.Body.Feature_Not_Implemented";
+	public static final String MSGR_UNRECOVERABLE_ERROR = "Messenger.Body.Unrecoverable_Error";
 	
 	/*
 	 * Dashboard

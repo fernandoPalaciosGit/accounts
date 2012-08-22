@@ -12,7 +12,6 @@ import java.util.Set;
 @Entity
 @Table(name="accounts_user")
 @NamedQueries({
-	//@NamedQuery(name = "accounts.schema.AccountsUser.findAllActiveUsers", query = "SELECT u FROM AccountsUser u where u.userIsActive <> 0"),
 	@NamedQuery(name = "accounts.schema.AccountsUser.findByUsername", query = "SELECT u FROM AccountsUser u where u.username = :username"),
 	@NamedQuery(name = "accounts.schema.AccountsUser.findById", query = "SELECT u FROM AccountsUser u where u.id = :uid")
 })
@@ -37,13 +36,8 @@ public class AccountsUser implements Serializable {
 
 	private String username;
 
-	//bi-directional one-to-one association to BalanceSheet
-	@OneToOne(fetch=FetchType.LAZY)
-	@PrimaryKeyJoinColumn(name="idaccounts_user")
-	private BalanceSheet balanceSheet;
-
 	//bi-directional many-to-one association to BalanceSheet
-	@OneToMany(mappedBy="accountsUser2")
+	@OneToMany(mappedBy="owner")
 	private Set<BalanceSheet> balanceSheets;
 
     public AccountsUser() {
@@ -103,14 +97,6 @@ public class AccountsUser implements Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public BalanceSheet getBalanceSheet() {
-		return this.balanceSheet;
-	}
-
-	public void setBalanceSheet(BalanceSheet balanceSheet) {
-		this.balanceSheet = balanceSheet;
 	}
 	
 	public Set<BalanceSheet> getBalanceSheets() {

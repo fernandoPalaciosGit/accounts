@@ -7,8 +7,12 @@
     -webkit-border-image: none;
 }
 
-.header {
+.v-header {
 	background:		black;
+}
+
+.v-footer {
+	background:		grey;
 }
 
 .v-window-outerheader {
@@ -31,4 +35,50 @@
 
 .v-caption-wrappedfield {
   display: none;
+}
+
+
+.side-panel {
+	
+}
+
+.side-panel .v-button {
+      display: block;
+      height: 100px;
+      background: transparent;
+      border: none;
+      text-align: center;
+      text-decoration: none;
+}
+ 
+.side-panel .v-button img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 5px;
+}
+
+.side-panel .v-button span {
+      font-size: x-small;
+      text-shadow: #fafafa 1px 1px 0;
+}
+
+.side-panel .v-button .v-button-wrap, 
+.side-panel .v-disabled.v-button .v-button-wrap {
+   background: transparent;
+   border: none;
+   -webkit-border-radius: 0;
+   -moz-border-radius: 0;
+   border-radius: 0;
+   -webkit-box-shadow: none;
+   -moz-box-shadow: none;
+   box-shadow: none;
+}
+
+.side-panel .v-button:active .v-button-wrap,
+.side-panel .v-button.v-pressed .v-button-wrap {
+   background: transparent;
+   -webkit-box-shadow: none;
+   -moz-box-shadow: none;
+   box-shadow: none;
 }

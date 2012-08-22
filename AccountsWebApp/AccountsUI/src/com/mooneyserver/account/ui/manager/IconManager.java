@@ -37,6 +37,14 @@ public class IconManager {
 	public static final int DASHBOARD_GRAPHS = getId();
 	public static final int DASHBOARD_SETTINGS = getId();
 	
+	public static final int OPEN_SHIFT_IMG = getId();
+	
+	public static final int ADD_NEW_BALANCE_SHEET = getId();
+	public static final int ADD_NEW_BALANCE_SHEET_SMALL = getId();
+	public static final int CLOSE_BALANCE_SHEET = getId();
+	public static final int CLOSE_BALANCE_SHEET_SMALL = getId();
+	public static final int BALANCE_SHEET = getId();
+	
 	private static final Map<Integer, String> iconLocation;
 	
 	// Future proofing for possibly selectable icon sets
@@ -67,6 +75,12 @@ public class IconManager {
 		iconLocation.put(DASHBOARD_GRAPHS, "large/dashboard-graphs.png");
 		iconLocation.put(DASHBOARD_SETTINGS, "large/dashboard-settings.png");
 		iconLocation.put(ACTIVATE_USER, "small/activate_my_user.png");
+		iconLocation.put(OPEN_SHIFT_IMG, "large/openshift_logo_64.png");
+		iconLocation.put(ADD_NEW_BALANCE_SHEET, "large/add_balance_sheet.png");
+		iconLocation.put(CLOSE_BALANCE_SHEET, "large/remove_balance_sheet.png");
+		iconLocation.put(ADD_NEW_BALANCE_SHEET_SMALL, "small/create_bal_sheet.png");
+		iconLocation.put(CLOSE_BALANCE_SHEET_SMALL, "small/remove_bal_sheet.png");
+		iconLocation.put(BALANCE_SHEET, "large/balance_sheet.png");
 		
 	}
 

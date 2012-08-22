@@ -2,6 +2,7 @@ package com.mooneyserver.account.persistence.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
 import java.util.Set;
 
 
@@ -11,6 +12,12 @@ import java.util.Set;
  */
 @Entity
 @Table(name="balance_sheet")
+@NamedQueries({
+	@NamedQuery(name = "accounts.schema.BalanceSheet.findByOwner", 
+			query = "SELECT s FROM BalanceSheet s where s.owner = :owner"),
+	@NamedQuery(name = "accounts.schema.BalanceSheet.findByName", 
+			query = "SELECT s FROM BalanceSheet s where s.owner = :owner and s.sheetName = :name")
+})
 public class BalanceSheet implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -25,25 +32,30 @@ public class BalanceSheet implements Serializable {
 	@Column(name="sheet_name")
 	private String sheetName;
 
-	//bi-directional one-to-one association to AccountsUser
-	@OneToOne(mappedBy="balanceSheet", fetch=FetchType.LAZY)
-	private AccountsUser accountsUser1;
-
 	//bi-directional many-to-one association to AccountsUser
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="owner_id")
-	private AccountsUser accountsUser2;
+	private AccountsUser owner;
+	
+	@Column(name="sheet_is_active")
+	private boolean active;
+	
+	@Lob()
+	@Column(name="inactive_reason")
+	private String inactiveReason;
 
 	//bi-directional many-to-one association to CreditMaster
 	@OneToMany(mappedBy="balanceSheetBean")
-	private Set<CreditMaster> creditMasters;
+	private Set<CreditMaster> creditEntries;
 
 	//bi-directional many-to-one association to DebitMaster
 	@OneToMany(mappedBy="balanceSheetBean")
-	private Set<DebitMaster> debitMasters;
+	private Set<DebitMaster> debitEntries;
 
-    public BalanceSheet() {
-    }
+	
+	
+    public BalanceSheet() {}
+    
 
 	public int getIdbalanceSheet() {
 		return this.idbalanceSheet;
@@ -68,37 +80,44 @@ public class BalanceSheet implements Serializable {
 	public void setSheetName(String sheetName) {
 		this.sheetName = sheetName;
 	}
-
-	public AccountsUser getAccountsUser1() {
-		return this.accountsUser1;
-	}
-
-	public void setAccountsUser1(AccountsUser accountsUser1) {
-		this.accountsUser1 = accountsUser1;
-	}
 	
-	public AccountsUser getAccountsUser2() {
-		return this.accountsUser2;
+	public AccountsUser getOwner() {
+		return this.owner;
 	}
 
-	public void setAccountsUser2(AccountsUser accountsUser2) {
-		this.accountsUser2 = accountsUser2;
+	public void setOwner(AccountsUser owner) {
+		this.owner = owner;
 	}
 	
 	public Set<CreditMaster> getCreditMasters() {
-		return this.creditMasters;
+		return this.creditEntries;
 	}
 
 	public void setCreditMasters(Set<CreditMaster> creditMasters) {
-		this.creditMasters = creditMasters;
+		this.creditEntries = creditMasters;
 	}
 	
 	public Set<DebitMaster> getDebitMasters() {
-		return this.debitMasters;
+		return this.debitEntries;
 	}
 
 	public void setDebitMasters(Set<DebitMaster> debitMasters) {
-		this.debitMasters = debitMasters;
+		this.debitEntries = debitMasters;
 	}
 	
+	public boolean isActive() {
+		return active;
+	}
+	
+	public void setActive(boolean bool) {
+		this.active = bool;
+	}
+	
+	public String getReasonForClosure() {
+		return inactiveReason;
+	}
+	
+	public void setReasonForClosure(String reason) {
+		this.inactiveReason = reason;
+	}
 }

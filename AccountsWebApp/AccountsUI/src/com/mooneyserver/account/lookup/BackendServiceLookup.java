@@ -48,6 +48,8 @@ public class BackendServiceLookup {
         backendServicesLookup = new HashMap<>();
         backendServicesLookup.put("com.mooneyserver.account.businesslogic.user.IUserService", 
         		"/Accounts/AccountsBackend/UserBusinessService");
+        backendServicesLookup.put("com.mooneyserver.account.businesslogic.accounts.IBalanceSheetMgmtService", 
+        		"/Accounts/AccountsBackend/AccountsBusinessService");
     }
    
     // Check if the service is already cached

@@ -63,6 +63,7 @@ public class AccountsMessages_en extends AccountsMessages {
 		{MSGR_TITLE_ERROR, "Error"},
 		{MSGR_APOLOGIES, "Apologies"},
 		{MSGR_BODY_NO_FEATURE, "This feature hasn't been implemented yet"},
+		{MSGR_UNRECOVERABLE_ERROR, "An error has occured in the system."},
 		
 		/* Dashboard */
 		{DASHBRD_BAL_SHEET_TOOLTIP, "Balance Sheet Mgmt"},

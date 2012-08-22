@@ -7,6 +7,7 @@ import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.ui.manager.IconManager;
 import com.mooneyserver.account.ui.notification.Messenger;
 import com.mooneyserver.account.ui.view.AbstractBaseView;
+import com.mooneyserver.account.ui.view.accounts.BalanceSheetMain;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -21,6 +22,11 @@ public class Dashboard extends AbstractBaseView implements Button.ClickListener 
 	private Button accounts, reports, settings, graphs;
 	private ResourceBundle STRINGS = AccountsApplication.getResourceBundle();
 	
+	private final String ACCOUNTS = "ACCOUNTS";
+	private final String REPORTS = "REPORS";
+	private final String GRAPHS = "GRAPHS";
+	private final String SETTINGS = "SETTINGS";
+	
 	public Dashboard() {
 		constructHeader();
 		
@@ -32,11 +38,13 @@ public class Dashboard extends AbstractBaseView implements Button.ClickListener 
 		accounts.setStyleName(BaseTheme.BUTTON_LINK);
 		accounts.setIcon(IconManager.getIcon(IconManager.DASHBOARD_ACCOUNTS));
 		accounts.addListener(this);
+		accounts.setData(ACCOUNTS);
 		
 		graphs = new Button();
 		graphs.setStyleName(BaseTheme.BUTTON_LINK);
 		graphs.setIcon(IconManager.getIcon(IconManager.DASHBOARD_GRAPHS));
 		graphs.addListener(this);
+		graphs.setData(GRAPHS);
 
 		vLeft.setSpacing(true);
 		vLeft.addComponent(accounts);
@@ -46,11 +54,13 @@ public class Dashboard extends AbstractBaseView implements Button.ClickListener 
 		reports.setStyleName(BaseTheme.BUTTON_LINK);
 		reports.setIcon(IconManager.getIcon(IconManager.DASHBOARD_REPORTS));
 		reports.addListener(this);
+		reports.setData(REPORTS);
 		
 		settings = new Button();
 		settings.setStyleName(BaseTheme.BUTTON_LINK);
 		settings.setIcon(IconManager.getIcon(IconManager.DASHBOARD_SETTINGS));
 		settings.addListener(this);
+		settings.setData(SETTINGS);
 		
 		vRight.setSpacing(true);
 		vRight.addComponent(reports);
@@ -81,6 +91,13 @@ public class Dashboard extends AbstractBaseView implements Button.ClickListener 
 
 	@Override
 	public void buttonClick(ClickEvent event) {
-		Messenger.notYetImplemented();
+		switch ((String) event.getButton().getData()) {
+			case ACCOUNTS:
+				AccountsApplication.getInstance()
+					.displayMgr.loadNewView(new BalanceSheetMain());
+				break;
+			default:
+				Messenger.notYetImplemented();
+		}
 	}
 }
