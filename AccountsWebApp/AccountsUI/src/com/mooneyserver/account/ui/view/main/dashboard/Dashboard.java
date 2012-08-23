@@ -100,4 +100,10 @@ public class Dashboard extends AbstractBaseView implements Button.ClickListener 
 				Messenger.notYetImplemented();
 		}
 	}
+
+	@Override
+	public String getDisplayName() {
+		// TODO Localise
+		return "Dashboard";
+	}
 }

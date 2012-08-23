@@ -3,8 +3,6 @@ package com.mooneyserver.account.ui.view.main;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
-import org.vaadin.hene.popupbutton.PopupButton;
-
 import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.logging.AccountsLoggingConstants;
 import com.mooneyserver.account.lookup.BackendServiceLookup;
@@ -28,10 +26,8 @@ public abstract class AbstractBaseView extends VerticalLayout implements
 	protected ResourceBundle STRINGS = 
 			AccountsApplication.getResourceBundle();
 	
-	private PopupButton settingsDropdown;
-	private Button langChange, genSettings, signOut;
-	
-	private BaseWindowClickListener btnListener = new BaseWindowClickListener();
+	private SettingsDropdown settingsDropdown;
+	private Label pageName;
 	
 	// Instance Initialisation block
 	// This will be called before the constructor block
@@ -40,59 +36,36 @@ public abstract class AbstractBaseView extends VerticalLayout implements
 	// subclass constructor
 	{
 		loadBackendServices();
+		AccountsApplication.getInstance().breadcrumb
+			.addScreenToBreadcrumb(this.getDisplayName());
 	}
 	
 	protected void constructHeader() {
-		setSpacing(true);
+		setSpacing(false);
 		setSizeFull();
 		
 		HorizontalLayout langBar = new HorizontalLayout();
-		
-		langBar.addComponent(AccountsApplication.getHelpBubble());
 		
         addComponent(langBar);
         langBar.setHeight("40px");
         langBar.setWidth("100%");
         langBar.setStyleName("v-header");
         langBar.setSpacing(true);
-        langBar.setMargin(false, true, false, false);
+        langBar.setMargin(false, true, false, true);
         
-        settingsDropdown = new PopupButton("");
-        settingsDropdown.setStyleName(BaseTheme.BUTTON_LINK);
-        settingsDropdown.setDescription(STRINGS.getString(AccountsMessages.HEADER_SETTINGS));
-        settingsDropdown.setIcon(IconManager.getIcon(IconManager.SETTINGS_LARGE));
-
-        VerticalLayout popupLayout = new VerticalLayout();
-        popupLayout.setSizeUndefined();
-
-        settingsDropdown.setComponent(popupLayout); // Set popup content
-
-        langChange = new Button(STRINGS.getString(AccountsMessages.HEADER_SETTINGS_LANG));
-        langChange.setStyleName(BaseTheme.BUTTON_LINK);
-        langChange.setIcon(IconManager.getIcon(IconManager.SETTINGS_CHANGE_LANG));
-        langChange.addListener(btnListener);
-        langChange.setData(BaseWindowClickListener.LANG);
-        popupLayout.addComponent(langChange);
+        pageName = AccountsApplication.getInstance()
+        		.breadcrumb.getCurrentDisplayLabel();
+        langBar.addComponent(pageName);
+        langBar.setComponentAlignment(pageName, 
+        		Alignment.MIDDLE_CENTER);
         
-        genSettings = new Button(STRINGS.getString(AccountsMessages.HEADER_SETTINGS));
-        genSettings.setStyleName(BaseTheme.BUTTON_LINK);
-        genSettings.setIcon(IconManager.getIcon(IconManager.SETTINGS_SMALL));
-        genSettings.addListener(btnListener);
-        genSettings.setData(BaseWindowClickListener.GEN_SETTINGS);
-        popupLayout.addComponent(genSettings);
-        
-        signOut = new Button(STRINGS.getString(AccountsMessages.HEADER_SETTINGS_SIGNOUT));
-        signOut.setStyleName(BaseTheme.BUTTON_LINK);
-        signOut.setIcon(IconManager.getIcon(IconManager.SETTINGS_LOGOUT));
-        signOut.addListener(btnListener);
-        signOut.setData(BaseWindowClickListener.SIGNOUT);
-        if (AccountsApplication.getInstance().getUser() == null) {
-        	signOut.setEnabled(false);
-        }
-        popupLayout.addComponent(signOut);
-        
+        settingsDropdown = new SettingsDropdown();
         langBar.addComponent(settingsDropdown);
-        langBar.setComponentAlignment(settingsDropdown, Alignment.MIDDLE_RIGHT);
+        langBar.setComponentAlignment(settingsDropdown, 
+        		Alignment.MIDDLE_RIGHT);
+        
+        if (AccountsApplication.getInstance().getUser() != null)
+        	addComponent(AccountsApplication.getInstance().menu);
 	}
 	
 	protected void constructFooter() {
@@ -107,6 +80,7 @@ public abstract class AbstractBaseView extends VerticalLayout implements
 		VerticalLayout vl = new VerticalLayout();
 		
 		Label hostedLbl = new Label("Hosted By:");
+		hostedLbl.setSizeFull();
 		
 		Button hostedByLnk = new Button();
 		hostedByLnk.setStyleName(BaseTheme.BUTTON_LINK);
@@ -114,8 +88,10 @@ public abstract class AbstractBaseView extends VerticalLayout implements
 		hostedByLnk.addListener(new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				AccountsApplication.getInstance().getMainWindow().executeJavaScript(
-			            "window.open('https://openshift.redhat.com/app/', 'linkToOpenShift')");
+				AccountsApplication.getInstance()
+					.getMainWindow().executeJavaScript(
+			            "window.open('https://openshift.redhat.com/app/',"
+					   +" 'linkToOpenShift')");
 			}
 		});
 		
@@ -124,6 +100,8 @@ public abstract class AbstractBaseView extends VerticalLayout implements
 		
 		footerBar.addComponent(vl);
 		footerBar.setComponentAlignment(vl, Alignment.MIDDLE_LEFT);
+		
+		footerBar.addComponent(AccountsApplication.getHelpBubble());
 		
 		addComponent(footerBar);
 		setComponentAlignment(footerBar, Alignment.BOTTOM_CENTER);
@@ -135,9 +113,9 @@ public abstract class AbstractBaseView extends VerticalLayout implements
         settingsDropdown.setDescription(STRINGS.getString(
         		AccountsMessages.HEADER_SETTINGS));
         
-        langChange.setCaption(STRINGS.getString(AccountsMessages.HEADER_SETTINGS_LANG));
-        genSettings.setCaption(STRINGS.getString(AccountsMessages.HEADER_SETTINGS));
-        signOut.setCaption(STRINGS.getString(AccountsMessages.HEADER_SETTINGS_SIGNOUT));
+        settingsDropdown.updateStrings();
+        pageName.setCaption(AccountsApplication.getInstance()
+        		.breadcrumb.getCurrentDisplayLabel().getCaption());
 	}
 	
 	public void loadBackendServices() {

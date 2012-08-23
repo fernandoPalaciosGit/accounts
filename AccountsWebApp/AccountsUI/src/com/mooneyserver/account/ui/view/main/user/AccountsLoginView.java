@@ -162,4 +162,10 @@ public class AccountsLoginView extends AbstractBaseView
 				break;
 		}
 	}
+
+	@Override
+	public String getDisplayName() {
+		// TODO Localise
+		return "Login";
+	}
 }

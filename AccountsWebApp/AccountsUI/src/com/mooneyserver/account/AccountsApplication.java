@@ -12,8 +12,10 @@ import org.vaadin.jonatan.contexthelp.ContextHelp;
 import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.ui.iface.IAccountsView;
 import com.mooneyserver.account.ui.manager.DisplayManager;
+import com.mooneyserver.account.ui.view.main.MainMenuBar;
 import com.mooneyserver.account.ui.view.main.user.AccountActivationView;
 import com.mooneyserver.account.ui.view.main.user.AccountsLoginView;
+import com.mooneyserver.account.ui.widget.Breadcrumb;
 
 import com.vaadin.Application;
 import com.vaadin.terminal.ParameterHandler;
@@ -35,7 +37,10 @@ public final class AccountsApplication extends Application implements HttpServle
 	/* Internationalisation Resource Bundle for Strings */
 	private ResourceBundle i18nBundle;
 	private ContextHelp helpBubble;
+	public final Breadcrumb breadcrumb;
 	public final  DisplayManager displayMgr;
+	public final MainMenuBar menu;
+	
 	Window mainWindow;
 	
 	public static final String APP_VERSION = "0.0.1";
@@ -46,6 +51,8 @@ public final class AccountsApplication extends Application implements HttpServle
 		
 		displayMgr = new DisplayManager();
 		helpBubble = new ContextHelp();
+		breadcrumb = new Breadcrumb();
+		menu = new MainMenuBar();
 	}	
 	
 	@Override

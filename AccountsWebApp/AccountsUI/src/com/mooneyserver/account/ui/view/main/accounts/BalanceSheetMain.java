@@ -204,4 +204,10 @@ public class BalanceSheetMain extends AbstractBaseView {
 		
 		return vl;
 	}
+
+	@Override
+	public String getDisplayName() {
+		// TODO Loalise
+		return "My Balance Sheets";
+	}
 }

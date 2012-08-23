@@ -76,4 +76,10 @@ public class AccountActivationView extends AbstractBaseView implements Button.Cl
 			Messenger.genericMessage(MessageSeverity.WARNING, "There has been an issue with User Activation");
 		}
 	}
+
+	@Override
+	public String getDisplayName() {
+		// TODO Localise
+		return "Account Activation";
+	}
 }

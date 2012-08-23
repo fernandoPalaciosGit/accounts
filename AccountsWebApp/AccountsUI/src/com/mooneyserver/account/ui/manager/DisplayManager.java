@@ -21,14 +21,16 @@ public class DisplayManager {
 	}
 	
 	public void destroyCurrentView() {
-		windowStack.pop();
+		AccountsApplication.getInstance().breadcrumb
+			.removeScreenFromBreadcrumb(windowStack.pop().getDisplayName());
 		setCurrentView(windowStack.peek());
 	}
 	
 	// To be called for logout scenario
 	public void closeAllViews() {
 		while (windowStack.size() > 1) {
-			windowStack.pop();
+			AccountsApplication.getInstance().breadcrumb
+				.removeScreenFromBreadcrumb(windowStack.pop().getDisplayName());
 		}
 		setCurrentView(windowStack.peek());
 	}
