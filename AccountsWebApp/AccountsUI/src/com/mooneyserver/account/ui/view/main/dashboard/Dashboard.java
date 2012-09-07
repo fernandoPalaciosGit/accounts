@@ -4,10 +4,11 @@ import java.util.ResourceBundle;
 
 import com.mooneyserver.account.AccountsApplication;
 import com.mooneyserver.account.i18n.AccountsMessages;
+import com.mooneyserver.account.ui.iface.IMainView;
+import com.mooneyserver.account.ui.manager.EMainView;
 import com.mooneyserver.account.ui.manager.IconManager;
 import com.mooneyserver.account.ui.notification.Messenger;
 import com.mooneyserver.account.ui.view.main.AbstractBaseView;
-import com.mooneyserver.account.ui.view.main.accounts.BalanceSheetMain;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -15,7 +16,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.BaseTheme;
 
-public class Dashboard extends AbstractBaseView implements Button.ClickListener {
+public class Dashboard extends AbstractBaseView implements Button.ClickListener, IMainView {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -27,9 +28,7 @@ public class Dashboard extends AbstractBaseView implements Button.ClickListener 
 	private final String GRAPHS = "GRAPHS";
 	private final String SETTINGS = "SETTINGS";
 	
-	public Dashboard() {
-		constructHeader();
-		
+	public Dashboard() {		
 		HorizontalLayout hl = new HorizontalLayout();
 		VerticalLayout vLeft = new VerticalLayout();
 		VerticalLayout vRight = new VerticalLayout();
@@ -74,8 +73,6 @@ public class Dashboard extends AbstractBaseView implements Button.ClickListener 
 		setComponentAlignment(hl, Alignment.MIDDLE_CENTER);
 		setExpandRatio(hl, 1);
 		
-		constructFooter();
-		
 		buildStringsFromLocale();
 	}
 	
@@ -93,8 +90,8 @@ public class Dashboard extends AbstractBaseView implements Button.ClickListener 
 	public void buttonClick(ClickEvent event) {
 		switch ((String) event.getButton().getData()) {
 			case ACCOUNTS:
-				AccountsApplication.getInstance()
-					.displayMgr.loadNewView(new BalanceSheetMain());
+				AccountsApplication.getInstance().nav
+					.openMainView(EMainView.BAL_SHEET);
 				break;
 			default:
 				Messenger.notYetImplemented();

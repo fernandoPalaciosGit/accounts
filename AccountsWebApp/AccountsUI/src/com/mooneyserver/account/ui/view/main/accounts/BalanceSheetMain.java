@@ -13,6 +13,7 @@ import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.lookup.BusinessProcess;
 import com.mooneyserver.account.persistence.entity.AccountsUser;
 import com.mooneyserver.account.persistence.entity.BalanceSheet;
+import com.mooneyserver.account.ui.iface.IMainView;
 import com.mooneyserver.account.ui.manager.IconManager;
 import com.mooneyserver.account.ui.view.main.AbstractBaseView;
 import com.mooneyserver.account.ui.view.subwindow.accounts.CloseBalanceSheet;
@@ -29,7 +30,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.themes.BaseTheme;
 
-public class BalanceSheetMain extends AbstractBaseView {
+public class BalanceSheetMain extends AbstractBaseView implements IMainView {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -43,8 +44,6 @@ public class BalanceSheetMain extends AbstractBaseView {
 	private final int NUM_COLS = 4;
 	
 	public BalanceSheetMain() {
-		constructHeader();
-
 		HorizontalSplitPanel hsp = new HorizontalSplitPanel();
 		hsp.setSplitPosition(12, Sizeable.UNITS_PERCENTAGE);
 		hsp.setSizeFull();
@@ -93,8 +92,6 @@ public class BalanceSheetMain extends AbstractBaseView {
         hsp.setSizeFull();
         addComponent(hsp);
         setExpandRatio(hsp, 1);
-
-		constructFooter();
 
 		buildStringsFromLocale();
 	}
@@ -192,8 +189,20 @@ public class BalanceSheetMain extends AbstractBaseView {
 			balSheetBtn.setDescription(balSheet.getDescription());
 			balSheetBtn.setStyleName(BaseTheme.BUTTON_LINK);
 			balSheetBtn.setIcon(IconManager.getIcon(IconManager.BALANCE_SHEET));
-			if (!balSheet.isActive())
+			if (!balSheet.isActive()) {
 				balSheetBtn.setEnabled(false);
+			} else {
+				balSheetBtn.addListener(new Button.ClickListener() {
+
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void buttonClick(ClickEvent event) {
+						AccountsApplication.getInstance().nav
+							.loadNewView(new SingleBalanceSheet());
+					}
+				});
+			}
 	        
 			row.addComponent(balSheetBtn);
 		}
@@ -207,7 +216,7 @@ public class BalanceSheetMain extends AbstractBaseView {
 
 	@Override
 	public String getDisplayName() {
-		// TODO Loalise
+		// TODO Localise
 		return "My Balance Sheets";
 	}
 }

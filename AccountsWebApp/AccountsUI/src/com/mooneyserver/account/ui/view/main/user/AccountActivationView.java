@@ -6,6 +6,7 @@ import com.mooneyserver.account.AccountsApplication;
 import com.mooneyserver.account.businesslogic.user.IUserService;
 import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.lookup.BusinessProcess;
+import com.mooneyserver.account.ui.iface.IMainView;
 import com.mooneyserver.account.ui.manager.IconManager;
 import com.mooneyserver.account.ui.notification.Messenger;
 import com.mooneyserver.account.ui.notification.Messenger.MessageSeverity;
@@ -18,7 +19,7 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.BaseTheme;
 
-public class AccountActivationView extends AbstractBaseView implements Button.ClickListener {
+public class AccountActivationView extends AbstractBaseView implements Button.ClickListener, IMainView {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -31,7 +32,6 @@ public class AccountActivationView extends AbstractBaseView implements Button.Cl
 	
 	public AccountActivationView(String activationId) {
 		this.activationId = activationId;
-		constructHeader();
 		
 		activationPanel = new Panel();
 		activationPanel.setImmediate(true);
@@ -52,8 +52,6 @@ public class AccountActivationView extends AbstractBaseView implements Button.Cl
 		setComponentAlignment(activationPanel, Alignment.MIDDLE_CENTER);
 		setExpandRatio(activationPanel, 1);
 		
-		constructFooter();
-		
 		buildStringsFromLocale();
 	}
 	
@@ -72,7 +70,7 @@ public class AccountActivationView extends AbstractBaseView implements Button.Cl
 			AccountsApplication.getInstance().getMainWindow().open(new ExternalResource(baseUrl + "?restartApplication"));
 		} else {
 			log.log(Level.WARNING, "Warning thrown while trying to activate with ["+this.activationId+"]");
-			AccountsApplication.setCurrentView(new AccountsLoginView());
+			AccountsApplication.getInstance().nav.loadNewView(new AccountsLoginView());
 			Messenger.genericMessage(MessageSeverity.WARNING, "There has been an issue with User Activation");
 		}
 	}

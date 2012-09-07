@@ -8,11 +8,12 @@ import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.AccountsApplication;
 import com.mooneyserver.account.lookup.BusinessProcess;
 import com.mooneyserver.account.persistence.entity.AccountsUser;
+import com.mooneyserver.account.ui.iface.IMainView;
+import com.mooneyserver.account.ui.manager.EMainView;
 import com.mooneyserver.account.ui.manager.IconManager;
 import com.mooneyserver.account.ui.notification.Messenger;
 import com.mooneyserver.account.ui.notification.Messenger.MessageSeverity;
 import com.mooneyserver.account.ui.view.main.AbstractBaseView;
-import com.mooneyserver.account.ui.view.main.dashboard.Dashboard;
 import com.mooneyserver.account.ui.view.subwindow.user.CreateNewUserDialog;
 import com.mooneyserver.account.ui.view.subwindow.user.ResetPasswordDialog;
 
@@ -30,7 +31,7 @@ import com.vaadin.ui.themes.BaseTheme;
 
 
 public class AccountsLoginView extends AbstractBaseView 
-	implements LoginListener, ClickListener {
+	implements LoginListener, ClickListener, IMainView {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -45,8 +46,6 @@ public class AccountsLoginView extends AbstractBaseView
 	private final String NEW_USER = "NEW_USER";
 	
 	public AccountsLoginView() {
-		constructHeader();
-		
 		loginPanel = new Panel();
 		loginPanel.setImmediate(true);
 		loginPanel.setWidth("400px");
@@ -89,8 +88,6 @@ public class AccountsLoginView extends AbstractBaseView
 		setComponentAlignment(loginPanel, Alignment.MIDDLE_CENTER);
 		setExpandRatio(loginPanel, 1);
 		
-		constructFooter();
-		
 		buildStringsFromLocale();
 	}
 	
@@ -120,8 +117,7 @@ public class AccountsLoginView extends AbstractBaseView
 		
 		if (user != null) {
 			AccountsApplication.getInstance().setUser(user);
-			AccountsApplication.getInstance()
-				.displayMgr.loadNewView(new Dashboard());
+			AccountsApplication.getInstance().nav.openMainView(EMainView.DASHBOARD);
 		} else {
 			Messenger.genericMessage(MessageSeverity.WARNING, 
 					"Incorrect Username or Password");

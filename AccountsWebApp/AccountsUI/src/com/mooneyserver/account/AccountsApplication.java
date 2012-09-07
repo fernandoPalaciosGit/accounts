@@ -11,11 +11,10 @@ import org.vaadin.jonatan.contexthelp.ContextHelp;
 
 import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.ui.iface.IAccountsView;
-import com.mooneyserver.account.ui.manager.DisplayManager;
-import com.mooneyserver.account.ui.view.main.MainMenuBar;
+import com.mooneyserver.account.ui.manager.Navigation;
+import com.mooneyserver.account.ui.view.main.MainView;
 import com.mooneyserver.account.ui.view.main.user.AccountActivationView;
 import com.mooneyserver.account.ui.view.main.user.AccountsLoginView;
-import com.mooneyserver.account.ui.widget.Breadcrumb;
 
 import com.vaadin.Application;
 import com.vaadin.terminal.ParameterHandler;
@@ -37,22 +36,18 @@ public final class AccountsApplication extends Application implements HttpServle
 	/* Internationalisation Resource Bundle for Strings */
 	private ResourceBundle i18nBundle;
 	private ContextHelp helpBubble;
-	public final Breadcrumb breadcrumb;
-	public final  DisplayManager displayMgr;
-	public final MainMenuBar menu;
+	
+	public Navigation nav;
 	
 	Window mainWindow;
+	MainView mainView;
+	
 	
 	public static final String APP_VERSION = "0.0.1";
 	
 	/* Constructor */
 	public AccountsApplication() {
 		sessionInstance.set(this);
-		
-		displayMgr = new DisplayManager();
-		helpBubble = new ContextHelp();
-		breadcrumb = new Breadcrumb();
-		menu = new MainMenuBar();
 	}	
 	
 	@Override
@@ -64,6 +59,13 @@ public final class AccountsApplication extends Application implements HttpServle
 		mainWindow = new Window(i18nBundle.getString(
 				AccountsMessages.APP_TITLE));
 		setMainWindow(mainWindow);
+		
+		helpBubble = new ContextHelp();
+		nav = new Navigation();
+		mainView = new MainView();
+		
+		
+		mainWindow.setContent(mainView);
 		
 		// Perform activation if required
 		mainWindow.addParameterHandler(new ParameterHandler() {
@@ -83,20 +85,22 @@ public final class AccountsApplication extends Application implements HttpServle
 				
 				// Param Handler is called multiple times for some reason
 				// Make sure we only load one view!
-				if (AccountsApplication.getInstance().displayMgr.getViewCount() < 1) {
+				if (nav.getViewCount() < 1) {
 					if (isActivating)
-						AccountsApplication.getInstance().displayMgr
-							.loadNewView(new AccountActivationView(activationVal.toString()));
+						nav.loadNewView(new AccountActivationView(activationVal.toString()));
 					else
-						AccountsApplication.getInstance().displayMgr
-							.loadNewView(new AccountsLoginView());
+						nav.loadNewView(new AccountsLoginView());
 				}
 			}
 		});
 	}
 	
-	public static void setCurrentView(IAccountsView view) {
-		sessionInstance.get().mainWindow.setContent(view);
+	public static void setDynamicContent(IAccountsView view) {
+		sessionInstance.get().mainView.setDynamicContent(view);
+	}
+	
+	public static void refreshMainView() {
+		sessionInstance.get().mainView.refreshView();
 	}
 	
 	public static ResourceBundle getResourceBundle() {
@@ -116,7 +120,8 @@ public final class AccountsApplication extends Application implements HttpServle
 		super.setLocale(locale);
 		i18nBundle = ResourceBundle.getBundle(
 				AccountsMessages.class.getName(), getLocale());
-		displayMgr.refreshViews();
+		if (nav != null)
+			nav.refreshContent();
 	}
 	
 	@Override
