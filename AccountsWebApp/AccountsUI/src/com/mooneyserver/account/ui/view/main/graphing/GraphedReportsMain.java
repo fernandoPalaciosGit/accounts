@@ -1,5 +1,6 @@
 package com.mooneyserver.account.ui.view.main.graphing;
 
+import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.ui.iface.IMainView;
 import com.mooneyserver.account.ui.view.main.AbstractBaseView;
 import com.vaadin.ui.Alignment;
@@ -24,13 +25,9 @@ public class GraphedReportsMain extends AbstractBaseView implements IMainView {
 	}
 	
 	@Override
-	public String getDisplayName() {
-		// TODO Auto-generated method stub
-		return "Graphs And Charts";
-	}
+	public String getDisplayName() { return STRINGS.getString(AccountsMessages.GRAPHS_WIN_HEADER); }
 
 	@Override
 	public void buildStringsFromLocale() {
-		// TODO Auto-generated method stub
 	}
 }

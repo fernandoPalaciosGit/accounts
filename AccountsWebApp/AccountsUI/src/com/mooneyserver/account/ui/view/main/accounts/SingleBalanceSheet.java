@@ -1,6 +1,8 @@
 package com.mooneyserver.account.ui.view.main.accounts;
 
 import com.mooneyserver.account.AccountsApplication;
+import com.mooneyserver.account.i18n.AccountsMessages;
+import com.mooneyserver.account.persistence.entity.BalanceSheet;
 import com.mooneyserver.account.ui.manager.EMainView;
 import com.mooneyserver.account.ui.view.main.AbstractBaseSubView;
 
@@ -12,8 +14,11 @@ import com.vaadin.ui.Button.ClickEvent;
 public class SingleBalanceSheet extends AbstractBaseSubView {
 	
 	private static final long serialVersionUID = 1L;
+	private BalanceSheet sheet;
 	
-	public SingleBalanceSheet() {
+	public SingleBalanceSheet(BalanceSheet sheet) {
+		this.sheet = sheet;
+		
 		HorizontalLayout hl = new HorizontalLayout();
 		
 		Button closeMe = new Button("Close Me");
@@ -34,15 +39,16 @@ public class SingleBalanceSheet extends AbstractBaseSubView {
 		buildStringsFromLocale();
 	}
 	
-	@Override // TODO: Localise
+	@Override 
 	public void buildStringsFromLocale() {
 		STRINGS = AccountsApplication.getResourceBundle();
 	}
 
 	@Override
 	public String getDisplayName() {
-		// TODO Localise
-		return "Balance Sheet [<<Insert Name Here>>]";
+		return STRINGS.getString(AccountsMessages
+				.BAL_SHEET_SUB_MENU_NAME).replace("{0}", 
+						sheet.getSheetName());
 	}
 
 	@Override

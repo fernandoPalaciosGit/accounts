@@ -99,8 +99,5 @@ public class Dashboard extends AbstractBaseView implements Button.ClickListener,
 	}
 
 	@Override
-	public String getDisplayName() {
-		// TODO Localise
-		return "Dashboard";
-	}
+	public String getDisplayName() {return STRINGS.getString(AccountsMessages.DASHBRD_WIN_HEADER);}
 }

@@ -2,83 +2,82 @@
 
 /* For use with SpinnerList widget */
 .v-textfield-borderless {
-    border:     none;
-    background: white; /* Has shading image by default */
-    -webkit-border-image: none;
+	border: none;
+	background: white; /* Has shading image by default */
+	-webkit-border-image: none;
 }
 
 .v-header {
-	background:		black;
+	background: black;
 }
 
 .v-footer {
-	background:		grey;
+	background: grey;
 }
 
 .v-window-outerheader {
-     border-top-right-radius: 27px;    
-    -moz-border-radius-topright: 27px;    
-    -webkit-border-top-right-radius: 27px;
-     border-top-left-radius: 27px;    
-    -moz-border-radius-topleft: 27px;    
-    -webkit-border-top-left-radius: 27px;
+	border-top-right-radius: 27px;
+	-moz-border-radius-topright: 27px;
+	-webkit-border-top-right-radius: 27px;
+	border-top-left-radius: 27px;
+	-moz-border-radius-topleft: 27px;
+	-webkit-border-top-left-radius: 27px;
 }
 
 .v-window-contents {
-     border-bottom-right-radius: 27px;    
-    -moz-border-radius-bottomright: 27px;    
-    -webkit-border-bottom-right-radius: 27px;
-     border-bottom-left-radius: 27px;    
-    -moz-border-radius-bottomleft: 27px;    
-    -webkit-border-bottom-left-radius: 27px;
+	border-bottom-right-radius: 27px;
+	-moz-border-radius-bottomright: 27px;
+	-webkit-border-bottom-right-radius: 27px;
+	border-bottom-left-radius: 27px;
+	-moz-border-radius-bottomleft: 27px;
+	-webkit-border-bottom-left-radius: 27px;
 }
 
 .v-caption-wrappedfield {
-  display: none;
+	display: none;
 }
-
 
 .side-panel {
 	
 }
 
 .side-panel .v-button {
-      display: block;
-      height: 100px;
-      background: transparent;
-      border: none;
-      text-align: center;
-      text-decoration: none;
+	display: block;
+	height: 100px;
+	background: transparent;
+	border: none;
+	text-align: center;
+	text-decoration: none;
 }
- 
+
 .side-panel .v-button img {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      margin-bottom: 5px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 5px;
 }
 
 .side-panel .v-button span {
-      font-size: x-small;
-      text-shadow: #fafafa 1px 1px 0;
+	font-size: x-small;
+	text-shadow: #fafafa 1px 1px 0;
 }
 
-.side-panel .v-button .v-button-wrap, 
-.side-panel .v-disabled.v-button .v-button-wrap {
-   background: transparent;
-   border: none;
-   -webkit-border-radius: 0;
-   -moz-border-radius: 0;
-   border-radius: 0;
-   -webkit-box-shadow: none;
-   -moz-box-shadow: none;
-   box-shadow: none;
+.side-panel .v-button .v-button-wrap,.side-panel .v-disabled.v-button .v-button-wrap
+	{
+	background: transparent;
+	border: none;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
 }
 
-.side-panel .v-button:active .v-button-wrap,
-.side-panel .v-button.v-pressed .v-button-wrap {
-   background: transparent;
-   -webkit-box-shadow: none;
-   -moz-box-shadow: none;
-   box-shadow: none;
+.side-panel .v-button:active .v-button-wrap,.side-panel .v-button.v-pressed .v-button-wrap
+	{
+	background: transparent;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
 }

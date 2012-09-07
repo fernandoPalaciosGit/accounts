@@ -1,13 +1,17 @@
 package com.mooneyserver.account.ui.view.subwindow.accounts;
 
+import java.util.ResourceBundle;
+
 import com.mooneyserver.account.AccountsApplication;
 import com.mooneyserver.account.businesslogic.accounts.IBalanceSheetMgmtService;
-import com.mooneyserver.account.businesslogic.exception.accounts.AccountsSheetException;
+import com.mooneyserver.account.businesslogic.exception.accounts.AccountsSheetInvalidOwnerException;
 import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.lookup.BusinessProcess;
 import com.mooneyserver.account.persistence.entity.AccountsUser;
 import com.mooneyserver.account.persistence.entity.BalanceSheet;
 import com.mooneyserver.account.ui.manager.IconManager;
+import com.mooneyserver.account.ui.notification.Messenger;
+import com.mooneyserver.account.ui.notification.Messenger.MessageSeverity;
 import com.mooneyserver.account.ui.view.subwindow.BaseSubwindow;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Form;
@@ -22,12 +26,15 @@ public class CreateNewBalanceSheet extends BaseSubwindow implements Button.Click
 	@BusinessProcess
 	private IBalanceSheetMgmtService accSvc;
 
+	ResourceBundle STRINGS = AccountsApplication.getResourceBundle();
+	
 	private Form createNewbalSheetFrm;
 	private final String SHEET_NAME = "SheetName";
 	private final String SHEET_DESCRIPTION = "SheetDescription";
 	
 	public CreateNewBalanceSheet() {
-		super(AccountsMessages.CREATE_NEW_USER); // TODO: Correct Text
+		super(AccountsMessages.BAL_SHEET_ADD_SHEET);
+		
 		
 		setWidth("480px");
 		setIcon(IconManager.getIcon(IconManager.ADD_NEW_BALANCE_SHEET_SMALL));
@@ -63,17 +70,22 @@ public class CreateNewBalanceSheet extends BaseSubwindow implements Button.Click
 						.getField(SHEET_DESCRIPTION).getValue()).trim());
 				balSheet.setSheetName(((String) createNewbalSheetFrm
 						.getField(SHEET_NAME).getValue()).trim());
+				balSheet.setActive(true);
 				
 				accSvc.createNewBalanceSheet(balSheet); 
 				
 				close();
 			}
-		} catch(AccountsSheetException e) {
-			// TODO: something
-			e.printStackTrace();
+		} catch(AccountsSheetInvalidOwnerException e) {
+			Messenger.genericMessage(MessageSeverity.WARNING, 
+					STRINGS.getString(AccountsMessages.BAL_SHEET_ADD_SHEET_FAIL), 
+					"Invalid User thrown when creating Balance Sheet", 
+					e);
 		} catch(Exception e) {
-			// TODO: something
-			e.printStackTrace();
+			Messenger.genericMessage(MessageSeverity.ERROR, 
+					STRINGS.getString(AccountsMessages.MSGR_UNRECOVERABLE_ERROR), 
+					"Error Trying to create Balance Sheet", 
+					e);
 		}
 	}
 }

@@ -122,7 +122,9 @@ public class CreateNewUserDialog extends BaseSubwindow implements ClickListener 
 				close();
 				
 				Messenger.genericMessage(MessageSeverity.INFO, 
-						STRINGS.getString(AccountsMessages.USER_CREATED));
+						STRINGS.getString(AccountsMessages.USER_CREATED),
+						null,
+						null);
 			}
 		} catch (InvalidValueException e) {
 			// Handled by UI framework
@@ -131,15 +133,20 @@ public class CreateNewUserDialog extends BaseSubwindow implements ClickListener 
 			
 			if (e instanceof AccountsUserAlreadyExistsException) {
 				Messenger.genericMessage(MessageSeverity.WARNING, AccountsApplication
-						.getResourceBundle().getString(AccountsMessages.DUPLICATE_USERNAME));
+						.getResourceBundle().getString(AccountsMessages.DUPLICATE_USERNAME),
+						"Duplicate Username while trying to create user",
+						e);
 			} else if (e instanceof AccountsUserInvalidPasswordException) {
 				Messenger.genericMessage(MessageSeverity.WARNING, AccountsApplication
-						.getResourceBundle().getString(AccountsMessages.INVALID_PASSWORD));
+						.getResourceBundle().getString(AccountsMessages.INVALID_PASSWORD),
+						null,
+						null);
 			}
 		} catch (Exception e) {
-			// TODO: Localize
-			Messenger.genericMessage(MessageSeverity.ERROR, "Internal Error has occured."
-					+ " Admins have been notified");
+			Messenger.genericMessage(MessageSeverity.ERROR, 
+					STRINGS.getString(AccountsMessages.MSGR_UNRECOVERABLE_ERROR),
+					"Error creating user",
+					e);
 		}
 	}
 }

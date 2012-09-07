@@ -1,5 +1,7 @@
 package com.mooneyserver.account.ui.view.subwindow.user;
 
+import java.util.ResourceBundle;
+
 import com.mooneyserver.account.businesslogic.exception.user.AccountsUserDoesNotExistException;
 import com.mooneyserver.account.businesslogic.exception.user.AccountsUserException;
 import com.mooneyserver.account.businesslogic.user.IUserService;
@@ -30,6 +32,7 @@ public class ResetPasswordDialog extends BaseSubwindow implements ClickListener 
 	
 	private String FIELD_EMAIL = "emailAddress";
 	
+	ResourceBundle STRINGS = AccountsApplication.getResourceBundle();
 	
 	/**
 	 * Dialog to reset the password in the DB
@@ -76,15 +79,17 @@ public class ResetPasswordDialog extends BaseSubwindow implements ClickListener 
 			// Ignoring InvalidValueException as 
 			// an appropriate msg is displayed in UI
 		} catch (AccountsUserException e) {
-			
 			if (e instanceof AccountsUserDoesNotExistException) {
-				// TODO: Localise
-				Messenger.genericMessage(MessageSeverity.WARNING, "The requested user does not exist");
+				Messenger.genericMessage(MessageSeverity.WARNING, 
+						STRINGS.getString(AccountsMessages.USER_DOES_NOT_EXIST), 
+						"Trying to reset pwd for non-existant user", 
+						e);
 			}
 		} catch (Exception e) {
-			// TODO: Localize
-			Messenger.genericMessage(MessageSeverity.ERROR, "Internal Error has occured."
-					+ " Admins have been notified");
+			Messenger.genericMessage(MessageSeverity.ERROR, 
+					STRINGS.getString(AccountsMessages.MSGR_UNRECOVERABLE_ERROR),
+					"Trying to reset user password",
+					e);
 		}
 	}
 }

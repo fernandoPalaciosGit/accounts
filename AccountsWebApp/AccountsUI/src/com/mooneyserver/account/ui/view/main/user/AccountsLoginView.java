@@ -1,7 +1,5 @@
 package com.mooneyserver.account.ui.view.main.user;
 
-import java.util.logging.Level;
-
 import com.mooneyserver.account.businesslogic.exception.user.AccountsUserNotActiveException;
 import com.mooneyserver.account.businesslogic.user.IUserService;
 import com.mooneyserver.account.i18n.AccountsMessages;
@@ -91,6 +89,7 @@ public class AccountsLoginView extends AbstractBaseView
 		buildStringsFromLocale();
 	}
 	
+	
 	@Override
 	public void onLogin(LoginEvent event) {
 		AccountsUser user = null;
@@ -99,15 +98,17 @@ public class AccountsLoginView extends AbstractBaseView
 					event.getLoginParameter("username").trim(), 
 					event.getLoginParameter("password").trim());
 		} catch (AccountsUserNotActiveException e) {
-			log.log(Level.INFO, "Inactive User ["+event.getLoginParameter("username")
-					+"] attempting to login", e);
 			Messenger.genericMessage(MessageSeverity.WARNING, 
-					"Your User is not active");
+					STRINGS.getString(AccountsMessages.USER_NOT_ACTIVE),
+					"Inactive User ["+event.getLoginParameter("username")
+					+"] attempting to login",
+					e);
 			return;
 		} catch(Exception e) {
-			log.log(Level.SEVERE, "Exception Thrown For UI when trying to login", e);
 			Messenger.genericMessage(MessageSeverity.ERROR, 
-					"An error has occurred with the login.");
+					STRINGS.getString(AccountsMessages.MSGR_UNRECOVERABLE_ERROR),
+					"Exception Thrown For UI when trying to login",
+					e);
 			return;
 		}
 		
@@ -120,7 +121,9 @@ public class AccountsLoginView extends AbstractBaseView
 			AccountsApplication.getInstance().nav.openMainView(EMainView.DASHBOARD);
 		} else {
 			Messenger.genericMessage(MessageSeverity.WARNING, 
-					"Incorrect Username or Password");
+					STRINGS.getString(AccountsMessages.FAILED_LOGIN),
+					null,
+					null);
 		}
 	}
 
@@ -160,8 +163,5 @@ public class AccountsLoginView extends AbstractBaseView
 	}
 
 	@Override
-	public String getDisplayName() {
-		// TODO Localise
-		return "Login";
-	}
+	public String getDisplayName() {return STRINGS.getString(AccountsMessages.LOGIN_BUTTON);}
 }

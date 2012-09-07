@@ -1,11 +1,15 @@
 package com.mooneyserver.account.ui.manager;
 
+import java.util.ResourceBundle;
 import java.util.UUID;
 
 import com.mooneyserver.account.AccountsApplication;
+import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.ui.iface.IAccountsSubView;
 import com.mooneyserver.account.ui.iface.IAccountsView;
 import com.mooneyserver.account.ui.iface.IMainView;
+import com.mooneyserver.account.ui.notification.Messenger;
+import com.mooneyserver.account.ui.notification.Messenger.MessageSeverity;
 
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.Command;
@@ -24,6 +28,7 @@ public final class Navigation {
 	MenuBar menu;
 	NonNullHashMap<UUID, IAccountsView> displayMgr;
 	NonNullHashMap<MenuItem, UUID> menuItemLinkMgr;
+	ResourceBundle STRINGS = AccountsApplication.getResourceBundle();
 	
 	MenuItem dashboardMenuItem, balSheetMenuItem, reportsMenuItem, 
 		graphsMenuItem, adminMenuItem;
@@ -182,8 +187,10 @@ public final class Navigation {
 				displayMgr.put(uuid, view);
 				setDynamicContent(view);
 			} catch (InstantiationException | IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Messenger.genericMessage(MessageSeverity.ERROR, 
+						STRINGS.getString(AccountsMessages.MSGR_UNRECOVERABLE_ERROR),
+						"Error trying to open view",
+						e);
 			}
 		}
 	}

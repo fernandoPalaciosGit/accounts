@@ -1,5 +1,7 @@
 package com.mooneyserver.account.ui.view.main.admin;
 
+import com.mooneyserver.account.AccountsApplication;
+import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.ui.iface.IMainView;
 import com.mooneyserver.account.ui.view.main.AbstractBaseView;
 import com.vaadin.ui.Alignment;
@@ -24,15 +26,10 @@ public class AdminMain extends AbstractBaseView implements IMainView {
 	}
 	
 	@Override
-	public String getDisplayName() {
-		// TODO Auto-generated method stub
-		return "Administration";
-	}
+	public String getDisplayName() {return STRINGS.getString(AccountsMessages.ADMIN_WIN_HEADER);}
 
 	@Override
 	public void buildStringsFromLocale() {
-		// TODO Auto-generated method stub
-
+		STRINGS = AccountsApplication.getResourceBundle();
 	}
-
 }

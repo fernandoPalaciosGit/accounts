@@ -96,24 +96,30 @@ public class BalanceSheetMain extends AbstractBaseView implements IMainView {
 		buildStringsFromLocale();
 	}
 	
-	@Override // TODO: Localise
+	@Override
 	public void buildStringsFromLocale() {
 		STRINGS = AccountsApplication.getResourceBundle();
 		
-		addNewBalanceSheet.setCaption("Add New Balance Sheet");
-        addNewBalanceSheet.setDescription("Add New Balance Sheet");
+		addNewBalanceSheet.setCaption(STRINGS.getString(
+				AccountsMessages.BAL_SHEET_TOOLBAR_ADD));
+        addNewBalanceSheet.setDescription(STRINGS.getString(
+        		AccountsMessages.BAL_SHEET_TOOLBAR_ADD));
         
-        closeBalanceSheet.setCaption("Close A Balance Sheet");
-        closeBalanceSheet.setDescription("Close Balance Sheet");
+        closeBalanceSheet.setCaption(STRINGS.getString(
+        		AccountsMessages.BAL_SHEET_TOOLBAR_REMOVE));
+        closeBalanceSheet.setDescription(STRINGS.getString(
+        		AccountsMessages.BAL_SHEET_TOOLBAR_REMOVE));
         
-        mainContent.setCaption("My Balance Sheets");
+        mainContent.setCaption(STRINGS.getString(
+        		AccountsMessages.BAL_SHEET_WIN_HEADER));
         
         int numBalSheets = 0;
         if (myBalSheetDetails.getData() != null)
         	numBalSheets = ((Integer) myBalSheetDetails.getData()).intValue();
         
-        myBalSheetDetails.setCaption("You have ["
-        		+numBalSheets+"] Balance Sheets!");
+        myBalSheetDetails.setCaption(STRINGS.getString(
+        		AccountsMessages.BAL_SHEET_COUNT)
+        		.replace("{0}", String.valueOf(numBalSheets)));
 	}
 	
 	private Panel generateMyBalanceSheetContent() {
@@ -184,7 +190,7 @@ public class BalanceSheetMain extends AbstractBaseView implements IMainView {
 				row = balSheetRows.get(balSheetRows.size() - 1);
 			}
 			
-			BalanceSheet balSheet = myBalSheets.get(i);
+			final BalanceSheet balSheet = myBalSheets.get(i);
 			Button balSheetBtn = new Button(balSheet.getSheetName());
 			balSheetBtn.setDescription(balSheet.getDescription());
 			balSheetBtn.setStyleName(BaseTheme.BUTTON_LINK);
@@ -199,7 +205,7 @@ public class BalanceSheetMain extends AbstractBaseView implements IMainView {
 					@Override
 					public void buttonClick(ClickEvent event) {
 						AccountsApplication.getInstance().nav
-							.loadNewView(new SingleBalanceSheet());
+							.loadNewView(new SingleBalanceSheet(balSheet));
 					}
 				});
 			}
@@ -215,8 +221,5 @@ public class BalanceSheetMain extends AbstractBaseView implements IMainView {
 	}
 
 	@Override
-	public String getDisplayName() {
-		// TODO Localise
-		return "My Balance Sheets";
-	}
+	public String getDisplayName() {return STRINGS.getString(AccountsMessages.BAL_SHEET_WIN_HEADER);}
 }

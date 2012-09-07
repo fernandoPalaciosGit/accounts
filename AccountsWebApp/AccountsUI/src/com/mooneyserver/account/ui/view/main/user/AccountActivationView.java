@@ -1,7 +1,5 @@
 package com.mooneyserver.account.ui.view.main.user;
 
-import java.util.logging.Level;
-
 import com.mooneyserver.account.AccountsApplication;
 import com.mooneyserver.account.businesslogic.user.IUserService;
 import com.mooneyserver.account.i18n.AccountsMessages;
@@ -64,20 +62,18 @@ public class AccountActivationView extends AbstractBaseView implements Button.Cl
 
 	@Override
 	public void buttonClick(ClickEvent event) {
-		// TODO: Localise
 		if (userSvc.markUserActive(this.activationId)) {
 			String baseUrl = AccountsApplication.getInstance().getURL().toString().split("\\?")[0];
 			AccountsApplication.getInstance().getMainWindow().open(new ExternalResource(baseUrl + "?restartApplication"));
 		} else {
-			log.log(Level.WARNING, "Warning thrown while trying to activate with ["+this.activationId+"]");
 			AccountsApplication.getInstance().nav.loadNewView(new AccountsLoginView());
-			Messenger.genericMessage(MessageSeverity.WARNING, "There has been an issue with User Activation");
+			Messenger.genericMessage(MessageSeverity.WARNING, 
+					STRINGS.getString(AccountsMessages.ACTIVATE_USER_FAILED), 
+					"Warning thrown while trying to activate with ["+this.activationId+"]", 
+					null);
 		}
 	}
 
 	@Override
-	public String getDisplayName() {
-		// TODO Localise
-		return "Account Activation";
-	}
+	public String getDisplayName() { return STRINGS.getString(AccountsMessages.ACTIVATE_USER_WIN_HEADER);	}
 }

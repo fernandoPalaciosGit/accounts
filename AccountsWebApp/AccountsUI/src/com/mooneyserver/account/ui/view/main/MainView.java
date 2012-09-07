@@ -143,7 +143,5 @@ public class MainView extends VerticalLayout {
 		requestRepaintAll();
 	}
 
-	public void refreshView() {
-		// TODO Localize
-	}
+	public void refreshView() { /* TODO: Implement Refresh */	}
 }
