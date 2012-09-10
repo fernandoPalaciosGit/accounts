@@ -256,7 +256,7 @@ public final class Navigation {
 		
 		// Check if this is the first sub menu and proceed
 		boolean returnToRootMenu = false;
-		if (parentMenu.getChildren().size() >= 3) {
+		if (parentMenu.getChildren().size() <= 3) {
 			returnToRootMenu = true;
 		}
 		
