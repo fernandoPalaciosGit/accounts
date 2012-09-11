@@ -166,6 +166,7 @@ public class BalanceSheetMain extends AbstractBaseView implements IMainView {
 		VerticalLayout vl = new VerticalLayout();
 		vl.setSizeFull();
 		vl.setSpacing(true);
+		vl.setStyleName("bal-sheet-panel");
 		
 		// Display placeholder if no current balance sheets
 		if (myBalSheets.size() == 0) {
