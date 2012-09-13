@@ -21,8 +21,8 @@ import com.mooneyserver.account.messaging.GenericJmsDispatcher;
 import com.mooneyserver.account.messaging.UserActivationMessage;
 import com.mooneyserver.account.messaging.UserChangePasswordMessage;
 import com.mooneyserver.account.persistence.entity.AccountsUser;
-import com.mooneyserver.account.persistence.service.UserActivationService;
-import com.mooneyserver.account.persistence.service.UserService;
+import com.mooneyserver.account.persistence.service.user.UserActivationService;
+import com.mooneyserver.account.persistence.service.user.UserService;
 import com.mooneyserver.account.utils.EncryptionProvider;
 import com.mooneyserver.account.utils.StringUtils;
 

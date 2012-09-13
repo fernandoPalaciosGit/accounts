@@ -3,7 +3,7 @@
 -- Server version:               5.5.24-0ubuntu0.12.04.1 - (Ubuntu)
 -- Server OS:                    debian-linux-gnu
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-08-16 15:15:21
+-- Date/time:                    2012-09-13 16:58:23
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -57,6 +57,8 @@ CREATE TABLE IF NOT EXISTS `balance_sheet` (
   `owner_id` int(11) NOT NULL,
   `sheet_name` varchar(45) NOT NULL,
   `description` longtext,
+  `sheet_is_active` tinyint(4) NOT NULL DEFAULT '1',
+  `inactive_reason` longtext,
   PRIMARY KEY (`idbalance_sheet`),
   UNIQUE KEY `idbalance_sheet_UNIQUE` (`idbalance_sheet`),
   UNIQUE KEY `sheet_name_UNIQUE` (`sheet_name`),
@@ -142,13 +144,44 @@ CREATE TABLE IF NOT EXISTS `debit_master` (
 -- Data exporting was unselected.
 
 
+-- Dumping structure for table home_accounts.payment_category
+DROP TABLE IF EXISTS `payment_category`;
+CREATE TABLE IF NOT EXISTS `payment_category` (
+  `category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_name` varchar(50) NOT NULL,
+  `bal_sheet` int(10) NOT NULL,
+  PRIMARY KEY (`category_id`),
+  UNIQUE KEY `category_name` (`category_name`),
+  KEY `FK_Bal_Sheet` (`bal_sheet`),
+  CONSTRAINT `FK_Bal_Sheet` FOREIGN KEY (`bal_sheet`) REFERENCES `balance_sheet` (`idbalance_sheet`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Data exporting was unselected.
+
+
 -- Dumping structure for table home_accounts.payment_type
 DROP TABLE IF EXISTS `payment_type`;
 CREATE TABLE IF NOT EXISTS `payment_type` (
-  `idpayment_type` int(11) NOT NULL,
-  `name` varchar(15) DEFAULT NULL,
+  `idpayment_type` int(11) NOT NULL AUTO_INCREMENT,
+  `payment_name` varchar(50) NOT NULL,
+  `payment_category` int(11) NOT NULL,
   PRIMARY KEY (`idpayment_type`),
-  UNIQUE KEY `name_UNIQUE` (`name`)
+  UNIQUE KEY `name_UNIQUE` (`payment_category`,`payment_name`),
+  CONSTRAINT `FK_Payment_Category` FOREIGN KEY (`payment_category`) REFERENCES `payment_category` (`category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Data exporting was unselected.
+
+
+-- Dumping structure for table home_accounts.user_activation
+DROP TABLE IF EXISTS `user_activation`;
+CREATE TABLE IF NOT EXISTS `user_activation` (
+  `p_key` int(10) NOT NULL AUTO_INCREMENT,
+  `userId` int(10) NOT NULL,
+  `activation_string` varchar(255) NOT NULL,
+  PRIMARY KEY (`p_key`),
+  KEY `FK_user` (`userId`),
+  CONSTRAINT `FK_user` FOREIGN KEY (`userId`) REFERENCES `accounts_user` (`idaccounts_user`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.

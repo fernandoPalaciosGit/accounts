@@ -11,7 +11,7 @@ import com.mooneyserver.account.persistence.entity.AccountsUser;
 import com.mooneyserver.account.persistence.entity.BalanceSheet;
 
 @Remote
-public interface IBalanceSheetMgmtService {
+public interface IBalanceSheetMgmt {
 	
 	/**
 	 * List of required fields for the AccountsUser object

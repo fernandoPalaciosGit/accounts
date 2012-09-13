@@ -1,4 +1,4 @@
-package com.mooneyserver.account.persistence.service;
+package com.mooneyserver.account.persistence.service.accounts;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import javax.persistence.Query;
 
 import com.mooneyserver.account.persistence.entity.AccountsUser;
 import com.mooneyserver.account.persistence.entity.BalanceSheet;
+import com.mooneyserver.account.persistence.service.BaseServiceLayer;
 
 /**
  * Session Bean implementation class UserService

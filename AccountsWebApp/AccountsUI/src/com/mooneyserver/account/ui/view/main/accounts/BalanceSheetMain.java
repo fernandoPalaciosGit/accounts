@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.logging.Level;
 
 import com.mooneyserver.account.AccountsApplication;
-import com.mooneyserver.account.businesslogic.accounts.IBalanceSheetMgmtService;
+import com.mooneyserver.account.businesslogic.accounts.IBalanceSheetMgmt;
 import com.mooneyserver.account.businesslogic.exception.accounts.AccountsSheetException;
 import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.lookup.BusinessProcess;
@@ -35,7 +35,7 @@ public class BalanceSheetMain extends AbstractBaseView implements IMainView {
 	private static final long serialVersionUID = 1L;
 	
 	@BusinessProcess
-	IBalanceSheetMgmtService accSvc;
+	IBalanceSheetMgmt accSvc;
 	
 	private Button addNewBalanceSheet, closeBalanceSheet;
 	private Panel mainContent;

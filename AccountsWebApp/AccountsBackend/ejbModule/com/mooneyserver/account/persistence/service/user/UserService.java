@@ -1,4 +1,4 @@
-package com.mooneyserver.account.persistence.service;
+package com.mooneyserver.account.persistence.service.user;
 
 import java.util.List;
 import javax.ejb.LocalBean;
@@ -8,6 +8,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.Query;
 
 import com.mooneyserver.account.persistence.entity.AccountsUser;
+import com.mooneyserver.account.persistence.service.BaseServiceLayer;
 
 /**
  * Session Bean implementation class UserService

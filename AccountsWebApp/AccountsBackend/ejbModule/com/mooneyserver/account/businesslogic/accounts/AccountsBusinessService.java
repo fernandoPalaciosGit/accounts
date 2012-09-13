@@ -15,16 +15,16 @@ import com.mooneyserver.account.businesslogic.exception.accounts.AccountsSheetIn
 import com.mooneyserver.account.businesslogic.validate.ClassFieldValidator;
 import com.mooneyserver.account.persistence.entity.AccountsUser;
 import com.mooneyserver.account.persistence.entity.BalanceSheet;
-import com.mooneyserver.account.persistence.service.BalanceSheetService;
-import com.mooneyserver.account.persistence.service.UserService;
+import com.mooneyserver.account.persistence.service.accounts.BalanceSheetService;
+import com.mooneyserver.account.persistence.service.user.UserService;
 
 /**
  * Session Bean implementation class AccountsBusinessService
  */
 @Stateless
-@EJB(name = "AccountsBusinessService", beanInterface = IBalanceSheetMgmtService.class)
+@EJB(name = "AccountsBusinessService", beanInterface = IBalanceSheetMgmt.class)
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
-public class AccountsBusinessService implements IBalanceSheetMgmtService {
+public class AccountsBusinessService implements IBalanceSheetMgmt {
 
 	@EJB
 	private UserService userService;
@@ -44,7 +44,7 @@ public class AccountsBusinessService implements IBalanceSheetMgmtService {
 			throw new AccountsSheetInvalidOwnerException(owner);
 		
 		// Are all required fields present?
-		ClassFieldValidator cfv = new ClassFieldValidator(entity, IBalanceSheetMgmtService.requiredUserFields);
+		ClassFieldValidator cfv = new ClassFieldValidator(entity, IBalanceSheetMgmt.requiredUserFields);
 		try {
 			if (cfv.areAnyFieldsNull())
 				throw new AccountsSheetException("Creation Failed: Some User Fields are null");

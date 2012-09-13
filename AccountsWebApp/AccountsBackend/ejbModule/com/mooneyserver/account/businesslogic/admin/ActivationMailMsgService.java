@@ -17,8 +17,8 @@ import com.mooneyserver.account.logging.AccountsLoggingConstants;
 import com.mooneyserver.account.messaging.iface.IUserActivationMessage;
 import com.mooneyserver.account.persistence.entity.AccountsUser;
 import com.mooneyserver.account.persistence.entity.UserActivation;
-import com.mooneyserver.account.persistence.service.UserActivationService;
-import com.mooneyserver.account.persistence.service.UserService;
+import com.mooneyserver.account.persistence.service.user.UserActivationService;
+import com.mooneyserver.account.persistence.service.user.UserService;
 import com.mooneyserver.account.utils.settings.SettingsKeys;
 
 import static com.mooneyserver.account.utils.settings.SystemSettings.SETTINGS;

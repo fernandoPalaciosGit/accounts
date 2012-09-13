@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.mooneyserver.account.AccountsApplication;
-import com.mooneyserver.account.businesslogic.accounts.IBalanceSheetMgmtService;
+import com.mooneyserver.account.businesslogic.accounts.IBalanceSheetMgmt;
 import com.mooneyserver.account.businesslogic.exception.accounts.AccountsSheetException;
 import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.lookup.BusinessProcess;
@@ -29,7 +29,7 @@ public class CloseBalanceSheet extends BaseSubwindow {
 	private static final long serialVersionUID = 1L;
 	
 	@BusinessProcess
-	private IBalanceSheetMgmtService accSvc;
+	private IBalanceSheetMgmt accSvc;
 	
 	private ComboBox balSheetSelect;
 	private TextArea closureReason;

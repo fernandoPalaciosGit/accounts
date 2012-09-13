@@ -51,6 +51,9 @@ public class BalanceSheet implements Serializable {
 	//bi-directional many-to-one association to DebitMaster
 	@OneToMany(mappedBy="balanceSheetBean")
 	private Set<DebitMaster> debitEntries;
+	
+	@OneToMany(mappedBy="owningSheet")
+	private Set<CategoryType> categories;
 
 	
 	
