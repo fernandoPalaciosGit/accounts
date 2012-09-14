@@ -253,16 +253,10 @@ public final class Navigation {
 				parentMenu = dashboardMenuItem;
 		}	
 		
-		
-		// Check if this is the first sub menu and proceed
-		boolean returnToRootMenu = false;
-		if (parentMenu.getChildren().size() <= 3) {
-			returnToRootMenu = true;
-		}
-		
 		parentMenu.removeChild(menu);
 		
-		if (returnToRootMenu) {
+		// Check if this is the first sub menu and proceed
+		if (parentMenu.getChildren().size() <= 2) {
 			parentMenu.removeChildren();
 			parentMenu.setCommand(new TopLevelWindowCommand(mainView));
 		}
