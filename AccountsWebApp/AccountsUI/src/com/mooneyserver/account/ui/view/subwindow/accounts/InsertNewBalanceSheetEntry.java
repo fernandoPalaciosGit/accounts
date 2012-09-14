@@ -1,80 +1,226 @@
 package com.mooneyserver.account.ui.view.subwindow.accounts;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.mooneyserver.account.AccountsApplication;
 import com.mooneyserver.account.businesslogic.accounts.IPaymentTypeMgmt;
+import com.mooneyserver.account.businesslogic.exception.accounts.AccountsSheetException;
 import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.lookup.BusinessProcess;
+import com.mooneyserver.account.persistence.entity.BalanceSheet;
+import com.mooneyserver.account.persistence.entity.CategoryType;
+import com.mooneyserver.account.persistence.entity.PaymentType;
 import com.mooneyserver.account.ui.manager.IconManager;
+import com.mooneyserver.account.ui.notification.Messenger;
+import com.mooneyserver.account.ui.notification.Messenger.MessageSeverity;
 import com.mooneyserver.account.ui.view.subwindow.BaseSubwindow;
-import com.vaadin.ui.AbstractSelect;
+
+import com.vaadin.data.Property;
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Validator.InvalidValueException;
+import com.vaadin.ui.AbstractSelect.Filtering;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.ComboBox;
-import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Field;
+import com.vaadin.ui.Form;
+import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.VerticalLayout;
 
-// TODO: Finish this page properly
-public class InsertNewBalanceSheetEntry extends BaseSubwindow {
+public class InsertNewBalanceSheetEntry extends BaseSubwindow 
+	implements Property.ValueChangeListener, Button.ClickListener {
 
 	private static final long serialVersionUID = 1L;
 	
 	@BusinessProcess
 	private IPaymentTypeMgmt accSvc;
-
-	ResourceBundle STRINGS = AccountsApplication.getResourceBundle();
 	
-	public InsertNewBalanceSheetEntry() {
-		super(AccountsMessages.BAL_SHEET_ADD_SHEET);
+	private ResourceBundle STRINGS = AccountsApplication.getResourceBundle();
+	
+	private BalanceSheet sheet;
+	private LinkedHashMap<String, CategoryType> categories;
+	private LinkedHashMap<String, PaymentType> types;
+	
+	private ComboBox categoryComboBox, typeComboBox;
+	private PopupDateField dateField;
+	private Button insert;
+	private TextField value;
+	private OptionGroup period;
+	
+	private BalanceSheetEntryForm frm;
+	
+	public InsertNewBalanceSheetEntry(BalanceSheet sheet) {
+		super(AccountsMessages.BAL_SHEET_INSERT_ENTRY);
 		
+		this.sheet = sheet;
 		
 		setWidth("480px");
 		setIcon(IconManager.getIcon(IconManager.ADD_NEW_BALANCE_SHEET_SMALL));
 		
-		HorizontalLayout hl = new HorizontalLayout();
-		hl.setSpacing(true);
+		VerticalLayout vl = new VerticalLayout();
+		vl.setSpacing(true);
 		
-		ComboBox categoryComboBox = new ComboBox("Category");
-		categoryComboBox.setNewItemsAllowed(true);
+		
+		categoryComboBox = new ComboBox(STRINGS
+				.getString(AccountsMessages.BAL_SHEET_PAYMENT_CATEGORY)); 
 		categoryComboBox.setImmediate(true);
-		categoryComboBox.setNewItemHandler(new AbstractSelect.NewItemHandler() {
+		categoryComboBox.setNullSelectionAllowed(false);
+		categoryComboBox.setFilteringMode(Filtering.FILTERINGMODE_STARTSWITH);
+		categoryComboBox.addListener(this);
+		categoryComboBox.setRequired(true);
+		
+		typeComboBox = new ComboBox(STRINGS
+				.getString(AccountsMessages.BAL_SHEET_PAYMENT_TYPE));
+		typeComboBox.setImmediate(true);
+		typeComboBox.setNullSelectionAllowed(false);
+		typeComboBox.setFilteringMode(Filtering.FILTERINGMODE_STARTSWITH);
+		typeComboBox.setRequired(true);
+		
+		categories = new LinkedHashMap<>();		
+		types = new LinkedHashMap<>();
+		
+		populatePaymentCategories();
+		if (categories.size() > 0)
+			categoryComboBox.select(categories.keySet().iterator().next());
+		populatePaymentTypes();
+		
+		value = new TextField(STRINGS
+				.getString(AccountsMessages.BAL_SHEET_PAYMENT_VALUE));
+		value.setRequired(true);
+		
+		period = new OptionGroup(STRINGS
+				.getString(AccountsMessages.BAL_SHEET_PAYMENT_VALUE),
+			new ArrayList<String>() {
+				private static final long serialVersionUID = 1L;
 
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void addNewItem(String newItemCaption) {
-				// TODO Auto-generated method stub
+				{
+					add(STRINGS.getString(AccountsMessages.BAL_SHEET_PAYMENT_YEAR)); 
+					add(STRINGS.getString(AccountsMessages.BAL_SHEET_PAYMENT_MONTH));
+				}
 			}
-		});
-		hl.addComponent(categoryComboBox);
+		);
+		period.select(STRINGS.getString(AccountsMessages.BAL_SHEET_PAYMENT_MONTH));
 		
-		ComboBox typeComboBox = new ComboBox("Type");
-		typeComboBox.setNewItemsAllowed(true);
-		typeComboBox.setNewItemHandler(new AbstractSelect.NewItemHandler() {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void addNewItem(String newItemCaption) {
-				// TODO Auto-generated method stub
+		dateField = new PopupDateField(STRINGS.getString(AccountsMessages.BAL_SHEET_PAYMENT_DATE));
+		dateField.setValue(new Date());
+		dateField.setResolution(PopupDateField.RESOLUTION_DAY);
+		dateField.setLocale(getLocale());
+		dateField.setRequired(true);
+		
+		frm = new BalanceSheetEntryForm();
+		vl.addComponent(frm);
+		
+		insert = new Button(STRINGS.getString(AccountsMessages.BAL_SHEET_INSERT_ENTRY)); 
+		insert.addListener((Button.ClickListener) this);
+		
+		vl.addComponent(insert);
+		
+		addComponent(vl);
+	}
+	
+	private void populatePaymentCategories() {
+		try {
+			List<CategoryType> svcCategories = accSvc.getCategoriesForSheet(sheet);
+					
+			for (CategoryType cat : svcCategories) {
+				categoryComboBox.addItem(cat.getName());
+				categories.put(cat.getName(), cat);
 			}
-		});
-		hl.addComponent(typeComboBox);
+		} catch (AccountsSheetException e) {
+			close();
+			Messenger.genericMessage(MessageSeverity.ERROR, 
+					STRINGS.getString(AccountsMessages.MSGR_UNRECOVERABLE_ERROR), 
+					"Failed trying to query Payment Categories for Balance Sheet", 
+					e);
+		}
+	}
+	
+	private void populatePaymentTypes() {
+		try {
+			List<PaymentType> svcTypes = accSvc.getTypesForCategory
+					(categories.get(categoryComboBox.getValue()));
+			
+			typeComboBox.removeAllItems();
+			
+			for (PaymentType type : svcTypes) {
+				typeComboBox.addItem(type.getName());
+				types.put(type.getName(), type);
+			}
+		} catch (AccountsSheetException e) {
+			close();
+			Messenger.genericMessage(MessageSeverity.ERROR, 
+					STRINGS.getString(AccountsMessages.MSGR_UNRECOVERABLE_ERROR), 
+					"Failed trying to query Payment Types for Balance Sheet", 
+					e);
+		}
+	}
+
+	@Override
+	public void valueChange(ValueChangeEvent event) {
+		populatePaymentCategories();
+		populatePaymentTypes();
+	}
+
+	@Override
+	public void buttonClick(ClickEvent event) {
+		try {
+			frm.commit();
+			if (frm.isValid()) {
+				// TODO: Insert Entry
+				close();
+			}
+		} catch (InvalidValueException e) {
+			// Handled by UI framework
+		} 
+	}
+	
+	class BalanceSheetEntryForm extends Form {
 		
-		addComponent(hl);
+		private static final long serialVersionUID = 1L;
+
+		private GridLayout layout;
 		
-		HorizontalLayout hl2 = new HorizontalLayout();
-		hl2.setSpacing(true);
+		private final int FIELD_CATG = 0;
+		private final int FIELD_TYPE = 1;
+		private final int FIELD_VALUE = 2;
+		private final int FIELD_PERIOD = 3;
+		private final int FIELD_DATE = 4;
 		
-		hl2.addComponent(new TextField("Value"));
-		hl2.addComponent(new OptionGroup("Period", new ArrayList<String>() {{add("year"); add("month");}}));
-		addComponent(hl2);
+		public BalanceSheetEntryForm() {
+			layout = new GridLayout(2, 3);
+			layout.setSpacing(true);
+			layout.setMargin(true, true, true, true);
+			
+			setContent(layout);
+			setWriteThrough(false);
+			
+			this.addField(FIELD_CATG, categoryComboBox);
+			this.addField(FIELD_TYPE, typeComboBox);
+			this.addField(FIELD_VALUE, value);
+			this.addField(FIELD_PERIOD, period);
+			this.addField(FIELD_DATE, dateField);
+		}
 		
-		addComponent(new PopupDateField("Date"));
-		
-		addComponent(new Button("Insert"));
+		 @Override
+        protected void attachField(Object propertyId, Field field) {
+            if (propertyId.equals(FIELD_CATG)) {
+                layout.addComponent(field, 0, 0);
+            } else if (propertyId.equals(FIELD_TYPE)) {
+            	layout.addComponent(field, 1, 0);
+            } else if (propertyId.equals(FIELD_VALUE)) {
+            	layout.addComponent(field, 0, 1);
+            } else if (propertyId.equals(FIELD_PERIOD)) {
+            	layout.addComponent(field, 1, 1);
+            } else if (propertyId.equals(FIELD_DATE)) {
+            	layout.addComponent(field, 0, 2);
+            } 
+        }
 	}
 }

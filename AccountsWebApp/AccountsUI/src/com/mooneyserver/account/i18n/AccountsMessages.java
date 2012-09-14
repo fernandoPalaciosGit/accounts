@@ -9,6 +9,12 @@ public class AccountsMessages extends ListResourceBundle implements Serializable
 
 
 	/*
+	 * Generic Localized Text
+	 */
+	public static final String ADD_NEW = "Accounts.Generic.AddNew";
+	public static final String NAME = "Accounts.Generic.Name";
+	
+	/*
 	 * Main Windows Strings
 	 */
 	public static final String APP_TITLE = "Accounts.MainWindow.AppTitle";
@@ -104,6 +110,16 @@ public class AccountsMessages extends ListResourceBundle implements Serializable
 	public static final String BAL_SHEET_ADD_SHEET_FAIL = "Accounts.BalanceSheet.SingleSheet.Error.AddSheet";
 	public static final String BAL_SHEET_REMOVE_SELECT = "Accounts.BalanceSheet.SubWindow.RemoveSheet.Select";
 	public static final String BAL_SHEET_REMOVE_REASON = "Accounts.BalanceSheet.SubWindow.RemoveSheet.Reason";
+	public static final String BAL_SHEET_INSERT_ENTRY = "Accounts.SingleBalanceSheet.SubWindow.InsertEntry.Heading";
+	public static final String BAL_SHEET_PAYMENT_CATEGORY = "Accounts.SingleBalanceSheet.SubWindow.InsertEntry.Category";
+	public static final String BAL_SHEET_PAYMENT_TYPE = "Accounts.SingleBalanceSheet.SubWindow.InsertEntry.Type";
+	public static final String BAL_SHEET_PAYMENT_VALUE = "Accounts.SingleBalanceSheet.SubWindow.InsertEntry.Value";
+	public static final String BAL_SHEET_PAYMENT_PERIOD = "Accounts.SingleBalanceSheet.SubWindow.InsertEntry.Period";
+	public static final String BAL_SHEET_PAYMENT_YEAR = "Accounts.SingleBalanceSheet.SubWindow.InsertEntry.Year";
+	public static final String BAL_SHEET_PAYMENT_MONTH = "Accounts.SingleBalanceSheet.SubWindow.InsertEntry.Month";
+	public static final String BAL_SHEET_PAYMENT_DATE = "Accounts.SingleBalanceSheet.SubWindow.InsertEntry.Date";
+	public static final String BAL_SHEET_NEW_PAY_TYPE = "Accounts.SingleBalanceSheet.SubWindow.PaymentAndCategoryMgmt.Heading";
+	
 	
 	/*
 	 * Admin Screen

@@ -50,7 +50,7 @@ public class SingleBalanceSheet extends AbstractBaseSubView {
 			public void buttonClick(ClickEvent event) {
 				AccountsApplication.getInstance().
 					getMainWindow().
-						addWindow(new InsertNewBalanceSheetEntry());
+						addWindow(new InsertNewBalanceSheetEntry(sheet));
 			}
 		});
         vl.addComponent(insertEntry);

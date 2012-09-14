@@ -14,6 +14,8 @@ import com.mooneyserver.account.persistence.entity.BalanceSheet;
 import com.mooneyserver.account.persistence.entity.CategoryType;
 import com.mooneyserver.account.persistence.entity.PaymentType;
 import com.mooneyserver.account.ui.manager.IconManager;
+import com.mooneyserver.account.ui.notification.Messenger;
+import com.mooneyserver.account.ui.notification.Messenger.MessageSeverity;
 import com.mooneyserver.account.ui.view.subwindow.BaseSubwindow;
 
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -30,13 +32,16 @@ import com.vaadin.ui.TabSheet.Tab;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-// TODO: Finish this page properly
-public class PaymentTypeMgmt extends BaseSubwindow implements Button.ClickListener, ValueChangeListener {
+public class PaymentTypeMgmt extends BaseSubwindow 
+	implements Button.ClickListener, ValueChangeListener {
 
 	private static final long serialVersionUID = 1L;
 	
 	@BusinessProcess
 	private IPaymentTypeMgmt accSvc;
+	
+	private ResourceBundle STRINGS = AccountsApplication.getResourceBundle();
+	
 	private BalanceSheet balSheet;
 	private ListSelect paymentCategories, paymentTypes;
 	private LinkedHashMap<String, CategoryType> categories;
@@ -53,11 +58,9 @@ public class PaymentTypeMgmt extends BaseSubwindow implements Button.ClickListen
 	private final int ADD_CATG_FLD_NAME = 0;
 	private final int ADD_TYPE_FLD_NAME = 0;
 	private final int ADD_TYPE_FLD_CAT = 1;
-
-	ResourceBundle STRINGS = AccountsApplication.getResourceBundle();
 	
 	public PaymentTypeMgmt(BalanceSheet sheet) {
-		super(AccountsMessages.BAL_SHEET_ADD_SHEET);
+		super(AccountsMessages.BAL_SHEET_NEW_PAY_TYPE);
 		
 		this.balSheet = sheet;
 		
@@ -74,7 +77,7 @@ public class PaymentTypeMgmt extends BaseSubwindow implements Button.ClickListen
 		vl1.setSpacing(true);
 		
 		
-		paymentCategories = new ListSelect("Categories");
+		paymentCategories = new ListSelect(STRINGS.getString(AccountsMessages.BAL_SHEET_PAYMENT_CATEGORY));
 		populatePaymentCategories();
 		paymentCategories.setNullSelectionAllowed(false);
 		paymentCategories.setImmediate(true);
@@ -94,7 +97,7 @@ public class PaymentTypeMgmt extends BaseSubwindow implements Button.ClickListen
 		vl2.setSpacing(true);
 		
 		
-		paymentTypes = new ListSelect("Types");
+		paymentTypes = new ListSelect(STRINGS.getString(AccountsMessages.BAL_SHEET_PAYMENT_TYPE));
 		populatePaymentTypes(categories.get(paymentCategories.getValue()));
 		paymentTypes.setNullSelectionAllowed(false);
 		paymentTypes.setImmediate(true);
@@ -108,10 +111,12 @@ public class PaymentTypeMgmt extends BaseSubwindow implements Button.ClickListen
 		current.setCaption("Current");
 		
 		addNewCategory = accordion.addTab(generateCreateNewCategoryForm());
-		addNewCategory.setCaption("Add New Category");
+		addNewCategory.setCaption(STRINGS.getString(AccountsMessages.ADD_NEW) 
+				+ " " + STRINGS.getString(AccountsMessages.BAL_SHEET_PAYMENT_CATEGORY)); 
 		
 		addNewType = accordion.addTab(generateCreateNewTypeForm());
-		addNewType.setCaption("Add New Type");
+		addNewType.setCaption(STRINGS.getString(AccountsMessages.ADD_NEW) 
+				+ " " + STRINGS.getString(AccountsMessages.BAL_SHEET_PAYMENT_TYPE));
 				
 		addComponent(accordion);
 	}
@@ -139,9 +144,11 @@ public class PaymentTypeMgmt extends BaseSubwindow implements Button.ClickListen
 				paymentCategories.select(keys.iterator().next());
 			
 		} catch (AccountsSheetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 			close();
+			Messenger.genericMessage(MessageSeverity.ERROR, 
+					STRINGS.getString(AccountsMessages.MSGR_UNRECOVERABLE_ERROR), 
+					"Failed trying to query Payment Categories for Balance Sheet", 
+					e);
 		}
 	}
 	
@@ -157,16 +164,20 @@ public class PaymentTypeMgmt extends BaseSubwindow implements Button.ClickListen
 				paymentTypes.addItem(type.getName());
 			}
 		} catch (AccountsSheetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 			close();
+			Messenger.genericMessage(MessageSeverity.ERROR, 
+					STRINGS.getString(AccountsMessages.MSGR_UNRECOVERABLE_ERROR), 
+					"Failed trying to query Payment Types for Balance Sheet", 
+					e);
 		}
 	}
 	
 	// TODO: Add Form Field validators to avoid dupes
 	private VerticalLayout generateCreateNewCategoryForm() {
 		catFrm = new Form();
-		catFrm.addField(ADD_CATG_FLD_NAME, new TextField("Category Name"));
+		catFrm.addField(ADD_CATG_FLD_NAME, new TextField(
+				STRINGS.getString(AccountsMessages.BAL_SHEET_PAYMENT_CATEGORY) 
+				+ " " + STRINGS.getString(AccountsMessages.NAME)));
 		return generateGenericTabSheet(catFrm, ADD_NEW_CATEGORY);
 	}
 	
@@ -174,7 +185,10 @@ public class PaymentTypeMgmt extends BaseSubwindow implements Button.ClickListen
 	private VerticalLayout generateCreateNewTypeForm() {
 		typeFrm = new Form();
 		
-		typeFrm.addField(ADD_TYPE_FLD_NAME, new TextField("Type Name"));
+		typeFrm.addField(ADD_TYPE_FLD_NAME, new TextField(
+				STRINGS.getString(AccountsMessages.BAL_SHEET_PAYMENT_CATEGORY) 
+				+ " " 
+				+ STRINGS.getString(AccountsMessages.NAME)));
 		
 		Select selCatg = new Select("Category", categories.keySet());
 		selCatg.setNullSelectionAllowed(false);
@@ -211,8 +225,11 @@ public class PaymentTypeMgmt extends BaseSubwindow implements Button.ClickListen
 					accSvc.addNewPaymentCategory((String) catFrm.getField(ADD_CATG_FLD_NAME)
 							.getValue(), balSheet);
 				} catch (AccountsSheetException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					close();
+					Messenger.genericMessage(MessageSeverity.ERROR, 
+							STRINGS.getString(AccountsMessages.MSGR_UNRECOVERABLE_ERROR), 
+							"Failed trying to add Payment Categories for Balance Sheet", 
+							e);
 				}
 				break;
 			case ADD_NEW_TYPE:
@@ -221,8 +238,11 @@ public class PaymentTypeMgmt extends BaseSubwindow implements Button.ClickListen
 							.getValue(), categories.get(typeFrm
 									.getField(ADD_TYPE_FLD_CAT).getValue()));
 				} catch (AccountsSheetException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					close();
+					Messenger.genericMessage(MessageSeverity.ERROR, 
+							STRINGS.getString(AccountsMessages.MSGR_UNRECOVERABLE_ERROR), 
+							"Failed trying to add Payment Types for Balance Sheet", 
+							e);
 				}
 				break;
 		}

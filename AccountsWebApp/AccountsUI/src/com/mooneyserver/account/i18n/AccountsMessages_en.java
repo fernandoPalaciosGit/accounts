@@ -10,6 +10,10 @@ public class AccountsMessages_en extends AccountsMessages {
 	}
 	
 	static final Object[][] externStrings = {
+		/* Generic Localized Text */
+		{ADD_NEW, "Add New"},
+		{NAME, "Name"},
+		
 		/* Main Window Strings*/
 		{APP_TITLE, "Accounts"},
 		{TOOLBAR_LANG_BTN_TOOLTIP, "Change Language"},
@@ -92,6 +96,15 @@ public class AccountsMessages_en extends AccountsMessages {
 		{BAL_SHEET_CREATE_SHEET_QUESTION, "Create Bal Sheet?"},
 		{BAL_SHEET_REMOVE_SELECT, "Please select which Balance Sheet to close"},
 		{BAL_SHEET_REMOVE_REASON, "Closure Reason"},
+		{BAL_SHEET_INSERT_ENTRY, "Insert A New Entry"},
+		{BAL_SHEET_PAYMENT_CATEGORY, "Category"},
+		{BAL_SHEET_PAYMENT_TYPE, "Type"},
+		{BAL_SHEET_PAYMENT_VALUE, "Value"},
+		{BAL_SHEET_PAYMENT_PERIOD, "Period"},
+		{BAL_SHEET_PAYMENT_YEAR, "Year"},
+		{BAL_SHEET_PAYMENT_MONTH, "Month"},
+		{BAL_SHEET_PAYMENT_DATE, "Date"},
+		{BAL_SHEET_NEW_PAY_TYPE, "Payment and Category Management"},
 		
 		/* Admin Screen */
 		{ADMIN_WIN_HEADER, "Administration"},
