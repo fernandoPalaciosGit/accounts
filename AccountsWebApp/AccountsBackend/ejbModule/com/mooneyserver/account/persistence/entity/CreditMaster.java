@@ -2,7 +2,11 @@ package com.mooneyserver.account.persistence.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.mooneyserver.account.persistence.service.accounts.IDebitCredit;
+
 import java.sql.Timestamp;
+import java.util.Date;
 import java.math.BigDecimal;
 
 
@@ -12,7 +16,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name="credit_master")
-public class CreditMaster implements Serializable {
+public class CreditMaster implements Serializable, IDebitCredit {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -20,6 +24,9 @@ public class CreditMaster implements Serializable {
 	@Column(name="idcredit_master")
 	private int idcreditMaster;
 
+	@Column(name="monthly")
+	private boolean monthlyCredit;
+	
 	@Column(name="insert_time")
 	private Timestamp insertTime;
 
@@ -40,6 +47,9 @@ public class CreditMaster implements Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="currency")
 	private Currency currencyBean;
+	
+	@Column(name="description")
+	private String description;
 
     public CreditMaster() {
     }
@@ -47,49 +57,62 @@ public class CreditMaster implements Serializable {
 	public int getIdcreditMaster() {
 		return this.idcreditMaster;
 	}
-
 	public void setIdcreditMaster(int idcreditMaster) {
 		this.idcreditMaster = idcreditMaster;
 	}
-
-	public Timestamp getInsertTime() {
-		return this.insertTime;
+	
+	public boolean isMonthly() {
+		return monthlyCredit;
+	}
+	public void setMonthly(boolean bool) {
+		monthlyCredit = bool;
 	}
 
-	public void setInsertTime(Timestamp insertTime) {
-		this.insertTime = insertTime;
+	
+	public Date getInsertTime() {
+		return new Date(insertTime.getTime());
+	}
+	public void setInsertTime(Date date) {
+		insertTime = new Timestamp(date.getTime());
 	}
 
+	
 	public BigDecimal getPaymentAmmount() {
 		return this.paymentAmmount;
 	}
-
 	public void setPaymentAmmount(BigDecimal paymentAmmount) {
 		this.paymentAmmount = paymentAmmount;
 	}
 
-	public BalanceSheet getBalanceSheetBean() {
+	
+	public BalanceSheet getBalanceSheet() {
 		return this.balanceSheetBean;
 	}
-
-	public void setBalanceSheetBean(BalanceSheet balanceSheetBean) {
+	public void setBalanceSheet(BalanceSheet balanceSheetBean) {
 		this.balanceSheetBean = balanceSheetBean;
 	}
 	
-	public PaymentType getPaymentTypeBean() {
+	
+	public PaymentType getPaymentType() {
 		return this.paymentTypeBean;
 	}
-
-	public void setPaymentTypeBean(PaymentType paymentTypeBean) {
+	public void setPaymentType(PaymentType paymentTypeBean) {
 		this.paymentTypeBean = paymentTypeBean;
 	}
 	
-	public Currency getCurrencyBean() {
+	
+	public Currency getCurrency() {
 		return this.currencyBean;
 	}
-
-	public void setCurrencyBean(Currency currencyBean) {
+	public void setCurrency(Currency currencyBean) {
 		this.currencyBean = currencyBean;
 	}
 	
+	
+	public String getDescription() {
+		return description == null ? "" : description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 }

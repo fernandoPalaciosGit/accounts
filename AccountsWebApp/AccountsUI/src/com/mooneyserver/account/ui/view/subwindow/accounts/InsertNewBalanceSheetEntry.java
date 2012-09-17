@@ -1,5 +1,6 @@
 package com.mooneyserver.account.ui.view.subwindow.accounts;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -31,6 +32,7 @@ import com.vaadin.ui.Form;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.PopupDateField;
+import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
@@ -47,19 +49,28 @@ public class InsertNewBalanceSheetEntry extends BaseSubwindow
 	private BalanceSheet sheet;
 	private LinkedHashMap<String, CategoryType> categories;
 	private LinkedHashMap<String, PaymentType> types;
+	private EntryType entryType;
 	
 	private ComboBox categoryComboBox, typeComboBox;
 	private PopupDateField dateField;
 	private Button insert;
 	private TextField value;
 	private OptionGroup period;
+	private TextArea description;
 	
 	private BalanceSheetEntryForm frm;
 	
-	public InsertNewBalanceSheetEntry(BalanceSheet sheet) {
-		super(AccountsMessages.BAL_SHEET_INSERT_ENTRY);
+	public enum EntryType {
+		DEBIT,
+		CREDIT;
+	}
+	
+	public InsertNewBalanceSheetEntry(BalanceSheet sheet, EntryType entryType) {
+		super(entryType.equals(EntryType.DEBIT) ? AccountsMessages.BAL_SHEET_INSERT_ENTRY 
+				: AccountsMessages.BAL_SHEET_INSERT_ENTRY);
 		
 		this.sheet = sheet;
+		this.entryType = entryType;
 		
 		setWidth("480px");
 		setIcon(IconManager.getIcon(IconManager.ADD_NEW_BALANCE_SHEET_SMALL));
@@ -113,6 +124,9 @@ public class InsertNewBalanceSheetEntry extends BaseSubwindow
 		dateField.setResolution(PopupDateField.RESOLUTION_DAY);
 		dateField.setLocale(getLocale());
 		dateField.setRequired(true);
+		
+		description = new TextArea("Description"); // TODO: Localise
+		description.setRows(4);
 		
 		frm = new BalanceSheetEntryForm();
 		vl.addComponent(frm);
@@ -173,12 +187,32 @@ public class InsertNewBalanceSheetEntry extends BaseSubwindow
 		try {
 			frm.commit();
 			if (frm.isValid()) {
-				// TODO: Insert Entry
+				PaymentType type = types.get(typeComboBox.getValue());
+				boolean isMonthly = period.getValue().equals(
+						STRINGS.getString(AccountsMessages.BAL_SHEET_PAYMENT_MONTH));
+				Date insertionTime = (Date) dateField.getValue();
+				String entryDesc = (String) description.getValue();
+				BigDecimal decimal = new BigDecimal((String) value.getValue());
+				
+				switch(entryType) {
+					case DEBIT:
+						accSvc.addNewDebitEntry(decimal, sheet, type, isMonthly, insertionTime, entryDesc);
+						break;
+					case CREDIT:
+						accSvc.addNewCreditEntry(decimal, sheet, type, isMonthly, insertionTime, entryDesc);
+						break;
+				}
 				close();
 			}
 		} catch (InvalidValueException e) {
 			// Handled by UI framework
-		} 
+		} catch (Exception e) {
+			close();
+			Messenger.genericMessage(MessageSeverity.ERROR, 
+					STRINGS.getString(AccountsMessages.MSGR_UNRECOVERABLE_ERROR), 
+					"Failed trying to insert [Debit|Credit] Balance Sheet", 
+					e);
+		}
 	}
 	
 	class BalanceSheetEntryForm extends Form {
@@ -192,9 +226,10 @@ public class InsertNewBalanceSheetEntry extends BaseSubwindow
 		private final int FIELD_VALUE = 2;
 		private final int FIELD_PERIOD = 3;
 		private final int FIELD_DATE = 4;
+		private final int FIELD_DESCRIPTION = 5;
 		
 		public BalanceSheetEntryForm() {
-			layout = new GridLayout(2, 3);
+			layout = new GridLayout(2, 4);
 			layout.setSpacing(true);
 			layout.setMargin(true, true, true, true);
 			
@@ -206,6 +241,7 @@ public class InsertNewBalanceSheetEntry extends BaseSubwindow
 			this.addField(FIELD_VALUE, value);
 			this.addField(FIELD_PERIOD, period);
 			this.addField(FIELD_DATE, dateField);
+			this.addField(FIELD_DESCRIPTION, description);
 		}
 		
 		 @Override
@@ -220,6 +256,8 @@ public class InsertNewBalanceSheetEntry extends BaseSubwindow
             	layout.addComponent(field, 1, 1);
             } else if (propertyId.equals(FIELD_DATE)) {
             	layout.addComponent(field, 0, 2);
+            } else if (propertyId.equals(FIELD_DESCRIPTION)) {
+            	layout.addComponent(field, 0, 3);
             } 
         }
 	}

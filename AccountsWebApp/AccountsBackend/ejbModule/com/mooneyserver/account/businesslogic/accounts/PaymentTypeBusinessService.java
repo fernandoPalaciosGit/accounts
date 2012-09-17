@@ -1,5 +1,7 @@
 package com.mooneyserver.account.businesslogic.accounts;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -12,7 +14,11 @@ import com.mooneyserver.account.businesslogic.exception.accounts.AccountsSheetEx
 import com.mooneyserver.account.businesslogic.validate.ClassFieldValidator;
 import com.mooneyserver.account.persistence.entity.BalanceSheet;
 import com.mooneyserver.account.persistence.entity.CategoryType;
+import com.mooneyserver.account.persistence.entity.CreditMaster;
+import com.mooneyserver.account.persistence.entity.DebitMaster;
 import com.mooneyserver.account.persistence.entity.PaymentType;
+import com.mooneyserver.account.persistence.service.accounts.DebitCreditService;
+import com.mooneyserver.account.persistence.service.accounts.IDebitCredit;
 import com.mooneyserver.account.persistence.service.accounts.PaymentService;
 
 @Stateless
@@ -22,6 +28,9 @@ public class PaymentTypeBusinessService implements IPaymentTypeMgmt {
 
 	@EJB
 	private PaymentService paymentService;
+	
+	@EJB
+	private DebitCreditService debCredService;
 	
 	@Override
 	public void addNewPaymentCategory(CategoryType entity)
@@ -99,5 +108,37 @@ public class PaymentTypeBusinessService implements IPaymentTypeMgmt {
 	public List<PaymentType> getTypesForCategory(CategoryType category)
 			throws AccountsSheetException {
 		return paymentService.listPaymentTypes(category);
+	}
+
+	@Override
+	public void addNewDebitEntry(BigDecimal value, BalanceSheet sheet,
+			PaymentType type, boolean isMonthly, Date insertionTime,
+			String description) throws AccountsSheetException {
+		
+		// CHeck if this is a debit or credit
+		IDebitCredit entry;
+		if (value.compareTo(BigDecimal.ZERO) > 0) {
+			entry = new DebitMaster();
+		} else {
+			entry = new CreditMaster();
+		}
+		
+		entry.setPaymentAmmount(value.abs());
+		entry.setBalanceSheet(sheet);
+		entry.setPaymentType(type);
+		entry.setMonthly(isMonthly);
+		entry.setInsertTime(insertionTime);
+		
+		if (description != null)
+			entry.setDescription(description);
+		
+		debCredService.create(entry);
+	}
+
+	@Override
+	public void addNewCreditEntry(BigDecimal value, BalanceSheet sheet,
+			PaymentType type, boolean isMonthly, Date inertionTime,
+			String description) throws AccountsSheetException {
+		addNewDebitEntry(value.negate(), sheet, type, isMonthly, inertionTime, description);
 	}	
 }

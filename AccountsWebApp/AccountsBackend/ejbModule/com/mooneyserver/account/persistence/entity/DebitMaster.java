@@ -2,7 +2,11 @@ package com.mooneyserver.account.persistence.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.mooneyserver.account.persistence.service.accounts.IDebitCredit;
+
 import java.sql.Timestamp;
+import java.util.Date;
 import java.math.BigDecimal;
 
 
@@ -12,13 +16,16 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name="debit_master")
-public class DebitMaster implements Serializable {
+public class DebitMaster implements Serializable, IDebitCredit {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="iddebit_master")
 	private int iddebitMaster;
+	
+	@Column(name="monthly")
+	private boolean monthlyDebit;
 
 	@Column(name="insert_time")
 	private Timestamp insertTime;
@@ -41,55 +48,66 @@ public class DebitMaster implements Serializable {
 	@JoinColumn(name="currency")
 	private Currency currencyBean;
 
+	@Column(name="description")
+	private String description;
+	
     public DebitMaster() {
     }
 
 	public int getIddebitMaster() {
 		return this.iddebitMaster;
 	}
-
 	public void setIddebitMaster(int iddebitMaster) {
 		this.iddebitMaster = iddebitMaster;
 	}
-
-	public Timestamp getInsertTime() {
-		return this.insertTime;
+	
+	public boolean isMonthly() {
+		return monthlyDebit;
+	}
+	public void setMonthly(boolean bool) {
+		monthlyDebit = bool;
 	}
 
-	public void setInsertTime(Timestamp insertTime) {
-		this.insertTime = insertTime;
+	public Date getInsertTime() {
+		return new Date(insertTime.getTime());
+	}
+	public void setInsertTime(Date date) {
+		insertTime = new Timestamp(date.getTime());
 	}
 
 	public BigDecimal getPaymentAmmount() {
 		return this.paymentAmmount;
 	}
-
 	public void setPaymentAmmount(BigDecimal paymentAmmount) {
 		this.paymentAmmount = paymentAmmount;
 	}
 
-	public BalanceSheet getBalanceSheetBean() {
+	public BalanceSheet getBalanceSheet() {
 		return this.balanceSheetBean;
 	}
-
-	public void setBalanceSheetBean(BalanceSheet balanceSheetBean) {
+	public void setBalanceSheet(BalanceSheet balanceSheetBean) {
 		this.balanceSheetBean = balanceSheetBean;
 	}
 	
-	public PaymentType getPaymentTypeBean() {
+	public PaymentType getPaymentType() {
 		return this.paymentTypeBean;
 	}
-
-	public void setPaymentTypeBean(PaymentType paymentTypeBean) {
+	public void setPaymentType(PaymentType paymentTypeBean) {
 		this.paymentTypeBean = paymentTypeBean;
 	}
 	
-	public Currency getCurrencyBean() {
+	public Currency getCurrency() {
 		return this.currencyBean;
 	}
-
-	public void setCurrencyBean(Currency currencyBean) {
+	public void setCurrency(Currency currencyBean) {
 		this.currencyBean = currencyBean;
 	}
 	
+	
+	public String getDescription() {
+		return description == null ? "" : description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 }

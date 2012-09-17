@@ -1,5 +1,7 @@
 package com.mooneyserver.account.businesslogic.accounts;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -42,8 +44,13 @@ public interface IPaymentTypeMgmt {
 	
 	public void addNewPaymentType(String name, CategoryType owningCategory) throws AccountsSheetException;
 	
-	/** Will have an eager fetch for PaymentTypes */
 	public List<CategoryType> getCategoriesForSheet(BalanceSheet sheet) throws AccountsSheetException;
 	
 	public List<PaymentType> getTypesForCategory(CategoryType category) throws AccountsSheetException;
+	
+	public void addNewDebitEntry(BigDecimal value, BalanceSheet sheet, PaymentType type, 
+			boolean isMonthly, Date inertionTime, String description) throws AccountsSheetException;
+	
+	public void addNewCreditEntry(BigDecimal value, BalanceSheet sheet, PaymentType type, 
+			boolean isMonthly, Date inertionTime, String description) throws AccountsSheetException;
 }
