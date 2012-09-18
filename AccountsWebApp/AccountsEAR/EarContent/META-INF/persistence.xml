@@ -6,9 +6,9 @@
 		<class>com.mooneyserver.account.persistence.entity.UserActivation</class>
 		<class>com.mooneyserver.account.persistence.entity.BalanceSheet</class>
 		<class>com.mooneyserver.account.persistence.entity.CcyConversion</class>
-		<class>com.mooneyserver.account.persistence.entity.CreditMaster</class>
+		<class>com.mooneyserver.account.persistence.entity.CreditEntry</class>
 		<class>com.mooneyserver.account.persistence.entity.Currency</class>
-		<class>com.mooneyserver.account.persistence.entity.DebitMaster</class>
+		<class>com.mooneyserver.account.persistence.entity.DebitEntry</class>
 		<class>com.mooneyserver.account.persistence.entity.CategoryType</class>
 		<class>com.mooneyserver.account.persistence.entity.PaymentType</class>
 		<class>com.mooneyserver.account.persistence.entity.AppSetting</class>

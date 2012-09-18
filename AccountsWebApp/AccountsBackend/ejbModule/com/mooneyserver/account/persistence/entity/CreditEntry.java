@@ -11,22 +11,22 @@ import java.math.BigDecimal;
 
 
 /**
- * The persistent class for the debit_master database table.
+ * The persistent class for the credit_master database table.
  * 
  */
 @Entity
-@Table(name="debit_master")
-public class DebitMaster implements Serializable, IDebitCredit {
+@Table(name="credit_master")
+public class CreditEntry implements Serializable, IDebitCredit {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="iddebit_master")
-	private int iddebitMaster;
-	
-	@Column(name="monthly")
-	private boolean monthlyDebit;
+	@Column(name="idcredit_master")
+	private int idcreditMaster;
 
+	@Column(name="monthly")
+	private boolean monthlyCredit;
+	
 	@Column(name="insert_time")
 	private Timestamp insertTime;
 
@@ -47,27 +47,28 @@ public class DebitMaster implements Serializable, IDebitCredit {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="currency")
 	private Currency currencyBean;
-
+	
 	@Column(name="description")
 	private String description;
-	
-    public DebitMaster() {
+
+    public CreditEntry() {
     }
 
-	public int getIddebitMaster() {
-		return this.iddebitMaster;
+	public int getIdcreditMaster() {
+		return this.idcreditMaster;
 	}
-	public void setIddebitMaster(int iddebitMaster) {
-		this.iddebitMaster = iddebitMaster;
+	public void setIdcreditMaster(int idcreditMaster) {
+		this.idcreditMaster = idcreditMaster;
 	}
 	
 	public boolean isMonthly() {
-		return monthlyDebit;
+		return monthlyCredit;
 	}
 	public void setMonthly(boolean bool) {
-		monthlyDebit = bool;
+		monthlyCredit = bool;
 	}
 
+	
 	public Date getInsertTime() {
 		return new Date(insertTime.getTime());
 	}
@@ -75,6 +76,7 @@ public class DebitMaster implements Serializable, IDebitCredit {
 		insertTime = new Timestamp(date.getTime());
 	}
 
+	
 	public BigDecimal getPaymentAmmount() {
 		return this.paymentAmmount;
 	}
@@ -82,6 +84,7 @@ public class DebitMaster implements Serializable, IDebitCredit {
 		this.paymentAmmount = paymentAmmount;
 	}
 
+	
 	public BalanceSheet getBalanceSheet() {
 		return this.balanceSheetBean;
 	}
@@ -89,12 +92,14 @@ public class DebitMaster implements Serializable, IDebitCredit {
 		this.balanceSheetBean = balanceSheetBean;
 	}
 	
+	
 	public PaymentType getPaymentType() {
 		return this.paymentTypeBean;
 	}
 	public void setPaymentType(PaymentType paymentTypeBean) {
 		this.paymentTypeBean = paymentTypeBean;
 	}
+	
 	
 	public Currency getCurrency() {
 		return this.currencyBean;
