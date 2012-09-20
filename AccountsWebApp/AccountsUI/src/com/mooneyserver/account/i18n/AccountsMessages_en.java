@@ -12,7 +12,11 @@ public class AccountsMessages_en extends AccountsMessages {
 	static final Object[][] externStrings = {
 		/* Generic Localized Text */
 		{ADD_NEW, "Add New"},
+		{FIN, "Finished"},
 		{NAME, "Name"},
+		{INSERT, "Insert"},
+		{TODAY, "Today"},
+		{DESCRIPTION, "Description"},
 		
 		/* Main Window Strings*/
 		{APP_TITLE, "Accounts"},
@@ -96,15 +100,18 @@ public class AccountsMessages_en extends AccountsMessages {
 		{BAL_SHEET_CREATE_SHEET_QUESTION, "Create Bal Sheet?"},
 		{BAL_SHEET_REMOVE_SELECT, "Please select which Balance Sheet to close"},
 		{BAL_SHEET_REMOVE_REASON, "Closure Reason"},
-		{BAL_SHEET_INSERT_ENTRY, "Insert A New Entry"},
+		{BAL_SHEET_INSERT_ENTRY_DT, "Insert A New Entry (Debit)"},
+		{BAL_SHEET_INSERT_ENTRY_CT, "Insert A New Entry (Credit)"},
 		{BAL_SHEET_PAYMENT_CATEGORY, "Category"},
+		{BAL_SHEET_DEBIT, "Debit"},
+		{BAL_SHEET_CREDIT, "Credit"},
 		{BAL_SHEET_PAYMENT_TYPE, "Type"},
 		{BAL_SHEET_PAYMENT_VALUE, "Value"},
 		{BAL_SHEET_PAYMENT_PERIOD, "Period"},
 		{BAL_SHEET_PAYMENT_YEAR, "Year"},
 		{BAL_SHEET_PAYMENT_MONTH, "Month"},
 		{BAL_SHEET_PAYMENT_DATE, "Date"},
-		{BAL_SHEET_NEW_PAY_TYPE, "Payment and Category Management"},
+		{BAL_SHEET_NEW_PAY_TYPE, "Category Management"},
 		
 		/* Admin Screen */
 		{ADMIN_WIN_HEADER, "Administration"},

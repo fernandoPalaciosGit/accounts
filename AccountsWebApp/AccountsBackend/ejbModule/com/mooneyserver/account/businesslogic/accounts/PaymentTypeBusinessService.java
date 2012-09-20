@@ -14,8 +14,8 @@ import com.mooneyserver.account.businesslogic.exception.accounts.AccountsSheetEx
 import com.mooneyserver.account.businesslogic.validate.ClassFieldValidator;
 import com.mooneyserver.account.persistence.entity.BalanceSheet;
 import com.mooneyserver.account.persistence.entity.CategoryType;
-import com.mooneyserver.account.persistence.entity.CreditMaster;
-import com.mooneyserver.account.persistence.entity.DebitMaster;
+import com.mooneyserver.account.persistence.entity.CreditEntry;
+import com.mooneyserver.account.persistence.entity.DebitEntry;
 import com.mooneyserver.account.persistence.entity.PaymentType;
 import com.mooneyserver.account.persistence.service.accounts.DebitCreditService;
 import com.mooneyserver.account.persistence.service.accounts.IDebitCredit;
@@ -52,11 +52,12 @@ public class PaymentTypeBusinessService implements IPaymentTypeMgmt {
 	}
 
 	@Override
-	public void addNewPaymentCategory(String name, BalanceSheet owningSheet)
+	public void addNewPaymentCategory(String name, boolean credit, BalanceSheet owningSheet)
 			throws AccountsSheetException {
 		CategoryType category = new CategoryType();
 		category.setName(name.trim());
 		category.setOwningSheet(owningSheet);
+		category.setCredit(credit);
 		
 		try {
 			paymentService.create(category);		
@@ -118,9 +119,9 @@ public class PaymentTypeBusinessService implements IPaymentTypeMgmt {
 		// CHeck if this is a debit or credit
 		IDebitCredit entry;
 		if (value.compareTo(BigDecimal.ZERO) > 0) {
-			entry = new DebitMaster();
+			entry = new DebitEntry();
 		} else {
-			entry = new CreditMaster();
+			entry = new CreditEntry();
 		}
 		
 		entry.setPaymentAmmount(value.abs());

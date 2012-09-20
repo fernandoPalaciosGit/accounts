@@ -43,6 +43,9 @@ public class CategoryType implements Serializable, IPaymentCategorization {
 	@JoinColumn(name="bal_sheet")
 	private BalanceSheet owningSheet;
 	
+	@Column(name="is_credit")
+	private boolean credit;
+	
 	public CategoryType() {}
 
 	public int getId() {
@@ -71,5 +74,12 @@ public class CategoryType implements Serializable, IPaymentCategorization {
 	}
 	public void setOwningSheet(BalanceSheet balSheet) {
 		this.owningSheet = balSheet;
+	}
+	
+	public boolean isCredit() {
+		return credit;
+	}
+	public void setCredit(boolean credit) {
+		this.credit = credit;
 	}
 }

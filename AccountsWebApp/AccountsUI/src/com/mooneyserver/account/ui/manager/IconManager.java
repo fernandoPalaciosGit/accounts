@@ -44,6 +44,13 @@ public class IconManager {
 	public static final int CLOSE_BALANCE_SHEET = getId();
 	public static final int CLOSE_BALANCE_SHEET_SMALL = getId();
 	public static final int BALANCE_SHEET = getId();
+	public static final int INSERT_DEBIT_ENTRY = getId();
+	public static final int INSERT_DEBIT_ENTRY_SM = getId();
+	public static final int INSERT_CREDIT_ENTRY = getId();
+	public static final int INSERT_CREDIT_ENTRY_SM = getId();
+	public static final int CATG_MGMT = getId();
+	public static final int CATG_MGMT_SM = getId();
+	public static final int BALANCE_SHEET_CLOSE = getId();
 	
 	private static final Map<Integer, String> iconLocation;
 	
@@ -81,6 +88,13 @@ public class IconManager {
 		iconLocation.put(ADD_NEW_BALANCE_SHEET_SMALL, "small/create_bal_sheet.png");
 		iconLocation.put(CLOSE_BALANCE_SHEET_SMALL, "small/remove_bal_sheet.png");
 		iconLocation.put(BALANCE_SHEET, "large/balance_sheet.png");
+		iconLocation.put(INSERT_DEBIT_ENTRY, "large/debit_entry.png");
+		iconLocation.put(INSERT_DEBIT_ENTRY_SM, "small/debit_entry.png");
+		iconLocation.put(INSERT_CREDIT_ENTRY, "large/credit_entry.png");
+		iconLocation.put(INSERT_CREDIT_ENTRY_SM, "small/credit_entry.png");
+		iconLocation.put(CATG_MGMT, "large/clipboard.png");
+		iconLocation.put(CATG_MGMT_SM, "small/clipboard.png");
+		iconLocation.put(BALANCE_SHEET_CLOSE, "large/folder-close-icon.png");
 		
 	}
 

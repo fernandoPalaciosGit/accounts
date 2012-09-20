@@ -46,11 +46,11 @@ public class BalanceSheet implements Serializable {
 
 	//bi-directional many-to-one association to CreditMaster
 	@OneToMany(mappedBy="balanceSheetBean")
-	private Set<CreditMaster> creditEntries;
+	private Set<CreditEntry> creditEntries;
 
 	//bi-directional many-to-one association to DebitMaster
 	@OneToMany(mappedBy="balanceSheetBean")
-	private Set<DebitMaster> debitEntries;
+	private Set<DebitEntry> debitEntries;
 	
 	@OneToMany(mappedBy="owningSheet")
 	private Set<CategoryType> categories;
@@ -92,19 +92,19 @@ public class BalanceSheet implements Serializable {
 		this.owner = owner;
 	}
 	
-	public Set<CreditMaster> getCreditMasters() {
+	public Set<CreditEntry> getCreditMasters() {
 		return this.creditEntries;
 	}
 
-	public void setCreditMasters(Set<CreditMaster> creditMasters) {
+	public void setCreditMasters(Set<CreditEntry> creditMasters) {
 		this.creditEntries = creditMasters;
 	}
 	
-	public Set<DebitMaster> getDebitMasters() {
+	public Set<DebitEntry> getDebitMasters() {
 		return this.debitEntries;
 	}
 
-	public void setDebitMasters(Set<DebitMaster> debitMasters) {
+	public void setDebitMasters(Set<DebitEntry> debitMasters) {
 		this.debitEntries = debitMasters;
 	}
 	

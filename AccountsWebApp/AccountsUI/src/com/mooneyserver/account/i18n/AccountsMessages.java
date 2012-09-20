@@ -12,7 +12,11 @@ public class AccountsMessages extends ListResourceBundle implements Serializable
 	 * Generic Localized Text
 	 */
 	public static final String ADD_NEW = "Accounts.Generic.AddNew";
+	public static final String FIN = "Accounts.Generic.Finished";
 	public static final String NAME = "Accounts.Generic.Name";
+	public static final String INSERT = "Accounts.Generic.Insert";
+	public static final String TODAY = "Accounts.Generic.Today";
+	public static final String DESCRIPTION = "Accounts.Generic.Description";
 	
 	/*
 	 * Main Windows Strings
@@ -110,7 +114,8 @@ public class AccountsMessages extends ListResourceBundle implements Serializable
 	public static final String BAL_SHEET_ADD_SHEET_FAIL = "Accounts.BalanceSheet.SingleSheet.Error.AddSheet";
 	public static final String BAL_SHEET_REMOVE_SELECT = "Accounts.BalanceSheet.SubWindow.RemoveSheet.Select";
 	public static final String BAL_SHEET_REMOVE_REASON = "Accounts.BalanceSheet.SubWindow.RemoveSheet.Reason";
-	public static final String BAL_SHEET_INSERT_ENTRY = "Accounts.SingleBalanceSheet.SubWindow.InsertEntry.Heading";
+	public static final String BAL_SHEET_INSERT_ENTRY_DT = "Accounts.SingleBalanceSheet.SubWindow.InsertEntry.Heading.Debit";
+	public static final String BAL_SHEET_INSERT_ENTRY_CT = "Accounts.SingleBalanceSheet.SubWindow.InsertEntry.Heading.Credit";
 	public static final String BAL_SHEET_PAYMENT_CATEGORY = "Accounts.SingleBalanceSheet.SubWindow.InsertEntry.Category";
 	public static final String BAL_SHEET_PAYMENT_TYPE = "Accounts.SingleBalanceSheet.SubWindow.InsertEntry.Type";
 	public static final String BAL_SHEET_PAYMENT_VALUE = "Accounts.SingleBalanceSheet.SubWindow.InsertEntry.Value";
@@ -119,6 +124,8 @@ public class AccountsMessages extends ListResourceBundle implements Serializable
 	public static final String BAL_SHEET_PAYMENT_MONTH = "Accounts.SingleBalanceSheet.SubWindow.InsertEntry.Month";
 	public static final String BAL_SHEET_PAYMENT_DATE = "Accounts.SingleBalanceSheet.SubWindow.InsertEntry.Date";
 	public static final String BAL_SHEET_NEW_PAY_TYPE = "Accounts.SingleBalanceSheet.SubWindow.PaymentAndCategoryMgmt.Heading";
+	public static final String BAL_SHEET_DEBIT = "Accounts.BalanceSheet.Debit";
+	public static final String BAL_SHEET_CREDIT = "Accounts.BalanceSheet.Credit";
 	
 	
 	/*

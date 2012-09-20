@@ -31,11 +31,11 @@ public class Currency implements Serializable {
 
 	//bi-directional many-to-one association to CreditMaster
 	@OneToMany(mappedBy="currencyBean")
-	private Set<CreditMaster> creditMasters;
+	private Set<CreditEntry> creditMasters;
 
 	//bi-directional many-to-one association to DebitMaster
 	@OneToMany(mappedBy="currencyBean")
-	private Set<DebitMaster> debitMasters;
+	private Set<DebitEntry> debitMasters;
 
     public Currency() {
     }
@@ -72,19 +72,19 @@ public class Currency implements Serializable {
 		this.ccyConversions2 = ccyConversions2;
 	}
 	
-	public Set<CreditMaster> getCreditMasters() {
+	public Set<CreditEntry> getCreditMasters() {
 		return this.creditMasters;
 	}
 
-	public void setCreditMasters(Set<CreditMaster> creditMasters) {
+	public void setCreditMasters(Set<CreditEntry> creditMasters) {
 		this.creditMasters = creditMasters;
 	}
 	
-	public Set<DebitMaster> getDebitMasters() {
+	public Set<DebitEntry> getDebitMasters() {
 		return this.debitMasters;
 	}
 
-	public void setDebitMasters(Set<DebitMaster> debitMasters) {
+	public void setDebitMasters(Set<DebitEntry> debitMasters) {
 		this.debitMasters = debitMasters;
 	}
 	

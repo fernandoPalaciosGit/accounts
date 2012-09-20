@@ -38,7 +38,7 @@ public interface IPaymentTypeMgmt {
 		
 	public void addNewPaymentCategory(CategoryType category) throws AccountsSheetException;
 	
-	public void addNewPaymentCategory(String name, BalanceSheet owningSheet) throws AccountsSheetException;
+	public void addNewPaymentCategory(String name, boolean credit, BalanceSheet owningSheet) throws AccountsSheetException;
 	
 	public void addNewPaymentType(PaymentType type) throws AccountsSheetException;
 	

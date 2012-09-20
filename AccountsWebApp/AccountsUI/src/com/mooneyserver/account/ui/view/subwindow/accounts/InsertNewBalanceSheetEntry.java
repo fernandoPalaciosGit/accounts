@@ -66,14 +66,18 @@ public class InsertNewBalanceSheetEntry extends BaseSubwindow
 	}
 	
 	public InsertNewBalanceSheetEntry(BalanceSheet sheet, EntryType entryType) {
-		super(entryType.equals(EntryType.DEBIT) ? AccountsMessages.BAL_SHEET_INSERT_ENTRY 
-				: AccountsMessages.BAL_SHEET_INSERT_ENTRY);
+		super(entryType.equals(EntryType.DEBIT) ? AccountsMessages.BAL_SHEET_INSERT_ENTRY_DT 
+				: AccountsMessages.BAL_SHEET_INSERT_ENTRY_CT);
 		
 		this.sheet = sheet;
 		this.entryType = entryType;
 		
 		setWidth("480px");
-		setIcon(IconManager.getIcon(IconManager.ADD_NEW_BALANCE_SHEET_SMALL));
+		if (entryType.equals(EntryType.CREDIT)) {
+			setIcon(IconManager.getIcon(IconManager.INSERT_CREDIT_ENTRY_SM));
+		} else {
+			setIcon(IconManager.getIcon(IconManager.INSERT_DEBIT_ENTRY_SM));
+		}
 		
 		VerticalLayout vl = new VerticalLayout();
 		vl.setSpacing(true);
@@ -125,13 +129,15 @@ public class InsertNewBalanceSheetEntry extends BaseSubwindow
 		dateField.setLocale(getLocale());
 		dateField.setRequired(true);
 		
-		description = new TextArea("Description"); // TODO: Localise
+		description = new TextArea(STRINGS.getString(AccountsMessages.DESCRIPTION));
 		description.setRows(4);
 		
 		frm = new BalanceSheetEntryForm();
 		vl.addComponent(frm);
 		
-		insert = new Button(STRINGS.getString(AccountsMessages.BAL_SHEET_INSERT_ENTRY)); 
+		insert = new Button(entryType.equals(EntryType.DEBIT) ? 
+				STRINGS.getString(AccountsMessages.BAL_SHEET_DEBIT) 
+				: STRINGS.getString(AccountsMessages.BAL_SHEET_CREDIT)); 
 		insert.addListener((Button.ClickListener) this);
 		
 		vl.addComponent(insert);
@@ -144,8 +150,15 @@ public class InsertNewBalanceSheetEntry extends BaseSubwindow
 			List<CategoryType> svcCategories = accSvc.getCategoriesForSheet(sheet);
 					
 			for (CategoryType cat : svcCategories) {
-				categoryComboBox.addItem(cat.getName());
-				categories.put(cat.getName(), cat);
+				if (entryType == EntryType.CREDIT && cat.isCredit()) {
+					categoryComboBox.addItem(cat.getName());
+					categories.put(cat.getName(), cat);
+				} 
+				
+				if (entryType == EntryType.DEBIT && !cat.isCredit()) {
+					categoryComboBox.addItem(cat.getName());
+					categories.put(cat.getName(), cat);
+				}
 			}
 		} catch (AccountsSheetException e) {
 			close();

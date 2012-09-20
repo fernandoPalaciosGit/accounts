@@ -39,7 +39,7 @@ public class DebitEntry implements Serializable, IDebitCredit {
 	private BalanceSheet balanceSheetBean;
 
 	//bi-directional many-to-one association to PaymentType
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="payment_type")
 	private PaymentType paymentTypeBean;
 

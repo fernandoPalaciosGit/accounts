@@ -24,6 +24,7 @@ import com.vaadin.ui.Accordion;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.ListSelect;
@@ -56,6 +57,7 @@ public class PaymentTypeMgmt extends BaseSubwindow
 	private final int ADD_NEW_TYPE = 1;
 	
 	private final int ADD_CATG_FLD_NAME = 0;
+	private final int ADD_CATG_CREDIT_BOOL = 1;
 	private final int ADD_TYPE_FLD_NAME = 0;
 	private final int ADD_TYPE_FLD_CAT = 1;
 	
@@ -65,7 +67,7 @@ public class PaymentTypeMgmt extends BaseSubwindow
 		this.balSheet = sheet;
 		
 		setWidth("320px");
-		setIcon(IconManager.getIcon(IconManager.ADD_NEW_BALANCE_SHEET_SMALL));
+		setIcon(IconManager.getIcon(IconManager.CATG_MGMT_SM));
 		
 		accordion = new Accordion();
 		accordion.setSizeFull();
@@ -175,9 +177,14 @@ public class PaymentTypeMgmt extends BaseSubwindow
 	// TODO: Add Form Field validators to avoid dupes
 	private VerticalLayout generateCreateNewCategoryForm() {
 		catFrm = new Form();
+		
 		catFrm.addField(ADD_CATG_FLD_NAME, new TextField(
 				STRINGS.getString(AccountsMessages.BAL_SHEET_PAYMENT_CATEGORY) 
 				+ " " + STRINGS.getString(AccountsMessages.NAME)));
+		catFrm.addField(ADD_CATG_CREDIT_BOOL, new CheckBox(
+			STRINGS.getString(AccountsMessages.BAL_SHEET_CREDIT) + "?"));
+		
+		
 		return generateGenericTabSheet(catFrm, ADD_NEW_CATEGORY);
 	}
 	
@@ -223,7 +230,8 @@ public class PaymentTypeMgmt extends BaseSubwindow
 			case ADD_NEW_CATEGORY:
 				try {
 					accSvc.addNewPaymentCategory((String) catFrm.getField(ADD_CATG_FLD_NAME)
-							.getValue(), balSheet);
+							.getValue(), ((CheckBox)catFrm.getField(ADD_CATG_FLD_NAME)).booleanValue(), 
+							balSheet);
 				} catch (AccountsSheetException e) {
 					close();
 					Messenger.genericMessage(MessageSeverity.ERROR, 

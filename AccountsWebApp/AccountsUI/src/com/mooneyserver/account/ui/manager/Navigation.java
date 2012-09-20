@@ -224,7 +224,8 @@ public final class Navigation {
 		// Check if this is the first sub menu and proceed
 		if (parentMenu.getChildren() == null) {
 			parentMenu.setCommand(null);
-			parentMenu.addItem("RTB", new TopLevelWindowCommand(mainView)); // TODO: Update text setting
+			parentMenu.addItem(STRINGS.getString(AccountsMessages.BAL_SHEET_WIN_HEADER), 
+					new TopLevelWindowCommand(mainView));
 			parentMenu.addSeparator();
 		}
 		

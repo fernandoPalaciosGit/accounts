@@ -1,5 +1,8 @@
 package com.mooneyserver.account.businesslogic.accounts;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -15,7 +18,11 @@ import com.mooneyserver.account.businesslogic.exception.accounts.AccountsSheetIn
 import com.mooneyserver.account.businesslogic.validate.ClassFieldValidator;
 import com.mooneyserver.account.persistence.entity.AccountsUser;
 import com.mooneyserver.account.persistence.entity.BalanceSheet;
+import com.mooneyserver.account.persistence.entity.CreditEntry;
+import com.mooneyserver.account.persistence.entity.DebitEntry;
 import com.mooneyserver.account.persistence.service.accounts.BalanceSheetService;
+import com.mooneyserver.account.persistence.service.accounts.DebitCreditService;
+import com.mooneyserver.account.persistence.service.accounts.IDebitCredit;
 import com.mooneyserver.account.persistence.service.user.UserService;
 
 /**
@@ -31,6 +38,9 @@ public class AccountsBusinessService implements IBalanceSheetMgmt {
 	
 	@EJB
 	private BalanceSheetService accSvc;
+	
+	@EJB
+	private DebitCreditService sheetEntrySvc;
 	
 	@Resource
 	private SessionContext context;
@@ -112,5 +122,39 @@ public class AccountsBusinessService implements IBalanceSheetMgmt {
 		} catch(Exception e) {
 			throw new AccountsSheetException("Rethrowing wrapped base exception", e);
 		}
+	}
+
+	@Override
+	public List<IDebitCredit> getEntriesWithinRange(BalanceSheet sheet,
+			Calendar from, Calendar to) throws AccountsSheetException {
+		
+		truncateCalendarToDay(from);
+		truncateCalendarToDay(to);
+
+		List<CreditEntry> credits = sheetEntrySvc.getCreditEntriesForSheet(sheet);
+		List<DebitEntry> debits = sheetEntrySvc.getDebitEntriesForSheet(sheet);
+		
+		List<IDebitCredit> entries = new ArrayList<>();
+		entries.addAll(credits);
+		entries.addAll(debits);
+
+		Iterator<IDebitCredit> itr = entries.iterator();
+		while (itr.hasNext()) {
+			IDebitCredit entry = itr.next();
+			if (entry.getInsertTime().before(from.getTime()) 
+					|| entry.getInsertTime().after(to.getTime())) {
+				itr.remove();
+			}
+		}
+
+		return entries;
+	}
+	
+	/* Truncate Calendars so that Date filter precision is to the day */
+	private void truncateCalendarToDay(Calendar cal) {
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
 	}
 }
