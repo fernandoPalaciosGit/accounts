@@ -17,6 +17,8 @@ public class AccountsMessages extends ListResourceBundle implements Serializable
 	public static final String INSERT = "Accounts.Generic.Insert";
 	public static final String TODAY = "Accounts.Generic.Today";
 	public static final String DESCRIPTION = "Accounts.Generic.Description";
+	public static final String CREATE = "Accounts.Generic.Create";
+	public static final String CURRENT = "Accounts.Generic.Current";
 	
 	/*
 	 * Main Windows Strings
@@ -79,6 +81,9 @@ public class AccountsMessages extends ListResourceBundle implements Serializable
 	 */
 	public static final String VALIDATE_EMAIL = "Accounts.Validate.Email";
 	public static final String VALIDATE_CONFIRM_PASSWORD = "Accounts.Validate.ConfirmPassword";
+	public static final String VALIDATE_DUPLICATE_CATG_NAME = "Accounts.Validate.DuplicateCategoryName";
+	public static final String VALIDATE_DUPLICATE_TYPE_NAME = "Accounts.Validate.DuplicateTypeName";
+	public static final String VALIDATE_NOT_AN_AMMOUNT = "Accounts.Validate.NotValidMoneyAmmount";
 	
 	/*
 	 * Messenger

@@ -17,6 +17,8 @@ public class AccountsMessages_en extends AccountsMessages {
 		{INSERT, "Insert"},
 		{TODAY, "Today"},
 		{DESCRIPTION, "Description"},
+		{CREATE, "Create"},
+		{CURRENT, "Current"},
 		
 		/* Main Window Strings*/
 		{APP_TITLE, "Accounts"},
@@ -71,6 +73,9 @@ public class AccountsMessages_en extends AccountsMessages {
 		/* Validation Localization */
 		{VALIDATE_EMAIL, "{0} is not a valid e-mail address"},
 		{VALIDATE_CONFIRM_PASSWORD, "The two passwords do not match"},
+		{VALIDATE_DUPLICATE_CATG_NAME, "This Category Name Already Exists"},
+		{VALIDATE_DUPLICATE_TYPE_NAME, "This Type Name Already Exists"},
+		{VALIDATE_NOT_AN_AMMOUNT, "This is Not a valid money amount"},
 		
 		/* Messenger */
 		{MSGR_TITLE_INFO, "Information"},
