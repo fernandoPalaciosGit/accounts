@@ -16,10 +16,13 @@ import com.mooneyserver.account.persistence.entity.PaymentType;
 import com.mooneyserver.account.ui.manager.IconManager;
 import com.mooneyserver.account.ui.notification.Messenger;
 import com.mooneyserver.account.ui.notification.Messenger.MessageSeverity;
+import com.mooneyserver.account.ui.validate.ConfirmUniqueCategoryNameFieldValidator;
+import com.mooneyserver.account.ui.validate.ConfirmUniqueTypeNameFieldValidator;
 import com.mooneyserver.account.ui.view.subwindow.BaseSubwindow;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.ui.Accordion;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -110,7 +113,7 @@ public class PaymentTypeMgmt extends BaseSubwindow
 		hl.addComponent(vl2);
 		
 		current = accordion.addTab(hl);
-		current.setCaption("Current");
+		current.setCaption(STRINGS.getString(AccountsMessages.CURRENT));
 		
 		addNewCategory = accordion.addTab(generateCreateNewCategoryForm());
 		addNewCategory.setCaption(STRINGS.getString(AccountsMessages.ADD_NEW) 
@@ -174,13 +177,15 @@ public class PaymentTypeMgmt extends BaseSubwindow
 		}
 	}
 	
-	// TODO: Add Form Field validators to avoid dupes
+
 	private VerticalLayout generateCreateNewCategoryForm() {
 		catFrm = new Form();
 		
-		catFrm.addField(ADD_CATG_FLD_NAME, new TextField(
+		TextField categoryName = new TextField(
 				STRINGS.getString(AccountsMessages.BAL_SHEET_PAYMENT_CATEGORY) 
-				+ " " + STRINGS.getString(AccountsMessages.NAME)));
+				+ " " + STRINGS.getString(AccountsMessages.NAME));
+		categoryName.addValidator(new ConfirmUniqueCategoryNameFieldValidator(balSheet));
+		catFrm.addField(ADD_CATG_FLD_NAME, categoryName);
 		catFrm.addField(ADD_CATG_CREDIT_BOOL, new CheckBox(
 			STRINGS.getString(AccountsMessages.BAL_SHEET_CREDIT) + "?"));
 		
@@ -188,18 +193,24 @@ public class PaymentTypeMgmt extends BaseSubwindow
 		return generateGenericTabSheet(catFrm, ADD_NEW_CATEGORY);
 	}
 	
-	// TODO: Add Form Field validators to avoid dupes
+	
 	private VerticalLayout generateCreateNewTypeForm() {
 		typeFrm = new Form();
 		
-		typeFrm.addField(ADD_TYPE_FLD_NAME, new TextField(
-				STRINGS.getString(AccountsMessages.BAL_SHEET_PAYMENT_CATEGORY) 
-				+ " " 
-				+ STRINGS.getString(AccountsMessages.NAME)));
-		
-		Select selCatg = new Select("Category", categories.keySet());
+		Select selCatg = new Select(STRINGS.getString(
+				AccountsMessages.BAL_SHEET_PAYMENT_CATEGORY), 
+				categories.keySet()); 
 		selCatg.setNullSelectionAllowed(false);
 		selCatg.setImmediate(true);
+		
+		TextField typeName = new TextField(
+				STRINGS.getString(AccountsMessages.BAL_SHEET_PAYMENT_CATEGORY) 
+				+ " " 
+				+ STRINGS.getString(AccountsMessages.NAME));
+		typeName.addValidator(new ConfirmUniqueTypeNameFieldValidator(selCatg, categories));
+
+		
+		typeFrm.addField(ADD_TYPE_FLD_NAME, typeName);
 		typeFrm.addField(ADD_TYPE_FLD_CAT, selCatg);
 		
 		return generateGenericTabSheet(typeFrm, ADD_NEW_TYPE);
@@ -213,7 +224,7 @@ public class PaymentTypeMgmt extends BaseSubwindow
 		
 		HorizontalLayout hl = new HorizontalLayout();
 		
-		Button btn = new Button("Create");
+		Button btn = new Button(STRINGS.getString(AccountsMessages.CREATE));
 		btn.addListener((Button.ClickListener)this);
 		btn.setData(CREATION_TYPE);
 		hl.addComponent(btn);
@@ -229,9 +240,15 @@ public class PaymentTypeMgmt extends BaseSubwindow
 		switch ((Integer) event.getButton().getData()) {
 			case ADD_NEW_CATEGORY:
 				try {
-					accSvc.addNewPaymentCategory((String) catFrm.getField(ADD_CATG_FLD_NAME)
-							.getValue(), ((CheckBox)catFrm.getField(ADD_CATG_FLD_NAME)).booleanValue(), 
-							balSheet);
+					catFrm.commit();
+					if (catFrm.isValid()) {
+						accSvc.addNewPaymentCategory((String) catFrm.getField(ADD_CATG_FLD_NAME)
+								.getValue(), ((CheckBox)catFrm.getField(ADD_CATG_FLD_NAME)).booleanValue(), 
+								balSheet);
+					} 
+				} catch (InvalidValueException e) {
+					// Ignoring InvalidValueException as 
+					// an appropriate msg is displayed in UI
 				} catch (AccountsSheetException e) {
 					close();
 					Messenger.genericMessage(MessageSeverity.ERROR, 
@@ -242,9 +259,15 @@ public class PaymentTypeMgmt extends BaseSubwindow
 				break;
 			case ADD_NEW_TYPE:
 				try {
-					accSvc.addNewPaymentType((String) typeFrm.getField(ADD_TYPE_FLD_NAME)
-							.getValue(), categories.get(typeFrm
-									.getField(ADD_TYPE_FLD_CAT).getValue()));
+					typeFrm.commit();
+					if (typeFrm.isValid()) {
+						accSvc.addNewPaymentType((String) typeFrm.getField(ADD_TYPE_FLD_NAME)
+								.getValue(), categories.get(typeFrm
+										.getField(ADD_TYPE_FLD_CAT).getValue()));
+					}
+				} catch (InvalidValueException e) {
+					// Ignoring InvalidValueException as 
+					// an appropriate msg is displayed in UI
 				} catch (AccountsSheetException e) {
 					close();
 					Messenger.genericMessage(MessageSeverity.ERROR, 

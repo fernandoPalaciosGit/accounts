@@ -18,6 +18,7 @@ import com.mooneyserver.account.persistence.entity.PaymentType;
 import com.mooneyserver.account.ui.manager.IconManager;
 import com.mooneyserver.account.ui.notification.Messenger;
 import com.mooneyserver.account.ui.notification.Messenger.MessageSeverity;
+import com.mooneyserver.account.ui.validate.ConfirmValidMoneyValueFieldValidator;
 import com.mooneyserver.account.ui.view.subwindow.BaseSubwindow;
 
 import com.vaadin.data.Property;
@@ -109,6 +110,7 @@ public class InsertNewBalanceSheetEntry extends BaseSubwindow
 		value = new TextField(STRINGS
 				.getString(AccountsMessages.BAL_SHEET_PAYMENT_VALUE));
 		value.setRequired(true);
+		value.addValidator(new ConfirmValidMoneyValueFieldValidator());
 		
 		period = new OptionGroup(STRINGS
 				.getString(AccountsMessages.BAL_SHEET_PAYMENT_VALUE),
