@@ -37,8 +37,7 @@ class BaseWindowClickListener implements ClickListener,
 				break;
 			case SIGNOUT:
 				AccountsApplication.getInstance().setUser(null);
-				//AccountsApplication.getInstance().displayMgr.closeAllViews();
-				// TODO: Do a logout logic
+				AccountsApplication.getInstance().nav.endSession();
 				break;
 		}
 	}

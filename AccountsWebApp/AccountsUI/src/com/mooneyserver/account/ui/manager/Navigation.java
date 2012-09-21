@@ -11,6 +11,7 @@ import com.mooneyserver.account.ui.iface.IMainView;
 import com.mooneyserver.account.ui.notification.Messenger;
 import com.mooneyserver.account.ui.notification.Messenger.MessageSeverity;
 
+import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
@@ -115,6 +116,21 @@ public final class Navigation {
 	}
 	
 	/**
+	 * Called to end a user session (Will remove all chaced windows
+	 * and redirect the user to the login page using restart app to 
+	 * kill the session)
+	 */
+	public void endSession() {
+		// Remove all items from the display managers
+		displayMgr.clear();
+		menuItemLinkMgr.clear();
+		
+		// Redirect to login screen
+		String baseUrl = AccountsApplication.getInstance().getURL().toString().split("\\?")[0];
+		AccountsApplication.getInstance().getMainWindow().open(new ExternalResource(baseUrl + "?restartApplication"));
+	}
+	
+	/**
 	 * Remove any sub views from the display manager and
 	 * also remove their sub menu. This will also load the
 	 * parent view of the removed subview
@@ -136,7 +152,7 @@ public final class Navigation {
 	 * of the cached views should be updated by calling
 	 * his method
 	 */
-	public void refreshContent() {
+	public void refreshContent() {		
 		for (IAccountsView view : displayMgr.values()) {
 			view.buildStringsFromLocale();
 		}
@@ -173,6 +189,8 @@ public final class Navigation {
 				checkViewCacheAndLoad(reportsMenuItem, view.getClassType());
 				break;
 		}
+		
+		refreshContent();
 	}
 	
 	// See if the main view is already cached and grab it,

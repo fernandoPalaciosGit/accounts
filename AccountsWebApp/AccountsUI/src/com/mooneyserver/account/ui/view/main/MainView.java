@@ -143,5 +143,7 @@ public class MainView extends VerticalLayout {
 		requestRepaintAll();
 	}
 
-	public void refreshView() { /* TODO: Implement Refresh */	}
+	public void refreshView() { 
+		settingsDropdown.updateStrings();
+	}
 }

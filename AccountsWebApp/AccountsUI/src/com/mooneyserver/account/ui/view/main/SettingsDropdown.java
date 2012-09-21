@@ -70,5 +70,11 @@ class SettingsDropdown extends PopupButton {
 		langChange.setCaption(STRINGS.getString(AccountsMessages.HEADER_SETTINGS_LANG));
         genSettings.setCaption(STRINGS.getString(AccountsMessages.HEADER_SETTINGS));
         signOut.setCaption(STRINGS.getString(AccountsMessages.HEADER_SETTINGS_SIGNOUT));
+        
+        if (AccountsApplication.getInstance().getUser() == null) {
+        	signOut.setEnabled(false);
+        } else {
+        	signOut.setEnabled(true);
+        }
 	}
 }
