@@ -100,4 +100,10 @@ public class Dashboard extends AbstractBaseView implements Button.ClickListener,
 
 	@Override
 	public String getDisplayName() {return STRINGS.getString(AccountsMessages.DASHBRD_WIN_HEADER);}
+
+	@Override
+	public void refreshView() {
+		// TODO Auto-generated method stub
+		
+	}
 }

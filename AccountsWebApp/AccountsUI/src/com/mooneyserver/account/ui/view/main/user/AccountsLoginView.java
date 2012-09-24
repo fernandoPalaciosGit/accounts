@@ -164,4 +164,11 @@ public class AccountsLoginView extends AbstractBaseView
 
 	@Override
 	public String getDisplayName() {return STRINGS.getString(AccountsMessages.LOGIN_BUTTON);}
+
+
+	@Override
+	public void refreshView() {
+		// TODO Auto-generated method stub
+		
+	}
 }

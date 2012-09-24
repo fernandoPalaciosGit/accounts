@@ -285,4 +285,10 @@ public class SingleBalanceSheet extends AbstractBaseSubView {
 		
 		return null;
 	}
+
+	@Override
+	public void refreshView() {
+		populateTableData();
+		buildStringsFromLocale();
+	}
 }

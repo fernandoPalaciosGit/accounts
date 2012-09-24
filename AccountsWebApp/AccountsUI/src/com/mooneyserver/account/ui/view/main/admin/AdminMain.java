@@ -32,4 +32,10 @@ public class AdminMain extends AbstractBaseView implements IMainView {
 	public void buildStringsFromLocale() {
 		STRINGS = AccountsApplication.getResourceBundle();
 	}
+
+	@Override
+	public void refreshView() {
+		// TODO Auto-generated method stub
+		
+	}
 }

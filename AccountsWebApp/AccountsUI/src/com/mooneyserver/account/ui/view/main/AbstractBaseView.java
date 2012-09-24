@@ -30,5 +30,5 @@ public abstract class AbstractBaseView extends VerticalLayout implements
 	
 	public void loadBackendServices() {
         BackendServiceLookup.injectBackendServices(this);
-    }
+    }	
 }

@@ -76,4 +76,10 @@ public class AccountActivationView extends AbstractBaseView implements Button.Cl
 
 	@Override
 	public String getDisplayName() { return STRINGS.getString(AccountsMessages.ACTIVATE_USER_WIN_HEADER);	}
+
+	@Override
+	public void refreshView() {
+		// TODO Auto-generated method stub
+		
+	}
 }

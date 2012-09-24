@@ -30,4 +30,10 @@ public class GraphedReportsMain extends AbstractBaseView implements IMainView {
 	@Override
 	public void buildStringsFromLocale() {
 	}
+
+	@Override
+	public void refreshView() {
+		// TODO Auto-generated method stub
+		
+	}
 }

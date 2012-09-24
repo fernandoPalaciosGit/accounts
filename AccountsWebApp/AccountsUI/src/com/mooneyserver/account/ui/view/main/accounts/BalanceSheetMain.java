@@ -223,4 +223,10 @@ public class BalanceSheetMain extends AbstractBaseView implements IMainView {
 
 	@Override
 	public String getDisplayName() {return STRINGS.getString(AccountsMessages.BAL_SHEET_WIN_HEADER);}
+
+	@Override
+	public void refreshView() {
+		// TODO Auto-generated method stub
+		
+	}
 }

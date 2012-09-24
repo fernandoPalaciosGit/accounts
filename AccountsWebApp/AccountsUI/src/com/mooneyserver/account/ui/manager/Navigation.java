@@ -27,6 +27,7 @@ import com.vaadin.ui.MenuBar.MenuItem;
 public final class Navigation {
 	
 	MenuBar menu;
+	IAccountsView current;
 	NonNullHashMap<UUID, IAccountsView> displayMgr;
 	NonNullHashMap<MenuItem, UUID> menuItemLinkMgr;
 	ResourceBundle STRINGS = AccountsApplication.getResourceBundle();
@@ -88,6 +89,13 @@ public final class Navigation {
 	 */
 	public int getViewCount() {
 		return displayMgr.size();
+	}
+	
+	/**
+	 * 
+	 */
+	public IAccountsView peek() {
+		return current;
 	}
 	
 	/**
@@ -215,6 +223,7 @@ public final class Navigation {
 	
 	// Add view to dynamic content are of MainView
 	void setDynamicContent(IAccountsView view) {
+		current = view;
 		AccountsApplication.setDynamicContent(view);
 	}
 	
