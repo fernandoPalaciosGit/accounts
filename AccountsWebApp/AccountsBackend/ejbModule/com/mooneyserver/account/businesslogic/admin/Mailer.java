@@ -21,33 +21,33 @@ class Mailer {
 	
 	private static Logger log = Logger.getLogger(AccountsLoggingConstants.LOG_AREA_BACKEND);
 	
-	private static Session mailSession;
+	private Session mailSession;
 	
-	private static void initMailSession() {
-		if (mailSession == null) {
-    		final String username = SETTINGS.getProp(SettingsKeys.SMTP_USER); 
-    		final String password = SETTINGS.getProp(SettingsKeys.SMTP_PASSWORD);
+	private Mailer() {
+		final String username = SETTINGS.getProp(SettingsKeys.SMTP_USER); 
+    	final String password = SETTINGS.getProp(SettingsKeys.SMTP_PASSWORD);
      
-    		Properties props = new Properties();
-    		props.put("mail.smtp.auth", "true");
-    		props.put("mail.smtp.starttls.enable", "true");
-    		props.put("mail.smtp.host", SETTINGS.getProp(SettingsKeys.SMTP_HOST));
-    		props.put("mail.smtp.port", SETTINGS.getProp(SettingsKeys.SMTP_PORT));
-     
-    		mailSession = Session.getInstance(props,
-    				new javax.mail.Authenticator() {
-    					protected PasswordAuthentication getPasswordAuthentication() {
-    						return new PasswordAuthentication(username, password);
-    					}
-    		  		});
-    	}
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", SETTINGS.getProp(SettingsKeys.SMTP_HOST));
+		props.put("mail.smtp.port", SETTINGS.getProp(SettingsKeys.SMTP_PORT));
+		props.put("mail.smtp.timeout", SETTINGS.getProp(SettingsKeys.SMTP_MAIL_TIMEOUT));
+	    props.put("mail.smtp.connectiontimeout", SETTINGS.getProp(SettingsKeys.SMTP_MAIL_TIMEOUT));
+ 
+		mailSession = Session.getInstance(props,
+				new javax.mail.Authenticator() {
+					protected PasswordAuthentication getPasswordAuthentication() {
+						return new PasswordAuthentication(username, password);
+					}
+		  		});
 	}
 	
-	public static void sendMail(String toAddress, String subject, String msgBody) {
-		initMailSession();
+	public static void sendMail(String toAddress, String subject, String msgBody) throws MessagingException {
+		Mailer mailer = new Mailer();
 		
 		try {
-			MimeMessage m = new MimeMessage(mailSession);
+			MimeMessage m = new MimeMessage(mailer.mailSession);
 			Address from = new InternetAddress (SETTINGS.getProp(SettingsKeys.SMTP_MAIL_FROM));
 			Address[] to = new InternetAddress[] {new InternetAddress(toAddress)};
 			
@@ -62,6 +62,7 @@ class Mailer {
 		}
 		catch (MessagingException e) {
 			log.log(Level.SEVERE, "Unable to send mail", e);
+			throw e;
 		}
 	}
 }

@@ -9,6 +9,7 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
+import javax.mail.MessagingException;
 
 import com.mooneyserver.account.logging.AccountsLoggingConstants;
 import com.mooneyserver.account.messaging.iface.IUserChangePasswordMessage;
@@ -40,6 +41,17 @@ public class PasswordResetMailMsgService implements MessageListener {
      * and sent to the user with the new password.
      */
     public void onMessage(Message message) {
+    	// FUCKIN UGLY!
+    	// Hate this but I cant figure out how clear
+    	// In Delivery messages from JBoss otherwise!
+    	while (!SETTINGS.areSettingsInitialised()) {
+    		try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				// Gobble Gobble
+			}
+    	}
+    	
     	if (!(message instanceof ObjectMessage)) {
     		log.log(Level.WARNING, "Received Message is not an Object Message");
     		return;
@@ -57,11 +69,17 @@ public class PasswordResetMailMsgService implements MessageListener {
     		}
     	} catch (JMSException e) {
     		log.log(Level.SEVERE, "Failure trying to read object from message", e);
+    		throw new RuntimeException("Wrapping Failed Password Reset Mail", e);
     	}
     	 
-    	Mailer.sendMail(userActMsg.getToAddress(), 
-    			SETTINGS.getProp(SettingsKeys.SMTP_MAIL_PWD_RESET_SUBJECT), 
-    			formatMailBody(userActMsg));
+    	try {
+			Mailer.sendMail(userActMsg.getToAddress(), 
+					SETTINGS.getProp(SettingsKeys.SMTP_MAIL_PWD_RESET_SUBJECT), 
+					formatMailBody(userActMsg));
+		} catch (MessagingException e) {
+			log.log(Level.SEVERE, "Failure trying to send Password Reset Mail", e);
+			throw new RuntimeException("Wrapping Failed Password Reset Mail", e);
+		}
     }
     
     private String formatMailBody(IUserChangePasswordMessage msg) {

@@ -14,6 +14,7 @@ public class SettingsKeys {
 	public static final String SMTP_MAIL_ACTIVATION_BODY = "accounts.smtp.mail.template.user_actv.body";
 	public static final String SMTP_MAIL_PWD_RESET_SUBJECT = "accounts.smtp.mail.template.pwd_reset.subject";
 	public static final String SMTP_MAIL_PWD_RESET_BODY = "accounts.smtp.mail.template.pwd_reset.body";
+	public static final String SMTP_MAIL_TIMEOUT = "accounts.smtp.timeout";
 	
 	// Application Settings (Global)
 	public static final String APP_HOST_URL = "accounts.app.server.url";
