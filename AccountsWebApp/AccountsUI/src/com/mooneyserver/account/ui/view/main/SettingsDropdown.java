@@ -19,6 +19,7 @@ class SettingsDropdown extends PopupButton {
 			AccountsApplication.getResourceBundle();
 	
 	private Button langChange, genSettings, signOut;
+	private VerticalLayout popupLayout;
 	private BaseWindowClickListener btnListener = new BaseWindowClickListener();
 	
 	public SettingsDropdown() {
@@ -27,12 +28,13 @@ class SettingsDropdown extends PopupButton {
 		setStyleName(BaseTheme.BUTTON_LINK);
         setDescription(STRINGS.getString(AccountsMessages.HEADER_SETTINGS));
         setIcon(IconManager.getIcon(IconManager.SETTINGS_LARGE));
+        setImmediate(true);
         
         buildSettings();
 	}
 	
 	private void buildSettings() {
-		VerticalLayout popupLayout = new VerticalLayout();
+		popupLayout = new VerticalLayout();
         popupLayout.setSizeUndefined();
 
         setComponent(popupLayout); // Set popup content

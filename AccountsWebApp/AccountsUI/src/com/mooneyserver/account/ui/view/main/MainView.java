@@ -22,7 +22,7 @@ public class MainView extends VerticalLayout {
 	private ResourceBundle STRINGS = 
 			AccountsApplication.getResourceBundle();
 	
-	private SettingsDropdown settingsDropdown;
+	private SettingsDropdown settingsDropdown = new SettingsDropdown();
 	private Label pageName = new Label();
 	private Layout mainContent = new VerticalLayout(); // dynamic content holder
 	
@@ -56,7 +56,6 @@ public class MainView extends VerticalLayout {
         langBar.setComponentAlignment(pageName, 
         		Alignment.MIDDLE_CENTER);
         
-        settingsDropdown = new SettingsDropdown();
         langBar.addComponent(settingsDropdown);
         langBar.setComponentAlignment(settingsDropdown, 
         		Alignment.MIDDLE_RIGHT);
@@ -141,6 +140,8 @@ public class MainView extends VerticalLayout {
 		setExpandRatio(mainContent, 1);
 		
 		requestRepaintAll();
+		
+		settingsDropdown.requestRepaint();
 	}
 
 	public void refreshView() { 
