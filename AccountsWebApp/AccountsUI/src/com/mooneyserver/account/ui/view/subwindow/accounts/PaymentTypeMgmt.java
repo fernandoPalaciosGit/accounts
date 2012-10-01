@@ -243,7 +243,7 @@ public class PaymentTypeMgmt extends BaseSubwindow
 					catFrm.commit();
 					if (catFrm.isValid()) {
 						accSvc.addNewPaymentCategory((String) catFrm.getField(ADD_CATG_FLD_NAME)
-								.getValue(), ((CheckBox)catFrm.getField(ADD_CATG_FLD_NAME)).booleanValue(), 
+								.getValue(), ((CheckBox)catFrm.getField(ADD_CATG_CREDIT_BOOL)).booleanValue(), 
 								balSheet);
 					} 
 				} catch (InvalidValueException e) {
