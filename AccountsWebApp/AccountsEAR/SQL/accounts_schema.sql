@@ -3,7 +3,7 @@
 -- Server version:               5.5.24-0ubuntu0.12.04.1 - (Ubuntu)
 -- Server OS:                    debian-linux-gnu
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-09-13 16:58:23
+-- Date/time:                    2012-09-28 09:36:21
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -91,11 +91,13 @@ CREATE TABLE IF NOT EXISTS `ccy_conversion` (
 DROP TABLE IF EXISTS `credit_master`;
 CREATE TABLE IF NOT EXISTS `credit_master` (
   `idcredit_master` int(11) NOT NULL AUTO_INCREMENT,
+  `monthly` tinyint(1) NOT NULL DEFAULT '1',
   `payment_type` int(11) NOT NULL,
   `payment_ammount` decimal(10,4) NOT NULL,
-  `currency` int(11) NOT NULL,
+  `currency` int(11) DEFAULT NULL,
   `insert_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `balance_sheet` int(11) NOT NULL,
+  `description` longtext,
   PRIMARY KEY (`idcredit_master`),
   UNIQUE KEY `idcredit_master_UNIQUE` (`idcredit_master`),
   KEY `IDX_FK_CRED_BALANCE_SHEET` (`balance_sheet`),
@@ -126,11 +128,13 @@ CREATE TABLE IF NOT EXISTS `currency` (
 DROP TABLE IF EXISTS `debit_master`;
 CREATE TABLE IF NOT EXISTS `debit_master` (
   `iddebit_master` int(11) NOT NULL AUTO_INCREMENT,
+  `monthly` tinyint(1) NOT NULL DEFAULT '1',
   `payment_type` int(11) NOT NULL,
   `payment_ammount` decimal(10,4) NOT NULL,
-  `currency` int(11) NOT NULL,
+  `currency` int(11) DEFAULT NULL,
   `insert_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `balance_sheet` int(11) NOT NULL,
+  `description` longtext,
   PRIMARY KEY (`iddebit_master`),
   UNIQUE KEY `iddebit_master_UNIQUE` (`iddebit_master`),
   KEY `IDX_FK_DEB_BALANCE_SHEET` (`balance_sheet`),
@@ -150,6 +154,7 @@ CREATE TABLE IF NOT EXISTS `payment_category` (
   `category_id` int(11) NOT NULL AUTO_INCREMENT,
   `category_name` varchar(50) NOT NULL,
   `bal_sheet` int(10) NOT NULL,
+  `is_credit` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`category_id`),
   UNIQUE KEY `category_name` (`category_name`),
   KEY `FK_Bal_Sheet` (`bal_sheet`),
