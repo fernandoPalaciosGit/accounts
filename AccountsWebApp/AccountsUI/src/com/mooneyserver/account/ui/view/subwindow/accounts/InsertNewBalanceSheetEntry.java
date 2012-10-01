@@ -218,6 +218,8 @@ public class InsertNewBalanceSheetEntry extends BaseSubwindow
 						break;
 				}
 				close();
+				AccountsApplication.getInstance()
+					.nav.peek().refreshView();
 			}
 		} catch (InvalidValueException e) {
 			// Handled by UI framework

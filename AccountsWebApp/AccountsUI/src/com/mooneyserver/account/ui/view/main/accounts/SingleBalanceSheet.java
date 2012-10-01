@@ -186,6 +186,8 @@ public class SingleBalanceSheet extends AbstractBaseSubView {
 	
 	/* To be called on page load or refresh */
 	private void populateTableData() {
+		sheetTreeTable.removeAllItems();
+		
 		List<IDebitCredit> entries = getThisMonthsEntries();
 		
 		if (entries == null)
