@@ -28,6 +28,7 @@ public enum SystemSettings {
 	
 	private Properties props = new Properties();
 	private final ReadWriteLock lock = new ReentrantReadWriteLock();
+	private boolean settingsUpdated = false;
 	
 	
 	/**
@@ -44,6 +45,7 @@ public enum SystemSettings {
 			props = newProps;
 		} finally {
 			lock.writeLock().unlock();
+			settingsUpdated = true;
 		}
 	}
 	
@@ -65,7 +67,7 @@ public enum SystemSettings {
 		try {
 			String val = props.getProperty(key);
 			if (val == null)
-				log.log(Level.INFO, "No Setting found for Key ["+key+"]. Props ["+props+"]");
+				log.log(Level.WARNING, "No Setting found for Key ["+key+"]. Props ["+props+"]");
 				
 			return val;
 		} finally {
@@ -93,5 +95,20 @@ public enum SystemSettings {
 		} catch (NumberFormatException e) {
 			return -1;
 		}
+	}
+	
+	/**
+	 * Check whether the initial update from the DB 
+	 * has taken place.
+	 *  
+	 * @return
+	 * 	boolean
+	 */
+	/* This is pretty ugly but I'm
+	 * running into a race condition with 
+	 * JMS otherwise
+	 */
+	public boolean areSettingsInitialised() {
+		return settingsUpdated;
 	}
 }
