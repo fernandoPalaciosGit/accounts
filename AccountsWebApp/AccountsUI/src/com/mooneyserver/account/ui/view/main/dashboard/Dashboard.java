@@ -93,6 +93,18 @@ public class Dashboard extends AbstractBaseView implements Button.ClickListener,
 				AccountsApplication.getInstance().nav
 					.openMainView(EMainView.BAL_SHEET);
 				break;
+			case REPORTS:
+				AccountsApplication.getInstance().nav
+					.openMainView(EMainView.REPORTS);
+				break;
+			case GRAPHS:
+				AccountsApplication.getInstance().nav
+					.openMainView(EMainView.GRAPHS);
+				break;
+			case SETTINGS:
+				AccountsApplication.getInstance().nav
+					.openMainView(EMainView.ADMIN);
+				break;
 			default:
 				Messenger.notYetImplemented();
 		}
@@ -102,8 +114,5 @@ public class Dashboard extends AbstractBaseView implements Button.ClickListener,
 	public String getDisplayName() {return STRINGS.getString(AccountsMessages.DASHBRD_WIN_HEADER);}
 
 	@Override
-	public void refreshView() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void refreshView() {}
 }

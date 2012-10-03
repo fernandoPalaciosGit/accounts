@@ -25,6 +25,9 @@ public class IconManager {
 	public static final int ACTIVATE_USER = getId();
 	
 	public static final int INFO = getId();
+	public static final int CSV = getId();
+	public static final int PDF = getId();
+	public static final int REFRESH = getId();
 	
 	public static final int NOTIFICATION_INFO = getId();
 	public static final int NOTIFICATION_WARN = getId();
@@ -51,6 +54,11 @@ public class IconManager {
 	public static final int CATG_MGMT = getId();
 	public static final int CATG_MGMT_SM = getId();
 	public static final int BALANCE_SHEET_CLOSE = getId();
+	
+	public static final int USER_SETTINGS = getId();
+	public static final int USER_SETTINGS_LOG_OWNER = getId();
+	public static final int USER_SETTINGS_LOG_TYPE = getId();
+	public static final int USER_SETTINGS_LOG_DATE = getId();
 	
 	private static final Map<Integer, String> iconLocation;
 	
@@ -95,6 +103,13 @@ public class IconManager {
 		iconLocation.put(CATG_MGMT, "large/clipboard.png");
 		iconLocation.put(CATG_MGMT_SM, "small/clipboard.png");
 		iconLocation.put(BALANCE_SHEET_CLOSE, "large/folder-close-icon.png");
+		iconLocation.put(USER_SETTINGS, "large/user_maintenance.png");
+		iconLocation.put(USER_SETTINGS_LOG_OWNER, "small/owner.png");
+		iconLocation.put(USER_SETTINGS_LOG_TYPE, "small/type.png");
+		iconLocation.put(USER_SETTINGS_LOG_DATE, "small/clock.png");
+		iconLocation.put(CSV, "small/csv.png");
+		iconLocation.put(PDF, "small/pdf.png");
+		iconLocation.put(REFRESH, "small/refresh.png");
 		
 	}
 

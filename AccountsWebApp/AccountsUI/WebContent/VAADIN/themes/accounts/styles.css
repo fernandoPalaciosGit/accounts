@@ -127,3 +127,15 @@
 	-moz-box-shadow: none;
 	box-shadow: none;
 }
+
+/* Color code rows in the Event Log Table */
+.v-table-row.v-table-row-highlight-blue,
+.v-table-row-odd.v-table-row-highlight-blue {
+  background-color: #00FFFF;
+}
+
+.v-table-row.v-table-row-highlight-red,
+.v-table-row-odd.v-table-row-highlight-red {
+  background-color: #ff0000;
+  text-decoration: blink;
+}
