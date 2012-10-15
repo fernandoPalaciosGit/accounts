@@ -1,5 +1,6 @@
 package com.mooneyserver.account.ui.view.subwindow.user;
 
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 
@@ -116,6 +117,7 @@ public class CreateNewUserDialog extends BaseSubwindow implements ClickListener 
 						.getField(FRM_EMAIL).getValue()).trim());
 				user.setPassword(((String) createNewUserFrm
 						.getField(FRM_PASSWORD).getValue()).trim());
+				user.setCreated(new Date());
 				
 				userSvc.createNewUser(user); 
 				

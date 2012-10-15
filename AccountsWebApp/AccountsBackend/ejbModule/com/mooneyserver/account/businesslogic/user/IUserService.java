@@ -131,6 +131,7 @@ public interface IUserService {
 	 * @return
 	 * 		<b>boolean</b>
 	 * 		True if the users password is correct
+	 * @throws AccountsUserException 
 	 */
-	public boolean markUserActive(String activationId);
+	public boolean markUserActive(String activationId) throws AccountsUserException;
 }

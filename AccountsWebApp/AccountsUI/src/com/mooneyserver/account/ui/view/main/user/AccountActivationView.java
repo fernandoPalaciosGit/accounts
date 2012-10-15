@@ -1,6 +1,7 @@
 package com.mooneyserver.account.ui.view.main.user;
 
 import com.mooneyserver.account.AccountsApplication;
+import com.mooneyserver.account.businesslogic.exception.AccountsBaseException;
 import com.mooneyserver.account.businesslogic.user.IUserService;
 import com.mooneyserver.account.i18n.AccountsMessages;
 import com.mooneyserver.account.lookup.BusinessProcess;
@@ -62,15 +63,22 @@ public class AccountActivationView extends AbstractBaseView implements Button.Cl
 
 	@Override
 	public void buttonClick(ClickEvent event) {
-		if (userSvc.markUserActive(this.activationId)) {
-			String baseUrl = AccountsApplication.getInstance().getURL().toString().split("\\?")[0];
-			AccountsApplication.getInstance().getMainWindow().open(new ExternalResource(baseUrl + "?restartApplication"));
-		} else {
-			AccountsApplication.getInstance().nav.loadNewView(new AccountsLoginView());
-			Messenger.genericMessage(MessageSeverity.WARNING, 
-					STRINGS.getString(AccountsMessages.ACTIVATE_USER_FAILED), 
-					"Warning thrown while trying to activate with ["+this.activationId+"]", 
-					null);
+		try {
+			if (userSvc.markUserActive(this.activationId)) {
+				String baseUrl = AccountsApplication.getInstance().getURL().toString().split("\\?")[0];
+				AccountsApplication.getInstance().getMainWindow().open(new ExternalResource(baseUrl + "?restartApplication"));
+			} else {
+				AccountsApplication.getInstance().nav.loadNewView(new AccountsLoginView());
+				Messenger.genericMessage(MessageSeverity.WARNING, 
+						STRINGS.getString(AccountsMessages.ACTIVATE_USER_FAILED), 
+						"Warning thrown while trying to activate with ["+this.activationId+"]", 
+						null);
+			}
+		} catch (AccountsBaseException e) {
+			Messenger.genericMessage(MessageSeverity.ERROR, 
+					STRINGS.getString(AccountsMessages.MSGR_UNRECOVERABLE_ERROR), 
+					"Wrapped Exception thrown while trying to activate user", 
+					e);
 		}
 	}
 

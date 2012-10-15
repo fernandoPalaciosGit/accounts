@@ -25,7 +25,6 @@ public class UserService extends BaseServiceLayer {
 
 	public void create(AccountsUser entity) {
 		em.persist(entity);
-		
 	}
 
 

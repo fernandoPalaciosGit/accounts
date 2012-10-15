@@ -2,6 +2,8 @@ package com.mooneyserver.account.persistence.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.Date;
 import java.util.Set;
 
 
@@ -26,6 +28,8 @@ public class AccountsUser implements Serializable {
 	@Column(name="user_is_active")
 	private boolean userIsActive;
 
+	private Date created;
+	
 	private String firstname;
 
 	private String lastname;
@@ -58,15 +62,20 @@ public class AccountsUser implements Serializable {
 	public void setActive(boolean isActive) {
 		userIsActive = isActive;// ? (byte) 1 : (byte) 0;
 	}
-	
 	public String getFirstname() {
 		return this.firstname;
 	}
 
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+	public Date getCreated() {
+		return this.created;
+	}
+	
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
-
 	public String getLastname() {
 		return this.lastname;
 	}
@@ -107,4 +116,9 @@ public class AccountsUser implements Serializable {
 		this.balanceSheets = balanceSheets;
 	}
 	
+	
+	@Override
+	public String toString() {
+		return "["+username+"]";
+	}
 }

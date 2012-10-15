@@ -1,20 +1,37 @@
 package com.mooneyserver.account.ui.widget;
 
 import java.util.Date;
+import java.util.List;
 
+import com.mooneyserver.account.AccountsApplication;
+import com.mooneyserver.account.businesslogic.exception.AccountsBaseException;
+import com.mooneyserver.account.businesslogic.logs.ILogService;
+import com.mooneyserver.account.i18n.AccountsMessages;
+import com.mooneyserver.account.lookup.BackendServiceLookup;
+import com.mooneyserver.account.lookup.BusinessProcess;
+import com.mooneyserver.account.persistence.entity.AccountsUser;
+import com.mooneyserver.account.persistence.entity.AuditLog;
+import com.mooneyserver.account.ui.iface.IContainsCustomAnnotations;
 import com.mooneyserver.account.ui.manager.IconManager;
+import com.mooneyserver.account.ui.notification.Messenger;
+import com.mooneyserver.account.ui.notification.Messenger.MessageSeverity;
 import com.vaadin.data.Item;
 import com.vaadin.ui.Table;
 
-public class EventLogTable extends Table {
+public class EventLogTable extends Table implements IContainsCustomAnnotations {
 
 	private static final long serialVersionUID = 1L;
 	
 	private String WARN_EVENT = "WARN";
 	private String ERROR_EVENT = "ERROR";
+	
+	@BusinessProcess
+	ILogService logSvc;
 
 	public EventLogTable() {
 		super();
+		
+		loadBackendServices();
 		
 		setCaption("User Event Log");
 		setWidth("100%");
@@ -45,27 +62,45 @@ public class EventLogTable extends Table {
 		        }
 			}
 		});
-		
-		generateDummyData();
 	}
 	
-	private void generateDummyData() {
-		Date now = new Date();
+	public void refreshTableData(Date from, Date to) {
+		try {
+			List<AuditLog> logs = logSvc.queryLogsByPeriod(
+					(AccountsUser) AccountsApplication.getInstance().getUser(), 
+					from, 
+					to);
+			
+			if (logs.size() == 0) {
+				Messenger.genericMessage(
+						MessageSeverity.WARNING, 
+						"No Logs found for the selected period {"+from+" -> "+to+"}", 
+						null, 
+						null);
+				return;
+			}
+			
+			this.removeAllItems();
+			int itemId = 1;
+			for (AuditLog log : logs) {
+				addItem(new Object[]{
+							log.getOwner().getUsername(), 
+							log.getEventType().toString(), 
+							log.getLogDate(), 
+							log.getDetail()}
+					, itemId++);
+			}
+		} catch (AccountsBaseException e) {
+			Messenger.genericMessage(
+				MessageSeverity.ERROR, 
+				AccountsApplication.getResourceBundle().getString(AccountsMessages.MSGR_UNRECOVERABLE_ERROR), 
+				"Exception thrown while trying to query logs", 
+				e);
+		}
+	}
 
-		addItem(new Object[]{"System", "INFO", now, "User logged in {today}"}, 1);
-		addItem(new Object[]{"System", "INFO", now, "User access Balance Sheet 1"}, 2);
-		addItem(new Object[]{"System", "ERROR", now, "Balance Sheet Populate took 234ms to respond"}, 3);
-		addItem(new Object[]{"System", "INFO", now, "Use close Balance Sheet 1"}, 4);
-		addItem(new Object[]{"System", "INFO", now, "User access Balance Sheet 1"}, 5);
-		addItem(new Object[]{"System", "INFO", now, "User Inserted New Debit Entry {Utilities:Gas -> $124.46}"}, 6);
-		addItem(new Object[]{"System", "WARN", now, "User Debits Have Exceeded Credits for Period {Sep, 12}"}, 7);
-		addItem(new Object[]{"System", "INFO", now, "Use close Balance Sheet 1"}, 8);
-		addItem(new Object[]{"System", "INFO", now, "User logged out {today}"}, 9);
-		addItem(new Object[]{"System", "WARN", now, "Invalid Login Attempted for User"}, 10);
-		addItem(new Object[]{"System", "INFO", now, "User logged in {today}"}, 11);
-		addItem(new Object[]{"System", "INFO", now, "User access Settings Page at {today}"}, 12);
-		addItem(new Object[]{"System", "INFO", now, "User settings updated {email -> newEmail@domain.com}"}, 13);
-		addItem(new Object[]{"System", "ERROR", now, "User force logged out {today}. System Maintenance Occurs"}, 14);
-		addItem(new Object[]{"System", "INFO", now, "User logged in {today}"}, 15);
+	@Override
+	public void loadBackendServices() {
+		BackendServiceLookup.injectBackendServices(this);
 	}
 }

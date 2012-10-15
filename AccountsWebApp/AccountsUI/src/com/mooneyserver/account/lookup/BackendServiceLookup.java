@@ -52,6 +52,8 @@ public class BackendServiceLookup {
         		"/Accounts/AccountsBackend/AccountsBusinessService");
         backendServicesLookup.put("com.mooneyserver.account.businesslogic.accounts.IPaymentTypeMgmt", 
         		"/Accounts/AccountsBackend/PaymentTypeBusinessService");
+        backendServicesLookup.put("com.mooneyserver.account.businesslogic.logs.ILogService", 
+        		"/Accounts/AccountsBackend/LogsBusinessService");
     }
    
     // Check if the service is already cached

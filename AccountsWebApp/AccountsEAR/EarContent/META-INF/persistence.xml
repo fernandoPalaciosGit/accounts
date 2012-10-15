@@ -12,5 +12,8 @@
 		<class>com.mooneyserver.account.persistence.entity.CategoryType</class>
 		<class>com.mooneyserver.account.persistence.entity.PaymentType</class>
 		<class>com.mooneyserver.account.persistence.entity.AppSetting</class>
+		<class>com.mooneyserver.account.persistence.entity.AppSetting</class>
+		<class>com.mooneyserver.account.persistence.entity.AuditLog</class>
+		<class>com.mooneyserver.account.persistence.entity.UserActivity</class>
 	</persistence-unit>
 </persistence>

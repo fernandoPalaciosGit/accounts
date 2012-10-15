@@ -21,6 +21,7 @@ import com.mooneyserver.account.messaging.GenericJmsDispatcher;
 import com.mooneyserver.account.messaging.UserActivationMessage;
 import com.mooneyserver.account.messaging.UserChangePasswordMessage;
 import com.mooneyserver.account.persistence.entity.AccountsUser;
+import com.mooneyserver.account.persistence.service.logging.LoggingService;
 import com.mooneyserver.account.persistence.service.user.UserActivationService;
 import com.mooneyserver.account.persistence.service.user.UserService;
 import com.mooneyserver.account.utils.EncryptionProvider;
@@ -38,6 +39,9 @@ public class UserBusinessService implements IUserService {
 	private UserService userService;
 	
 	@EJB
+	private LoggingService logService;
+	
+	@EJB
 	private UserActivationService userActivationService;
 	
 	@Resource
@@ -48,8 +52,7 @@ public class UserBusinessService implements IUserService {
 		
 		// Check if requested user details are valid
 		// Does the username already exist?
-		if (userService.findByUsername(user.getUsername()) 
-				!= null)
+		if (userService.findByUsername(user.getUsername()) != null)
 			throw new AccountsUserAlreadyExistsException(user.getUsername());
 		
 		// Is the password valid?
@@ -77,6 +80,9 @@ public class UserBusinessService implements IUserService {
 		// Create the user
 		try {
 			userService.create(user);
+			logService.quickInfoEvent(userService.findByUsername(user.getUsername()), 
+					"User {"+user+"} has been added successfully");
+			
 		} catch (Exception e) {
 			throw new AccountsUserException("Rethrowing wrapped base exception", e);
 		}
@@ -85,6 +91,8 @@ public class UserBusinessService implements IUserService {
 			= new UserActivationMessage(user.getUsername(), 
 					user.getFirstname());
 		GenericJmsDispatcher.sendMessage(msg);
+		logService.quickInfoEvent(userService.findByUsername(user.getUsername()), 
+				"Activation Mail has been dispatched");
 	}
 
 	
@@ -107,8 +115,13 @@ public class UserBusinessService implements IUserService {
 			throw new AccountsUserException("Rethrowing wrapped base exception", e);
 		}
 		
-		userService.modify(user);
-		
+		try {
+			userService.modify(user);
+			logService.quickInfoEvent(userService.findByUsername(user.getUsername()), 
+					"User {"+user+"} has been updated!");
+		} catch(Exception e) {
+			throw new AccountsUserException("Rethrowing wrapped base exception", e);
+		}
 	}
 
 	
@@ -124,7 +137,9 @@ public class UserBusinessService implements IUserService {
 		
 		user.setActive(false);
 		
-		userService.modify(user);
+		updateExistingUser(user);
+		logService.quickInfoEvent(userService.findByUsername(user.getUsername()), 
+				"User {"+user+"} has been DisActivated");
 	}
 
 	
@@ -151,7 +166,11 @@ public class UserBusinessService implements IUserService {
 		user.setPassword(changePwd.getNewPassword());
 		
 		// update the user
-		userService.modify(user);
+		updateExistingUser(user);
+		logService.quickInfoEvent(userService.findByUsername(user.getUsername()), 
+				"User {"+user+"} password has been changed");
+		
+		// TODO: Send mail stating password change has occurred
 	}
 
 
@@ -210,16 +229,19 @@ public class UserBusinessService implements IUserService {
 				(encrypter.encryptString
 						(newPassword, salt)));
 		
-		userService.modify(user);
+		updateExistingUser(user);
 		
 		UserChangePasswordMessage msg 
 			= new UserChangePasswordMessage(user.getUsername(), 
 				user.getFirstname(), newPassword);
 		GenericJmsDispatcher.sendMessage(msg);
+		
+		logService.quickInfoEvent(userService.findByUsername(user.getUsername()), 
+				"User Password has been reset and notification mail has been dispatched");
 	}
 
 	@Override
-	public boolean markUserActive(String activationId) {
+	public boolean markUserActive(String activationId) throws AccountsUserException {
 		AccountsUser user = userActivationService.findUserByActivationId(activationId);
 		
 		if (user == null)
@@ -229,7 +251,10 @@ public class UserBusinessService implements IUserService {
 			return false;
 		
 		user.setActive(true);
-		userService.modify(user);
+		updateExistingUser(user);
+		
+		logService.quickInfoEvent(userService.findByUsername(user.getUsername()), 
+				"User {"+user+"} has been marked active");
 		
 		return true;
 	}
