@@ -50,7 +50,8 @@ public class StringUtils {
 		
 		// Choose a random length between the allowed boundaries
 		int n = PWD_UPPER_BOUND - PWD_LOWER_BOUND + 1;
-		int passwordLength = PWD_LOWER_BOUND + (rand.nextInt() % n);
+		int passwordLength = PWD_LOWER_BOUND + Math.abs((rand.nextInt() % n));
+		
 		
 		// Loop creating passwords until a compliant password is created
 		// A bit stupid, potentially slow, theoretically run forever. 
