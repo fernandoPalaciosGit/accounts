@@ -95,7 +95,6 @@ public class MainView extends VerticalLayout {
 		vl.addComponent(hostedByLnk);
 		
 		footerBar.addComponent(vl);
-		footerBar.setComponentAlignment(vl, Alignment.MIDDLE_LEFT);
 		
 		footerBar.addComponent(AccountsApplication.getHelpBubble());
 		
