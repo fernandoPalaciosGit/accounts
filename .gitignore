@@ -1,9 +1,29 @@
+###############
+# Exclude Directories
+###############
 bin/
 lib/
+target/
+build/
+widgetset/
+widgetsets/
 
+###############
+# Exclude system 
+# generated temp files
+###############
+*~
+
+###############
+# Java Files
+###############
 *.class
 *.MF
 
+###############
+# Eclipse Project 
+# Files
+###############
 *.settings
 *.classpath
 *.project
