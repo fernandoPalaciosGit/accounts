@@ -94,7 +94,7 @@ public class AccountsLoginView extends AbstractBaseView
 	public void onLogin(LoginEvent event) {
 		AccountsUser user = null;
 		try {
-			user = userSvc.validateUserPassword(
+			user = userSvc.userLoginRequest(
 					event.getLoginParameter("username").trim(), 
 					event.getLoginParameter("password").trim());
 		} catch (AccountsUserNotActiveException e) {

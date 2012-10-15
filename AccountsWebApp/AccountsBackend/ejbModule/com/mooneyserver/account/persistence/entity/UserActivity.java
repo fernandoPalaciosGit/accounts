@@ -12,10 +12,17 @@ import java.util.Date;
  */
 @Entity
 @Table(name="user_activity")
+@NamedQueries({
+	@NamedQuery(name = "accounts.schema.UserActivity.findByUser", query = "SELECT u FROM UserActivity u where u.user = :user")
+})
 public class UserActivity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
+	
+	@OneToOne
 	@JoinColumn(name="user_id")
 	private AccountsUser user;
 
@@ -30,6 +37,12 @@ public class UserActivity implements Serializable {
 
 	
     public UserActivity() {}
+
+
+    
+	public int getId() { return id;}
+	public void setId(int id) { this.id = id; }
+
 
 
 	public AccountsUser getUser() {

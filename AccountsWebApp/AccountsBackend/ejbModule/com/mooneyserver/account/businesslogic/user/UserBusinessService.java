@@ -175,7 +175,7 @@ public class UserBusinessService implements IUserService {
 
 
 	@Override
-	public AccountsUser validateUserPassword(String emailAddress, String password) throws AccountsUserException {
+	public AccountsUser userLoginRequest(String emailAddress, String password) throws AccountsUserException {
 		AccountsUser user = userService.findByUsername(emailAddress);
 		
 		if (user == null) {
@@ -200,9 +200,21 @@ public class UserBusinessService implements IUserService {
 			throw new AccountsUserNotActiveException(user.getUsername());
 		
 		if (password.equals(user.getPassword())) {
+			userService.markUserLoggedIn(user);
+			logService.quickInfoEvent(userService.findByUsername(user.getUsername()), 
+					"User {"+user+"} has logged in!");
 			return user;
 		} else {
 			return null;
+		}
+	}
+	
+	@Override
+	public void userLogout(AccountsUser user) throws AccountsUserException {
+		if (userService.findById(user.getId()).getUsername().equalsIgnoreCase(user.getUsername())) {
+			userService.markUserLoggedOut(user);
+			logService.quickInfoEvent(userService.findByUsername(user.getUsername()), 
+					"User {"+user+"} has logged out!");
 		}
 	}
 

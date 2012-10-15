@@ -119,7 +119,16 @@ public interface IUserService {
 	 * 		<b>AccountsUser</b>
 	 * 		The User who is successfully logging in
 	 */
-	public AccountsUser validateUserPassword(String username, String password) throws AccountsUserException;
+	public AccountsUser userLoginRequest(String username, String password) throws AccountsUserException;
+	
+	/**
+	 * Log a user out of the system
+	 * 
+	 * @param
+	 * 		<b>AccountsUser</b>
+	 * 		The User to be logged out
+	 */
+	public void userLogout(AccountsUser user) throws AccountsUserException;
 	
 	/**
 	 * Activates a user who is in pending state
