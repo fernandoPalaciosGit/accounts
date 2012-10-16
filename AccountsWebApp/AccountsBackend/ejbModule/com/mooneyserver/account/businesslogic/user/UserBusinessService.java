@@ -205,6 +205,8 @@ public class UserBusinessService implements IUserService {
 					"User {"+user+"} has logged in!");
 			return user;
 		} else {
+			logService.quickWarnEvent(userService.findByUsername(user.getUsername()), 
+					"User {"+user+"} login requested but failed!");
 			return null;
 		}
 	}
