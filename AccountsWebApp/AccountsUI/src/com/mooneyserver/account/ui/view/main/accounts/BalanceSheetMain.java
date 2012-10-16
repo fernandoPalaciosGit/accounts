@@ -40,11 +40,12 @@ public class BalanceSheetMain extends AbstractBaseView implements IMainView {
 	private Button addNewBalanceSheet, closeBalanceSheet;
 	private Panel mainContent;
 	private Label myBalSheetDetails;
+	private HorizontalSplitPanel hsp;
 	
 	private final int NUM_COLS = 4;
 	
 	public BalanceSheetMain() {
-		HorizontalSplitPanel hsp = new HorizontalSplitPanel();
+		hsp = new HorizontalSplitPanel();
 		hsp.setSplitPosition(12, Sizeable.UNITS_PERCENTAGE);
 		hsp.setSizeFull();
 		hsp.setLocked(true);
@@ -226,7 +227,6 @@ public class BalanceSheetMain extends AbstractBaseView implements IMainView {
 
 	@Override
 	public void refreshView() {
-		// TODO Auto-generated method stub
-		
+		hsp.setSecondComponent(generateMyBalanceSheetContent());
 	}
 }
