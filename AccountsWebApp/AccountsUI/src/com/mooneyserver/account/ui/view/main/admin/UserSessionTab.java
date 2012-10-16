@@ -8,6 +8,7 @@ import com.mooneyserver.account.AccountsApplication;
 import com.mooneyserver.account.ui.iface.INonClosableAccountsSubView;
 import com.mooneyserver.account.ui.manager.EMainView;
 import com.mooneyserver.account.ui.manager.IconManager;
+import com.mooneyserver.account.ui.notification.Messenger;
 import com.mooneyserver.account.ui.widget.EventLogTable;
 
 import com.vaadin.ui.Alignment;
@@ -15,9 +16,11 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.themes.BaseTheme;
 
-class UserSessionTab extends VerticalLayout implements INonClosableAccountsSubView {
+class UserSessionTab extends VerticalLayout 
+	implements INonClosableAccountsSubView, Button.ClickListener {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -53,6 +56,7 @@ class UserSessionTab extends VerticalLayout implements INonClosableAccountsSubVi
 		
 		refreshTable.setStyleName(BaseTheme.BUTTON_LINK);
 		refreshTable.setIcon(IconManager.getIcon(IconManager.REFRESH));
+		refreshTable.addListener(this);
 		
 		hl.addComponent(tableFromDate);
 		hl.addComponent(tableToDate);
@@ -69,10 +73,28 @@ class UserSessionTab extends VerticalLayout implements INonClosableAccountsSubVi
 		downloadAsExcel = new Button();
 		downloadAsExcel.setStyleName(BaseTheme.BUTTON_LINK);
 		downloadAsExcel.setIcon(IconManager.getIcon(IconManager.CSV));
+		downloadAsExcel.addListener(new Button.ClickListener() {
+			
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				Messenger.notYetImplemented();
+			}
+		});
 		
 		downloadAsPDF = new Button();
 		downloadAsPDF.setStyleName(BaseTheme.BUTTON_LINK);
 		downloadAsPDF.setIcon(IconManager.getIcon(IconManager.PDF));
+		downloadAsPDF.addListener(new Button.ClickListener() {
+			
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				Messenger.notYetImplemented();
+			}
+		});
 		
 		hl2.addComponent(downloadAsExcel);
 		hl2.setComponentAlignment(downloadAsExcel, Alignment.MIDDLE_RIGHT);
@@ -99,6 +121,8 @@ class UserSessionTab extends VerticalLayout implements INonClosableAccountsSubVi
 		buildStringsFromLocale();
 	}
 
+	
+	// TODO: Localise
 	@Override
 	public void buildStringsFromLocale() {
 		STRINGS = AccountsApplication.getResourceBundle();
@@ -114,8 +138,11 @@ class UserSessionTab extends VerticalLayout implements INonClosableAccountsSubVi
 	public void loadBackendServices() {}
 
 	@Override
-	public EMainView getParentType() {
-		// TODO Auto-generated method stub
-		return null;
+	public EMainView getParentType() { return null; }
+
+	@Override
+	public void buttonClick(ClickEvent event) {
+		logTable.refreshTableData((Date) tableFromDate.getValue(), 
+				(Date) tableToDate.getValue());
 	}
 }

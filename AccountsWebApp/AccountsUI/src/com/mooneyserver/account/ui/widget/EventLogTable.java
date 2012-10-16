@@ -1,5 +1,6 @@
 package com.mooneyserver.account.ui.widget;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -65,6 +66,9 @@ public class EventLogTable extends Table implements IContainsCustomAnnotations {
 	}
 	
 	public void refreshTableData(Date from, Date to) {
+		from = trimToDay(from, TimeOfDay.START_OF_DAY);
+		to = trimToDay(to, TimeOfDay.END_OF_DAY);
+		
 		try {
 			List<AuditLog> logs = logSvc.queryLogsByPeriod(
 					(AccountsUser) AccountsApplication.getInstance().getUser(), 
@@ -99,6 +103,37 @@ public class EventLogTable extends Table implements IContainsCustomAnnotations {
 		}
 	}
 
+	enum TimeOfDay {
+		START_OF_DAY,
+		END_OF_DAY;
+	}
+	
+	/*
+	 * Make sure time filters go from start of day to
+	 * end of day
+	 */
+	private Date trimToDay(Date date, TimeOfDay tod) {
+		 Calendar cal = Calendar.getInstance();
+
+	     cal.setTime(date);
+	     
+	     switch (tod) {
+	     	case START_OF_DAY:
+	     		cal.set(Calendar.HOUR_OF_DAY, 0);
+	     		cal.set(Calendar.MINUTE, 0);
+	     		cal.set(Calendar.SECOND, 0);
+	     		cal.set(Calendar.MILLISECOND, 0);
+	     		break;
+	     	case END_OF_DAY:
+	     		cal.set(Calendar.HOUR_OF_DAY, 23);
+	     		cal.set(Calendar.MINUTE, 59);
+	     		cal.set(Calendar.SECOND, 59);
+	     		cal.set(Calendar.MILLISECOND, 999);
+	     }
+	     
+	     return cal.getTime();
+	}
+	
 	@Override
 	public void loadBackendServices() {
 		BackendServiceLookup.injectBackendServices(this);
