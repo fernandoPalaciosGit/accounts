@@ -1,6 +1,2 @@
-This is a playground for learning code and writing
-applications that may be useful to myself or others.
-
-As I go forward with this, I'll try and update any 
-subfolders (projects) with their own specific README
-but as for now, I'm only really messing around...
+A Home Accounts Application developed using JEE6 technologies for the Backend and Vaadin framework for the frontend.
+The application is to be hosted on OpenShift PASS platform.
