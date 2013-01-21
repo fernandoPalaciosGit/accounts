@@ -1,7 +1,0 @@
-/**
- * 
- */
-
-function setPageLocale(lang) {
-	
-}
