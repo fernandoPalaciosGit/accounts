@@ -27,3 +27,9 @@ widgetsets/
 *.settings
 *.classpath
 *.project
+
+##############
+# Gradle Build
+# System ignores
+##############
+.gradle/
