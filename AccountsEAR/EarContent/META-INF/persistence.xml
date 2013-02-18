@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="AccountsPersistenceLayer" transaction-type="JTA">
+		<jta-data-source>java:/homeAccounts</jta-data-source>
+		<class>com.mooneyserver.account.persistence.entity.AccountsUser</class>
+		<class>com.mooneyserver.account.persistence.entity.UserActivation</class>
+		<class>com.mooneyserver.account.persistence.entity.BalanceSheet</class>
+		<class>com.mooneyserver.account.persistence.entity.CcyConversion</class>
+		<class>com.mooneyserver.account.persistence.entity.CreditEntry</class>
+		<class>com.mooneyserver.account.persistence.entity.Currency</class>
+		<class>com.mooneyserver.account.persistence.entity.DebitEntry</class>
+		<class>com.mooneyserver.account.persistence.entity.CategoryType</class>
+		<class>com.mooneyserver.account.persistence.entity.PaymentType</class>
+		<class>com.mooneyserver.account.persistence.entity.AppSetting</class>
+		<class>com.mooneyserver.account.persistence.entity.AppSetting</class>
+		<class>com.mooneyserver.account.persistence.entity.AuditLog</class>
+		<class>com.mooneyserver.account.persistence.entity.UserActivity</class>
+	</persistence-unit>
+</persistence>

@@ -1,0 +1,4 @@
+Deployment Issue:
+JBoss AS 7 doesnt play nice with Vaadin in terms of loading classes. {@see http://dev.vaadin.com/ticket/8905}.
+This can be got around by including the bwelow jar at deployment time:
+	https://vaadin.com/directory#addon/vaadin-application-server-class-loader-workaround
