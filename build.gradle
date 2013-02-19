@@ -3,6 +3,11 @@
  * Wrapper
  ****************/
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.4'
-    distributionPath = '$OPENSHIFT_DATA_DIR'
+    gradleVersion = '1.3'
+    
+    archiveBase = 'PROJECT'
+    archivePath = 'gradle'
+
+    distributionBase = 'PROJECT'
+    distributionPath = 'gradle'
 }
