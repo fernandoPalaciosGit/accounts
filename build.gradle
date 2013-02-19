@@ -1,0 +1,7 @@
+/****************
+ * Master Gradle 
+ * Wrapper
+ ****************/
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.4'
+}
