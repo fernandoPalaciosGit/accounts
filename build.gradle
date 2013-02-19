@@ -4,4 +4,5 @@
  ****************/
 task wrapper(type: Wrapper) {
     gradleVersion = '1.4'
+    distributionPath = '$OPENSHIFT_DATA_DIR'
 }
