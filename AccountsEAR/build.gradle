@@ -1,0 +1,11 @@
+/******************************
+ * Master Build script for
+ * building the EAR
+ ******************************/
+apply plugin: 'ear'
+apply plugin: 'java'
+
+dependencies {
+  deploy project(':AccountsBackend')
+  deploy project(path: ':AccountsUI', configuration: 'archives')
+}
