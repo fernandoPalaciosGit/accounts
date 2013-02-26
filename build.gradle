@@ -1,0 +1,13 @@
+/****************
+ * Master Gradle 
+ * Wrapper
+ ****************/
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.3'
+    
+    archiveBase = 'PROJECT'
+    archivePath = 'gradle'
+
+    distributionBase = 'PROJECT'
+    distributionPath = 'gradle'
+}
