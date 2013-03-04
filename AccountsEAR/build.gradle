@@ -9,3 +9,10 @@ dependencies {
   deploy project(':AccountsBackend')
   deploy project(path: ':AccountsUI', configuration: 'archives')
 }
+
+ear {
+  from('EarContent/META-INF') {
+    include '*'
+    into('META-INF')
+  }
+}
